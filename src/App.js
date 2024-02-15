@@ -1,5 +1,5 @@
-import "./App.css";
-import Test from "./pages/testpage/Test.jsx";
+import './App.css';
+import Test from './pages/testpage/Test.jsx';
 
 function App() {
   return (
