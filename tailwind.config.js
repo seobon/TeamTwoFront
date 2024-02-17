@@ -3,6 +3,16 @@ module.exports = {
   content: ['./index.html', './src/pages/**/*.{js,jsx}', './src/components/**/*.{js,jsx}'],
   theme: {
     extend: {
+      animation: {
+        clicked: 'scaleBounce 0.4s ease-in-out',
+      },
+      keyframes: {
+        scaleBounce: {
+          '0%': { transform: 'scale(1)' },
+          '50%': { transform: 'scale(1.06)' },
+          '100%': { transform: 'scale(1)' },
+        },
+      },
       fontSize: {
         '2xs': '.625rem',
       },
