@@ -1,18 +1,21 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css');
 
-@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
+/* @import url('~@toast-ui/editor/dist/toastui-editor.css');
+
+@import url('~@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css');
+
+@import url('tui-color-picker/dist/tui-color-picker.css'); */
 
 @layer base {
   html {
     margin: 0;
-    font-family: "Pretendard Variable", Pretendard, -apple-system,
-      BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI",
-      "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic",
-      "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+    font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto,
+      'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji',
+      'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -26,8 +29,11 @@
   }
 }
 
-
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
+
+/* 해결법 */
+/* https://velog.io/@soo2283/Toast-editor-%EC%82%AC%EC%9A%A9%EC%8B%9C-%ED%88%B4%EB%B0%94-%EC%95%84%EC%9D%B4%EC%BD%98%EC%9D%B4-%EC%95%88%EB%B3%B4%EC%9D%B4%EB%8A%94-%EB%AC%B8%EC%A0%9C */
+
+/* @import url('@toast-ui/editor/dist/toastui-editor.css'); */
