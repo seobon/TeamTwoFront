@@ -11,7 +11,8 @@ import Feeling from './Feeling';
  */
 
 function UserFeelings(props) {
-  const feelings = ['그냥 그래요', '기뻐요', '슬퍼요', '짜증나요', '화나요'];
+  //TODO: 선택된 기분을 props로 받아온 setData 함수에 담아서 서버에 data 전송할 수 있도록 수정
+  const feelings = ['calm', 'happy', 'sad', 'annoyed'];
   const [userFeeling, setUserFeeling] = useState(null);
 
   const clickFeeling = feeling => {
