@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Feeling from './Feeling';
 
 /*
  * 1. '괜찮아요', '좋아요', '슬퍼요', '화나요' 4가지 기분 중 하나 클릭
@@ -10,22 +11,25 @@ import React, { useState } from 'react';
  */
 
 function UserFeelings(props) {
-  const [userFeelings, setUserFeelings] = useState(['괜찮아요', '맑음']);
-  const click = e => {
-    const feeling = e.target.value;
-    setUserFeelings([feeling]);
+  const feelings = ['그냥 그래요', '기뻐요', '슬퍼요', '짜증나요', '화나요'];
+  const [userFeeling, setUserFeeling] = useState(null);
+
+  const clickFeeling = feeling => {
+    setUserFeeling(feeling);
   };
 
   return (
-    <div className='bg-gray-200'>
-      <div className='flex justify-center gap-2 p-3 rounded-xl border-2 border-brown'>
-        {Array.from({ length: 5 }).map((_, index) => (
-          <div
+    <div>
+      <ul className="flex justify-center gap-2 p-2 m-1 rounded-xl border-2 border-brown bg-gray-200">
+        {feelings.map((feeling, index) => (
+          <Feeling
             key={index}
-            className='w-10 h-10 bg-gray-500 rounded-3xl cursor-pointer'
-          ></div>
+            feeling={feeling}
+            isSelected={feeling === userFeeling}
+            onClick={() => clickFeeling(feeling)}
+          />
         ))}
-      </div>
+      </ul>
     </div>
   );
 }
