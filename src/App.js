@@ -5,11 +5,18 @@ import Todo from './pages/calendar/Todo.jsx';
 import Calendar1 from './pages/calendar/Calendar.jsx';
 import Write from './pages/write/Write.jsx';
 import Edit from './pages/write/Edit.jsx';
+import SignIn from './pages/Sign/SignIn.jsx';
+import SignUp from './pages/Sign/SignUp.jsx';
+import UserIdPw from './pages/User/UserIdPw.jsx';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/useridpw" element={<UserIdPw />} />
+
         <Route path="/test" element={<Test />} />
         <Route path="/calendar" element={<Calendar1 />} />
         <Route path="/todo" element={<Todo />} />
