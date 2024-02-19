@@ -20,18 +20,21 @@ function UserFeelings(props) {
   };
 
   return (
-    <div>
-      <ul className="flex justify-center gap-2 p-2 m-1 rounded-xl border-2 border-brown bg-gray-200">
-        {feelings.map((feeling, index) => (
-          <Feeling
-            key={index}
-            feeling={feeling}
-            isSelected={feeling === userFeeling}
-            onClick={() => clickFeeling(feeling)}
-          />
-        ))}
-      </ul>
-    </div>
+    <>
+      <div className="flex flex-col items-center justify-center gap-1 p-1 m-1 rounded-xl border-2 border-brown bg-gray-200">
+        <p>오늘 기분은 어때요?</p>
+        <ul className="flex gap-2">
+          {feelings.map((feeling, index) => (
+            <Feeling
+              key={index}
+              feeling={feeling}
+              isSelected={feeling === userFeeling}
+              onClick={() => clickFeeling(feeling)}
+            />
+          ))}
+        </ul>
+      </div>
+    </>
   );
 }
 
