@@ -8,6 +8,7 @@ import Edit from './pages/write/Edit.jsx';
 import SignIn from './pages/Sign/SignIn.jsx';
 import SignUp from './pages/Sign/SignUp.jsx';
 import UserIdPw from './pages/User/UserIdPw.jsx';
+import BoardDetail from './pages/Board/BoardDetail.jsx';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/calendar" element={<Calendar1 />} />
         <Route path="/todo" element={<Todo />} />
         <Route path="/write" element={<Write />} />
+        <Route path="/board/detail" element={<BoardDetail />} />
         <Route path="/edit" element={<Edit />} />
       </Routes>
     </BrowserRouter>
