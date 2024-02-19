@@ -4,6 +4,8 @@
 
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css');
 
+/* @import url('@toast-ui/editor/dist/toastui-editor.css'); */
+
 /* @import url('~@toast-ui/editor/dist/toastui-editor.css');
 
 @import url('~@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css');
@@ -27,50 +29,44 @@
     padding: theme('spacing.6');
     box-shadow: theme('boxShadow.xl');
   }
-  .font-display{
-    @apply text-3xl font-medium; 
+  .font-display {
+    @apply text-3xl font-medium;
   }
-  .font-Heading1{
-    @apply text-2xl font-medium; 
+  .font-Heading1 {
+    @apply text-2xl font-medium;
   }
-  .font-Heading2{
-    @apply text-xl font-medium; 
+  .font-Heading2 {
+    @apply text-xl font-medium;
   }
-  .font-Heading3{
-    @apply text-lg font-semibold; 
+  .font-Heading3 {
+    @apply text-lg font-semibold;
   }
-  .font-Heading4{
-    @apply text-lg font-normal; 
+  .font-Heading4 {
+    @apply text-lg font-normal;
   }
-  .font-Body1{
-    @apply text-base font-semibold; 
+  .font-Body1 {
+    @apply text-base font-semibold;
   }
-  .font-Body2{
-    @apply text-base font-normal; 
+  .font-Body2 {
+    @apply text-base font-normal;
   }
-  .font-Body3{
-    @apply text-sm font-semibold; 
+  .font-Body3 {
+    @apply text-sm font-semibold;
   }
-  .font-Body4{
-    @apply text-sm font-normal; 
+  .font-Body4 {
+    @apply text-sm font-normal;
   }
-  .font-Caption{
-    @apply text-xs font-normal; 
+  .font-Caption {
+    @apply text-xs font-normal;
   }
   .btn-full-fill {
-    @apply font-Heading3 bg-brown text-deepBrown w-full	h-12 rounded-lg mt-5
+    @apply font-Heading3 bg-brown text-deepBrown w-full	h-12 rounded-lg mt-5;
   }
   .btn-full-line {
-    @apply font-Heading3 bg-transparent text-deepBrown w-full	h-12 rounded-lg mt-5 border border-brown
+    @apply font-Heading3 bg-transparent text-deepBrown w-full	h-12 rounded-lg mt-5 border border-brown;
   }
-
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
-
-/* 해결법 */
-/* https://velog.io/@soo2283/Toast-editor-%EC%82%AC%EC%9A%A9%EC%8B%9C-%ED%88%B4%EB%B0%94-%EC%95%84%EC%9D%B4%EC%BD%98%EC%9D%B4-%EC%95%88%EB%B3%B4%EC%9D%B4%EB%8A%94-%EB%AC%B8%EC%A0%9C */
-
-/* @import url('@toast-ui/editor/dist/toastui-editor.css'); */
