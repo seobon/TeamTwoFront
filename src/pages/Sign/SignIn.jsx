@@ -18,15 +18,7 @@ const SignIn = () => {
 
   const emailPattern = {
     value: new RegExp('^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$', 'ig'),
-    message: '이메일을 확인해주세요.',
-  };
-
-  const passwordPattern = {
-    minLength: {
-      value: 8,
-      message: '비밀번호 길이를 8자리 이상 입력해주세요',
-    },
-    message: '비밀번호를 확인해주세요.',
+    message: '이메일 형식을 확인해주세요.',
   };
   const passwordRef = useRef(null);
   passwordRef.current = watch('password');
@@ -82,7 +74,7 @@ const SignIn = () => {
           type="text"
           placeholder="이메일"
           register={register}
-          rules={{ required: true, pattern: emailPattern }}
+          rules={{ required: '아이디를 입력해주세요.', pattern: emailPattern }}
           errors={errors}
         />
         <div className="relative">
@@ -92,7 +84,13 @@ const SignIn = () => {
             type="password"
             placeholder="비밀번호"
             register={register}
-            rules={{ required: true, pattern: passwordPattern }}
+            rules={{
+              required: '비밀번호를 입력해주세요.',
+              minLength: {
+                value: 8,
+                message: '비밀번호 길이를 8자리 이상 입력해주세요',
+              },
+            }}
             errors={errors}
           />
           {/* <Eye className="h-7 w-7 text-gray-500 absolute top-3 right-8 inline-block" onClick={handleShowPwChecked} /> */}
