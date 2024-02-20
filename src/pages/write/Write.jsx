@@ -55,7 +55,7 @@ export default function Write() {
   return (
     <>
       <form onSubmit={handleSubmit(onValid)}>
-        <div className="w-[900px] h-[800px]">
+        <div className="w-[480px] h-[800px]">
           비공개{' '}
           <button type="button" onClick={IsPublicToggle} className="">
             {isPublic ? 'ㅁ' : 'V'}
