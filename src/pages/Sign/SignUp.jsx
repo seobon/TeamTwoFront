@@ -1,11 +1,9 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import Input from '../../components/Input/Input.jsx';
-import { useNavigate } from 'react-router-dom';
 import Header1 from '../../components/Header/Header1.jsx';
 
 const SignUp = () => {
-  const navigate = useNavigate();
 
   const {
     handleSubmit,
@@ -21,12 +19,6 @@ const SignUp = () => {
     message: '이메일을 확인해주세요.',
   };
 
-  const passwordConfirmPattern = {
-    validate: value => {
-      return password === value || '비밀번호가 일치하지 않습니다';
-    },
-  };
-
   const onChangeFormLib = data => {
     console.log('회원가입 정보', data);
   };
@@ -35,7 +27,26 @@ const SignUp = () => {
       <Header1 title="회원가입"/>
       <form onSubmit={handleSubmit(onChangeFormLib)}>
         <Input
+          id="nickname"
+          name="nickname"
+          type="text"
+          placeholder="닉네임"
+          register={register}
+          rules={{ required: '닉네임을 입력해주세요.' }}
+          errors={errors}
+        />
+        <Input
+          id="id"
+          name="id"
+          type="text"
+          placeholder="아이디"
+          register={register}
+          rules={{ required: '아이디를 입력해주세요.' }}
+          errors={errors}
+        />
+        <Input
           id="email"
+          ㅌ
           name="email"
           type="text"
           placeholder="이메일"

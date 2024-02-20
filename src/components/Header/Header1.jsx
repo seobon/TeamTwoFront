@@ -1,10 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Header1 = ({ title }) => {
+const Header1 = ({ title, nav }) => {
   const navigate = useNavigate();
   const onBeforePageHandler = () => {
-    navigate(-1);
+    if ( nav ){
+      navigate(nav)
+    }else navigate(-1);
+    
   };
   return (
     <div className="h-12 relative mb-8">
