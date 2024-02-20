@@ -1,10 +1,9 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import Input from '../../components/Input/Input.jsx';
-import { useNavigate } from 'react-router-dom';
+import Header1 from '../../components/Header/Header1.jsx';
 
 const SignUp = () => {
-  const navigate = useNavigate();
 
   const {
     handleSubmit,
@@ -14,24 +13,10 @@ const SignUp = () => {
   } = useForm();
   const password = useRef();
   password.current = watch('password');
-  const passwordData = watch('password');
 
   const emailPattern = {
     value: new RegExp('^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$', 'ig'),
     message: '이메일을 확인해주세요.',
-  };
-
-  const passwordPattern = {
-    minLength: {
-      value: 8,
-      message: '비밀번호 길이를 8자리 이상 입력해주세요',
-    },
-  };
-
-  const passwordConfirmPattern = {
-    validate: value => {
-      return password === value || '비밀번호가 일치하지 않습니다';
-    },
   };
 
   const onChangeFormLib = data => {
@@ -39,9 +24,29 @@ const SignUp = () => {
   };
   return (
     <>
+      <Header1 title="회원가입"/>
       <form onSubmit={handleSubmit(onChangeFormLib)}>
         <Input
+          id="nickname"
+          name="nickname"
+          type="text"
+          placeholder="닉네임"
+          register={register}
+          rules={{ required: '닉네임을 입력해주세요.' }}
+          errors={errors}
+        />
+        <Input
+          id="id"
+          name="id"
+          type="text"
+          placeholder="아이디"
+          register={register}
+          rules={{ required: '아이디를 입력해주세요.' }}
+          errors={errors}
+        />
+        <Input
           id="email"
+          ㅌ
           name="email"
           type="text"
           placeholder="이메일"
@@ -56,7 +61,13 @@ const SignUp = () => {
             type="password"
             placeholder="비밀번호"
             register={register}
-            rules={{ required: '비밀번호를 입력해주세요.', pattern: passwordPattern }}
+            rules={{
+              required: '비밀번호를 입력해주세요.',
+              minLength: {
+                value: 8,
+                message: '비밀번호 길이를 8자리 이상 입력해주세요',
+              },
+            }}
             errors={errors}
           />
         </div>
@@ -68,9 +79,9 @@ const SignUp = () => {
             placeholder="비밀번호 확인"
             register={register}
             rules={{
-              required: true,
-              validate: fieldValue => {
-                return fieldValue !== passwordData || '비밀번호 일치하지 않음';
+              required: '비밀번호를 확인해주세요.',
+              validate: value => {
+                return value === password.current || '비밀번호가 일치하지 않습니다.';
               },
             }}
             errors={errors}
@@ -78,7 +89,7 @@ const SignUp = () => {
         </div>
 
         <button className="btn-full-fill" type="submit">
-          회원가입
+          가입하기
         </button>
       </form>
     </>
