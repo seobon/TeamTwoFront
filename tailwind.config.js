@@ -1,6 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./index.html', './src/pages/**/*.{js,jsx}', './src/components/**/*.{js,jsx}'],
+  content: [
+    './index.html',
+    './src/pages/**/*.{js,jsx}',
+    './src/components/**/*.{js,jsx}',
+    './node_modules/react-calendar/dist/Calendar.css', // react-calendar의 CSS 파일 경로
+  ],
   theme: {
     extend: {
       animation: {
