@@ -43,7 +43,7 @@ export default function Calendar1() {
 
   return (
     <>
-      <div className="border-2 border-red">
+      <div className="">
         <Calendar
           onClickDay={mood} // 감정 버튼 클릭
           onChange={onChangeToday}
