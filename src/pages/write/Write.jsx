@@ -15,52 +15,92 @@ export default function Write() {
   const [isPublic, setIsPublic] = useState(true); // 글 비공개 여부
   const { handleSubmit } = useForm();
 
+  // const onValid = () => {
+  //   const contents = editorRef.current.getInstance().getHTML(); // getHTML(): 에디터의 내용을 HTML로 가져옴
+  //   console.log(contents);
+
+  //   // FormData 객체
+  //   const formData = new FormData();
+  //   formData.append('id', '4'); // 사용자ID 대신 실제 사용자ID를 입력해야 함
+  //   formData.append('diaryTitle', '제목'); // '제목' 대신 실제 제목을 입력해야 함
+  //   formData.append('diaryContent', contents);
+  //   formData.append('mood', 'annoying'); // '기분' 대신 실제 기분을 입력해야 함
+  //   formData.append('location', 'Korea'); // '위치' 대신 실제 위치를 입력해야 함
+  //   formData.append('weather', '1'); // '날씨' 대신 실제 날씨를 입력해야 함
+  //   formData.append('isPublic', isPublic);
+
+  //   axios
+  //     .post(`${process.env.REACT_APP_HOST}/diary/postDiary`, formData, {
+  //       withCredentials: true,
+  //     })
+  //     .then(res => {
+  //       console.log(res.data);
+  //       if (res.data.result) {
+  //         console.log('성공');
+  //         alert('게시물이 등록되었습니다.');
+  //         navigator('-1');
+  //       } else {
+  //         console.log('실패~! 음..');
+  //         console.log(formData);
+  //         console.log(res.data);
+  //         alert('로그인이 필요한 서비스입니다.');
+  //         navigator('/signin');
+  //       }
+  //     })
+  //     .catch(error => {
+  //       console.log('글 등록 실패: ', error);
+  //       console.log(formData);
+  //     });
+
+  //   //   try {
+  //   //     const response = await axios.post(`${process.env.REACT_APP_HOST}/diary/postDiary`, formData, {});
+  //   //     console.log('응답:', response.data);
+  //   //     alert('성공');
+  //   //   } catch (error) {
+  //   //     console.error('에러:', error);
+  //   //     alert('에러');
+  //   //   }
+  //   // };
+  // };
+
   const onValid = () => {
     const contents = editorRef.current.getInstance().getHTML(); // getHTML(): 에디터의 내용을 HTML로 가져옴
     console.log(contents);
 
-    // FormData 객체
-    const formData = new FormData();
-    formData.append('id', '4'); // 사용자ID 대신 실제 사용자ID를 입력해야 함
-    formData.append('diaryTitle', '제목'); // '제목' 대신 실제 제목을 입력해야 함
-    formData.append('diaryContent', contents);
-    formData.append('mood', 'annoying'); // '기분' 대신 실제 기분을 입력해야 함
-    formData.append('location', 'Korea'); // '위치' 대신 실제 위치를 입력해야 함
-    formData.append('weather', '1'); // '날씨' 대신 실제 날씨를 입력해야 함
-    formData.append('isPublic', isPublic);
+    // 일반 JavaScript 객체
+    const data = {
+      id: '4', // 사용자ID 대신 실제 사용자ID를 입력해야 함
+      diaryTitle: '제목', // '제목' 대신 실제 제목을 입력해야 함
+      diaryContent: contents,
+      mood: 'annoying', // '기분' 대신 실제 기분 입력해야 함
+      location: 'Korea', // '위치' 대신 실제 위치를 입력해야 함
+      weather: '1', // '날씨' 대신 실제 날씨를 입력해야 함
+      isPublic: isPublic,
+    };
 
     axios
-      .post(`${process.env.REACT_APP_HOST}/diary/postDiary`, formData, {
+      .post(`${process.env.REACT_APP_HOST}/diary/postDiary`, data, {
         withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+        },
       })
       .then(res => {
         console.log(res.data);
         if (res.data.result) {
           console.log('성공');
           alert('게시물이 등록되었습니다.');
-          navigator('-1');
         } else {
           console.log('실패~! 음..');
-          console.log(formData);
+          console.log(data);
           console.log(res.data);
           alert('로그인이 필요한 서비스입니다.');
-          navigator('/signin');
         }
       })
       .catch(error => {
         console.log('글 등록 실패: ', error);
-        console.log(formData);
+        console.log(data);
       });
-
-    //   try {
-    //     const response = await axios.post(`${process.env.REACT_APP_HOST}/diary/postDiary`, formData, {});
-    //     console.log('응답:', response.data);
-    //     alert('성공');
-    //   } catch (error) {
-    //     console.error('에러:', error);
-    //     alert('에러');
-    //   }
-    // };
   };
 
   // 비공개 토글 버튼
