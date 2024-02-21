@@ -20,7 +20,7 @@ const SignUp = () => {
 
   const emailPattern = {
     value: new RegExp('^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$', 'ig'),
-    message: '이메일을 확인해주세요.',
+    message: '이메일을 확인해주세요',
   };
 
   const onChangeFormLib = async data => {
