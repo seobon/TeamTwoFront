@@ -55,32 +55,37 @@ export default function Write() {
   return (
     <>
       <form onSubmit={handleSubmit(onValid)}>
-        <div className="w-[480px] h-[800px]">
-          비공개{' '}
-          <button type="button" onClick={IsPublicToggle} className="">
-            {isPublic ? 'ㅁ' : 'V'}
-          </button>
-          {/* 작성 버튼을 누르면, 작성이 완료되었다는 알림창을 띄우고 다른 컴포넌트로 이동시키기 */}
-          <button
-            type="submit"
-            className="
-              ml-[400px]
+        <div className="mt-[30px]">
+          <div className="">
+            비공개{' '}
+            <button type="button" onClick={IsPublicToggle} className="">
+              {isPublic ? 'ㅁ' : 'V'}
+            </button>
+            {/* 작성 버튼을 누르면, 작성이 완료되었다는 알림창을 띄우고 다른 컴포넌트로 이동시키기 */}
+            <button
+              type="submit"
+              className="
+              ml-[200px]
               border
             border-black
           ">
-            작성하기
-          </button>
-          <Editor
-            initialValue="hello react editor world!" // 에디터의 초기 값
-            previewStyle="vertical" // 에디터와 미리보기 패널의 배치
-            initialEditType="wysiwyg" // 워지웍 타입 선택
-            hideModeSwitch={true} // 하단의 타입 선택 탭 숨김 (마크다운/워지웍)
-            useCommandShortcut={false}
-            plugins={[colorSyntax]}
-            language="ko-KR"
-            ref={editorRef}
-            className=""
-          />
+              작성하기
+            </button>
+          </div>
+          <div className="mt-[10px]">
+            <Editor
+              initialValue="스타일 커스텀 젼나 안되네 아오" // 에디터의 초기 값
+              previewStyle="vertical" // 에디터와 미리보기 패널의 배치
+              initialEditType="wysiwyg" // 워지웍 타입 선택
+              hideModeSwitch={true} // 하단의 타입 선택 탭 숨김 (마크다운/워지웍)
+              useCommandShortcut={false}
+              plugins={[colorSyntax]}
+              language="ko-KR"
+              ref={editorRef}
+              height="865px"
+              className=""
+            />
+          </div>
         </div>
       </form>
     </>

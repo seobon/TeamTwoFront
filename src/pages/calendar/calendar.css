@@ -9,11 +9,13 @@
 @layer components {
   /* 캘린더 최상위 태그 */
   .react-calendar {
-    width: 350px;
+    width: 480px;
+    height: 400px;
     max-width: 100%;
+    margin-top: 100px;
     background: white;
     border: 1px solid #a0a096;
-    font-family: Arial, Helvetica, sans-serif;
+    /* font-family: Arial, Helvetica, sans-serif; */
     line-height: 1.125em;
   }
   .react-calendar__navigation button:disabled {
@@ -35,10 +37,12 @@
   /* 요일 */
   .react-calendar__month-view__weekdays__weekday {
     color: #353535;
+    /* height: 50px; */
   }
   /* 일 */
   .react-calendar__month-view__days__day {
     color: #353535;
+    /* height: 55px; */
   }
   .react-calendar__month-view__weekdays__weekday--weekend abbr {
     /* @apply text-deepRed; */
