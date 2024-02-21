@@ -3,8 +3,8 @@ import { useForm } from 'react-hook-form';
 import Input from '../../components/Input/Input.jsx';
 import Header1 from '../../components/Header/Header1.jsx';
 
-// axios 요청 부분
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
   const {
@@ -16,6 +16,8 @@ const SignUp = () => {
   const password = useRef();
   password.current = watch('password');
 
+  const navigator = useNavigate();
+
   const emailPattern = {
     value: new RegExp('^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$', 'ig'),
     message: '이메일을 확인해주세요.',
@@ -23,7 +25,7 @@ const SignUp = () => {
 
   const onChangeFormLib = async data => {
     try {
-      const response = await axios.post('http://localhost:8080/user/signup', {
+      const response = await axios.post(`${process.env.REACT_APP_HOST}/user/signup`, {
         nickname: data.nickname,
         userid: data.userid,
         email: data.email,
@@ -31,6 +33,8 @@ const SignUp = () => {
         passwordConfirm: data.passwordConfirm,
       });
       console.log('회원가입 응답:', response.data);
+      alert('회원가입에 성공하였습니다');
+      navigator('/calendar');
     } catch (error) {
       console.error('회원가입 에러:', error);
     }
