@@ -8,6 +8,7 @@ import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 import 'tui-color-picker/dist/tui-color-picker.css';
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
 import '@toast-ui/editor/dist/i18n/ko-kr';
+import Header1 from '../../components/Header/Header1';
 
 export default function Write() {
   const editorRef = useRef(); // 에디터 컴포넌트에 접근하기 위한 ref 생성
@@ -20,12 +21,12 @@ export default function Write() {
 
     // FormData 객체
     const formData = new FormData();
-    formData.append('id', '사용자ID'); // 사용자ID 대신 실제 사용자ID를 입력해야 함
+    formData.append('id', '4'); // 사용자ID 대신 실제 사용자ID를 입력해야 함
     formData.append('diaryTitle', '제목'); // '제목' 대신 실제 제목을 입력해야 함
     formData.append('diaryContent', contents);
-    formData.append('mood', '기분'); // '기분' 대신 실제 기분을 입력해야 함
-    formData.append('location', '위치'); // '위치' 대신 실제 위치를 입력해야 함
-    formData.append('weather', '날씨'); // '날씨' 대신 실제 날씨를 입력해야 함
+    formData.append('mood', 'annoying'); // '기분' 대신 실제 기분을 입력해야 함
+    formData.append('location', 'Korea'); // '위치' 대신 실제 위치를 입력해야 함
+    formData.append('weather', '1'); // '날씨' 대신 실제 날씨를 입력해야 함
     formData.append('isPublic', isPublic);
 
     axios
@@ -35,28 +36,46 @@ export default function Write() {
       .then(res => {
         console.log(res.data);
         if (res.data.result) {
+          console.log('성공');
           alert('게시물이 등록되었습니다.');
-          // navigator('');
+          navigator('-1');
         } else {
+          console.log('실패~! 음..');
+          console.log(formData);
+          console.log(res.data);
           alert('로그인이 필요한 서비스입니다.');
           navigator('/signin');
         }
       })
       .catch(error => {
-        console.error(error);
+        console.log('글 등록 실패: ', error);
+        console.log(formData);
       });
+
+    //   try {
+    //     const response = await axios.post(`${process.env.REACT_APP_HOST}/diary/postDiary`, formData, {});
+    //     console.log('응답:', response.data);
+    //     alert('성공');
+    //   } catch (error) {
+    //     console.error('에러:', error);
+    //     alert('에러');
+    //   }
+    // };
   };
 
   // 비공개 토글 버튼
   const IsPublicToggle = () => {
     setIsPublic(!isPublic); // 비공개 여부를 토글
+    if (isPublic === true) console.log(isPublic);
+    else console.log(isPublic);
   };
 
   return (
     <>
+      <Header1 title="작성하기" />
       <form onSubmit={handleSubmit(onValid)}>
-        <div className="mt-[30px]">
-          <div className="">
+        <div className="mt-[0px]">
+          <div className="ml-[5px]">
             비공개{' '}
             <button type="button" onClick={IsPublicToggle} className="">
               {isPublic ? 'ㅁ' : 'V'}
@@ -72,9 +91,9 @@ export default function Write() {
               작성하기
             </button>
           </div>
-          <div className="mt-[10px]">
+          <div className="mt-[0px]">
             <Editor
-              initialValue="스타일 커스텀 젼나 안되네 아오" // 에디터의 초기 값
+              initialValue="Fucking Axios!" // 에디터의 초기 값
               previewStyle="vertical" // 에디터와 미리보기 패널의 배치
               initialEditType="wysiwyg" // 워지웍 타입 선택
               hideModeSwitch={true} // 하단의 타입 선택 탭 숨김 (마크다운/워지웍)
@@ -82,7 +101,7 @@ export default function Write() {
               plugins={[colorSyntax]}
               language="ko-KR"
               ref={editorRef}
-              height="865px"
+              height="825px"
               className=""
             />
           </div>
