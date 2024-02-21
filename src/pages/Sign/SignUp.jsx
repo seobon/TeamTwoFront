@@ -3,8 +3,10 @@ import { useForm } from 'react-hook-form';
 import Input from '../../components/Input/Input.jsx';
 import Header1 from '../../components/Header/Header1.jsx';
 
-const SignUp = () => {
+// axios 요청 부분
+import axios from 'axios';
 
+const SignUp = () => {
   const {
     handleSubmit,
     register,
@@ -19,12 +21,24 @@ const SignUp = () => {
     message: '이메일을 확인해주세요.',
   };
 
-  const onChangeFormLib = data => {
-    console.log('회원가입 정보', data);
+  const onChangeFormLib = async data => {
+    try {
+      const response = await axios.post('http://localhost:8080/user/signup', {
+        nickname: data.nickname,
+        userid: data.userid,
+        email: data.email,
+        password: data.password,
+        passwordConfirm: data.passwordConfirm,
+      });
+      console.log('회원가입 응답:', response.data);
+    } catch (error) {
+      console.error('회원가입 에러:', error);
+    }
+    // console.log('회원가입 정보', data);
   };
   return (
     <>
-      <Header1 title="회원가입"/>
+      <Header1 title="회원가입" />
       <form onSubmit={handleSubmit(onChangeFormLib)}>
         <Input
           id="nickname"
@@ -36,8 +50,8 @@ const SignUp = () => {
           errors={errors}
         />
         <Input
-          id="id"
-          name="id"
+          id="userid"
+          name="userid"
           type="text"
           placeholder="아이디"
           register={register}
@@ -46,7 +60,6 @@ const SignUp = () => {
         />
         <Input
           id="email"
-          ㅌ
           name="email"
           type="text"
           placeholder="이메일"
