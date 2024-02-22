@@ -66,11 +66,11 @@ export default function Todo() {
 
   return (
     <>
-      <div className="">
-        <div className="text-2xl font-bold mt-5 mb-5">To do List</div>
+      <div className="mt-[30px] ml-[20px]">
+        <div className="text-2xl font-bold mt-5 mb-2">To do List</div>
         <ul>
           {toDoList.map((todo, index) => (
-            <li key={index} className="flex align-middle">
+            <li key={index} className="flex align-middle font-Body2">
               <button onClick={() => toggleCheck(index)} className="mr-1">
                 {/* todo 체크 버튼 */}
                 {todo.isCheck ? (
@@ -116,7 +116,11 @@ export default function Todo() {
                   </button>
                 </form>
               ) : (
-                <span onClick={() => handleEditClick(index)}>{todo.text}</span>
+                <span
+                  onClick={() => handleEditClick(index)}
+                  style={todo.isCheck ? { textDecoration: 'line-through' } : null}>
+                  {todo.text}
+                </span>
               )}
             </li>
           ))}
