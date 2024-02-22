@@ -9,6 +9,8 @@ import SignIn from './pages/Sign/SignIn.jsx';
 import SignUp from './pages/Sign/SignUp.jsx';
 import UserIdPw from './pages/User/UserIdPw.jsx';
 import BoardDetail from './pages/Board/BoardDetail.jsx';
+import Mypage from './pages/Mypage/Mypage.jsx';
+import PasswordChange from './pages/Mypage/PasswordChange.jsx';
 
 function App() {
   return (
@@ -17,7 +19,8 @@ function App() {
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/useridpw" element={<UserIdPw />} />
-        {/* <Route path="/mypage" element={<Mypage />} /> */}
+        <Route path="/mypage" element={<Mypage />} />
+        <Route path="/profile" element={<PasswordChange />} />
 
         <Route path="/test" element={<Test />} />
         <Route path="/calendar" element={<Calendar1 />} />
