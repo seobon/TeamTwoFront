@@ -1,6 +1,7 @@
 import React from 'react';
 import Input from '../../../components/Input/Input';
 import { useForm } from 'react-hook-form';
+import axios from 'axios';
 
 const FindId = () => {
   const {
@@ -9,12 +10,22 @@ const FindId = () => {
     watch,
     formState: { errors },
   } = useForm();
-  const onChangeFormLib = data => {
-    console.log('아이디 정보', data);
+  const onChangeFormLib = async data => {
+    try {
+      const response = await axios.post(`${process.env.REACT_APP_HOST}/mail/findUserId`, {
+        email: data.email,
+      });
+      console.log('이메일 정보', data);
+      alert('귀하의 아이디를 발송하였습니다.');
+      navigator('/signin');
+    } catch (error) {
+      console.error('에러발생발생!!!!', error);
+    }
   };
   return (
+
     <>
-      {' '}
+
       <form onSubmit={handleSubmit(onChangeFormLib)}>
         <p className="font-Heading3 text-gray-900 mb-2"> 아이디 찾기 </p>
         <p className="font-Body4 text-gray-800 mb-8"> 등록된 이메일을 입력하세요. </p>
@@ -34,6 +45,7 @@ const FindId = () => {
         </button>
       </form>
     </>
+
   );
 };
 
