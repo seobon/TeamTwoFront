@@ -2,7 +2,6 @@ import React, { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Input from '../../components/Input/Input.jsx';
 import { useNavigate } from 'react-router-dom';
-import { ReactComponent as Eye } from '../../assets/Eye.svg';
 import axios from 'axios';
 
 const SignIn = () => {
@@ -15,10 +14,7 @@ const SignIn = () => {
     formState: { errors },
   } = useForm();
 
-  const emailPattern = {
-    value: new RegExp('^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$', 'ig'),
-    message: '이메일 형식을 확인해주세요.',
-  };
+
   const passwordRef = useRef(null);
   passwordRef.current = watch('password');
 
@@ -29,8 +25,8 @@ const SignIn = () => {
         userid: data.userid,
         password: data.password,
       });
+      navigate('/calendar');
       console.log('로그인 응답', response.data);
-      alert('로그인 성공!!!');
 
       if (response.status == 200) {
         // 로그인 성공시
@@ -42,7 +38,8 @@ const SignIn = () => {
         throw new Error('로그인 실패');
       }
     } catch (error) {
-      console.error('로그인 에러!!', error);
+      console.error('로그인 에러!!', error)
+
     }
   };
 
@@ -78,7 +75,7 @@ const SignIn = () => {
           type="text"
           placeholder="아이디"
           register={register}
-          // rules={{ required: '아이디를 입력해주세요.', pattern: emailPattern }}
+          rules={{ required: '아이디를 입력해주세요.' }}
           errors={errors}
         />
         <div className="relative">
