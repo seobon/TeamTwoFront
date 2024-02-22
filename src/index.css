@@ -14,8 +14,8 @@
 
 @layer base {
   html {
-    /* max-width: 430px; */
-    /* min-width: 375px; */
+    /* max-width: 430px;
+    min-width: 375px; */
     padding: 16px;
     margin: 0;
     font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto,

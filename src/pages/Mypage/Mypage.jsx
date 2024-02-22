@@ -11,13 +11,13 @@ const Mypage = () => {
     navigate('/profile');
   };
   const userDelete = () => {
-    showLogoutPopup(!closeLogoutPopup);
-  };
-  const userLogout = () => {
     showDeletePopup(!closeDeletetPopup);
   };
+  const userLogout = () => {
+    showLogoutPopup(!closeLogoutPopup);
+  };
   return (
-    <>
+    <div className="relative">
       <Header2 title="마이페이지" />
       <div className="text-gray-600">
         <div className="flex justify-center">
@@ -41,10 +41,10 @@ const Mypage = () => {
           </button>
         </div>
         <div className="flex justify-between">
-          <button className="font-Caption mb-1.5 text-gray-500 p-4" onClick={userLogout}>
+          <button className="font-Caption mb-1.5 text-gray-500 p-4" onClick={userDelete}>
             계정 탈퇴하기
           </button>
-          <button className="font-Caption mb-1.5  text-gray-500 p-4" onClick={userDelete}>
+          <button className="font-Caption mb-1.5  text-gray-500 p-4" onClick={userLogout}>
             로그아웃
           </button>
         </div>
@@ -55,12 +55,25 @@ const Mypage = () => {
           content="*로그아웃 상태에서 기록 시 저장 되지 않습니다."
           cancel="취소"
           active="로그아웃"
-          closeOnclck="on"
           activeOnclick=""
-          close={()=>{showDeletePopup(false)}}
+          close={() => {
+            showLogoutPopup(!closeLogoutPopup);
+          }}
         />
       )}
-    </>
+      {closeDeletetPopup && (
+        <PopupNegative
+          title="계정 탈퇴하기"
+          content="*탈퇴 시 모든 데이터가 삭제되며, 되돌릴수 없습니다."
+          cancel="취소"
+          active="탈퇴하기"
+          activeOnclick=""
+          close={() => {
+            showDeletePopup(!closeDeletetPopup);
+          }}
+        />
+      )}
+    </div>
   );
 };
 
