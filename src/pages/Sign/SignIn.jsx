@@ -2,13 +2,11 @@ import React, { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Input from '../../components/Input/Input.jsx';
 import { useNavigate } from 'react-router-dom';
-
 import { ReactComponent as Eye } from '../../assets/Eye.svg';
 import axios from 'axios';
 
 const SignIn = () => {
   const navigate = useNavigate();
-  // const [isShowPwChecked, setShowPwChecked] = useState(false);
 
   const {
     handleSubmit,
@@ -24,20 +22,6 @@ const SignIn = () => {
   const passwordRef = useRef(null);
   passwordRef.current = watch('password');
 
-  // const handleShowPwChecked = async () => {
-  //   const password = await passwordRef.current;
-  //   if (password === null) return;
-
-  //   await setShowPwChecked(!isShowPwChecked);
-  //   if (!isShowPwChecked) {
-  //     password.type = 'text';
-  //     password.name = 'text';
-  //     password.id = 'text';
-  //     password.value.toString();
-  //   } else {
-  //     password.type = 'password';
-  //   }
-  // };
 
   const onChangeFormLib = async data => {
     try {
@@ -92,7 +76,7 @@ const SignIn = () => {
           id="userid"
           name="userid"
           type="text"
-          placeholder="이메일"
+          placeholder="아이디"
           register={register}
           // rules={{ required: '아이디를 입력해주세요.', pattern: emailPattern }}
           errors={errors}
@@ -113,10 +97,9 @@ const SignIn = () => {
             }}
             errors={errors}
           />
-          {/* <Eye className="h-7 w-7 text-gray-500 absolute top-3 right-8 inline-block" onClick={handleShowPwChecked} /> */}
         </div>
 
-        <button className="btn-full-fill" type="submit">
+        <button className="btn-full-fill" type="submit" >
           로그인
         </button>
       </form>
