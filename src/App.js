@@ -8,7 +8,13 @@ import Edit from './pages/write/Edit.jsx';
 import SignIn from './pages/Sign/SignIn.jsx';
 import SignUp from './pages/Sign/SignUp.jsx';
 import UserIdPw from './pages/User/UserIdPw.jsx';
-import BoardDetail from './pages/Board/BoardDetail.jsx';
+import Diaries from './pages/Diary/Diaries.jsx';
+import DiaryDetail from './pages/Diary/DiaryDetail.jsx';
+import Diary from './components/Diary/Diary.jsx';
+import DiaryList from './components/Diary/DiaryList.jsx';
+import { useQuery, useMutation, useQueryClient, QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
@@ -23,8 +29,11 @@ function App() {
         <Route path="/calendar" element={<Calendar1 />} />
         <Route path="/todo" element={<Todo />} />
         <Route path="/write" element={<Write />} />
-        <Route path="/board/detail" element={<BoardDetail />} />
+        <Route path="/diary/detail" element={<DiaryDetail />} />
         <Route path="/edit" element={<Edit />} />
+
+        <Route path="/diary" element={<Diaries />} />
+        <Route path="/diary/:id" element={<DiaryDetail />} />
       </Routes>
     </BrowserRouter>
   );
