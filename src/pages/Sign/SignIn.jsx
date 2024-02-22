@@ -2,6 +2,8 @@ import React, { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Input from '../../components/Input/Input.jsx';
 import { useNavigate } from 'react-router-dom';
+import { ReactComponent as Eye } from '../../assets/Eye.svg';
+import axios from 'axios';
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -21,8 +23,27 @@ const SignIn = () => {
   passwordRef.current = watch('password');
 
 
-  const onChangeFormLib = data => {
-    console.log('로그인 정보', data);
+  const onChangeFormLib = async data => {
+    try {
+      const response = await axios.post(`${process.env.REACT_APP_HOST}/user/login`, {
+        userid: data.userid,
+        password: data.password,
+      });
+      console.log('로그인 응답', response.data);
+      alert('로그인 성공!!!');
+
+      if (response.status == 200) {
+        // 로그인 성공시
+        localStorage.setItem('accessToken', response.data.accessToken);
+        localStorage.setItem('refreshToken', response.data.refreshToken);
+        localStorage.setItem('userid', response.data.userid);
+        console.log('토큰 저장 성공이요!!', response.data.accessToken, response.data.refreshToken);
+      } else {
+        throw new Error('로그인 실패');
+      }
+    } catch (error) {
+      console.error('로그인 에러!!', error);
+    }
   };
 
   const navigateSignUp = () => {
@@ -57,7 +78,7 @@ const SignIn = () => {
           type="text"
           placeholder="아이디"
           register={register}
-          rules={{ required: '아이디를 입력해주세요.', pattern: emailPattern }}
+          // rules={{ required: '아이디를 입력해주세요.', pattern: emailPattern }}
           errors={errors}
         />
         <div className="relative">
