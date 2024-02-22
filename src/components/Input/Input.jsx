@@ -7,7 +7,7 @@ const Input = forwardRef(({ id, name, type, placeholder, errors, rules, register
   const hasError = !!(errors && errorMessages);
 
   return (
-    <div className='mb-5'>
+    <div className="mb-5">
       <input
         id={id}
         name={name}
@@ -16,7 +16,7 @@ const Input = forwardRef(({ id, name, type, placeholder, errors, rules, register
         ref={ref}
         rules={rules}
         {...props}
-        {...register && register(name, rules)}
+        {...(register && register(name, rules))}
         className={
           hasError
             ? `${inputCss}  border-red text-deepRed`

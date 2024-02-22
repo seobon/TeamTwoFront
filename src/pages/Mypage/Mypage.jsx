@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header2 from '../../components/Header/Header2';
 import PopupNegative from '../../components/Popup/PopupNegative';
+import PopupLogout from '../../components/Popup/PopupLogout';
 
 const Mypage = () => {
   const [closeLogoutPopup, showLogoutPopup] = useState(false);
@@ -50,27 +51,13 @@ const Mypage = () => {
         </div>
       </div>
       {closeLogoutPopup && (
-        <PopupNegative
-          title="로그아웃"
-          content="*로그아웃 상태에서 기록 시 저장 되지 않습니다."
-          cancel="취소"
-          active="로그아웃"
-          activeOnclick=""
-          close={() => {
-            showLogoutPopup(!closeLogoutPopup);
-          }}
+        <PopupLogout
+        closeLogoutPopup ={closeLogoutPopup}  showLogoutPopup={showLogoutPopup}
         />
       )}
       {closeDeletetPopup && (
         <PopupNegative
-          title="계정 탈퇴하기"
-          content="*탈퇴 시 모든 데이터가 삭제되며, 되돌릴수 없습니다."
-          cancel="취소"
-          active="탈퇴하기"
-          activeOnclick=""
-          close={() => {
-            showDeletePopup(!closeDeletetPopup);
-          }}
+        closeDeletetPopup={closeDeletetPopup} showDeletePopup={showDeletePopup}
         />
       )}
     </div>
