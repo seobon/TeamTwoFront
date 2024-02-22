@@ -12,9 +12,10 @@ import Diaries from './pages/Diary/Diaries.jsx';
 import DiaryDetail from './pages/Diary/DiaryDetail.jsx';
 import Diary from './components/Diary/Diary.jsx';
 import DiaryList from './components/Diary/DiaryList.jsx';
-import { useQuery, useMutation, useQueryClient, QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import BoardDetail from './pages/Board/BoardDetail.jsx';
+import Mypage from './pages/Mypage/Mypage.jsx';
+import PasswordChange from './pages/Mypage/PasswordChange.jsx';
 
-const queryClient = new QueryClient();
 
 function App() {
   return (
@@ -23,7 +24,8 @@ function App() {
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/useridpw" element={<UserIdPw />} />
-        {/* <Route path="/mypage" element={<Mypage />} /> */}
+        <Route path="/mypage" element={<Mypage />} />
+        <Route path="/profile" element={<PasswordChange />} />
 
         <Route path="/test" element={<Test />} />
         <Route path="/calendar" element={<Calendar1 />} />
