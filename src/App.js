@@ -12,10 +12,8 @@ import Diaries from './pages/Diary/Diaries.jsx';
 import DiaryDetail from './pages/Diary/DiaryDetail.jsx';
 import Diary from './components/Diary/Diary.jsx';
 import DiaryList from './components/Diary/DiaryList.jsx';
-import BoardDetail from './pages/Board/BoardDetail.jsx';
 import Mypage from './pages/Mypage/Mypage.jsx';
 import PasswordChange from './pages/Mypage/PasswordChange.jsx';
-
 
 function App() {
   return (
