@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 
 const moods = {
   soso: { color: 'bg-green', hover: 'hover:bg-green', text: '평온해요' },
@@ -11,7 +12,7 @@ const moods = {
 const Diary = ({ day, mood, nickname, diaryTitle, diaryContent }) => {
   return (
     <>
-      <div className="flex gap-2 p-3 pb-6 m-2 rounded-xl bg-gray-200 ">
+      <div className="flex gap-2 p-3 pb-6 rounded-xl bg-white ">
         <div className="flex flex-col items-center w-10 gap-1">
           <p className="font-bold text-2xl">{day}15</p>
           <div className={`w-10 h-10 rounded-xl ${moods[mood]} bg-deepBlue`}>img</div>

@@ -18,23 +18,25 @@ import PasswordChange from './pages/Mypage/PasswordChange.jsx';
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/useridpw" element={<UserIdPw />} />
-        <Route path="/mypage" element={<Mypage />} />
-        <Route path="/profile" element={<PasswordChange />} />
+      <div className="bg-gray-200 p-3">
+        <Routes>
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/useridpw" element={<UserIdPw />} />
+          <Route path="/mypage" element={<Mypage />} />
+          <Route path="/profile" element={<PasswordChange />} />
 
-        <Route path="/test" element={<Test />} />
-        <Route path="/calendar" element={<Calendar1 />} />
-        <Route path="/todo" element={<Todo />} />
-        <Route path="/write" element={<Write />} />
-        <Route path="/diary/detail" element={<DiaryDetail />} />
-        <Route path="/edit" element={<Edit />} />
+          <Route path="/test" element={<Test />} />
+          <Route path="/calendar" element={<Calendar1 />} />
+          <Route path="/todo" element={<Todo />} />
+          <Route path="/write" element={<Write />} />
+          <Route path="/diary/detail" element={<DiaryDetail />} />
+          <Route path="/edit" element={<Edit />} />
 
-        <Route path="/diary" element={<Diaries />} />
-        <Route path="/diary/:id" element={<DiaryDetail />} />
-      </Routes>
+          <Route path="/diary" element={<Diaries />} />
+          <Route path="/diary/:id" element={<DiaryDetail />} />
+        </Routes>
+      </div>
     </BrowserRouter>
   );
 }
