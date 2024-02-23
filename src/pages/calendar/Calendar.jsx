@@ -11,15 +11,21 @@ export default function Calendar1() {
 
   // 캘린더 조회
   useEffect(() => {
+    const id = localStorage.getItem('id');
+    const month = today.getMonth() + 1;
+
     axios
-      .get(`${process.env.REACT_APP_HOST}/diary/getCalendar`)
+      .get(`${process.env.REACT_APP_HOST}/diary/getCalendar?id=${id}&month=${month}`)
       .then(response => {
         if (response.data[0].msg === 'Get Calendar Success') {
           // diaryData에 서버로부터 받은 데이터 저장
           const writtenDates = response.data.map(diary => diary.createdAt.split(',')[0]); // 작성된 날짜만 추출
+
           setWrittenDays(writtenDates); // 작성된 날짜를 writtenDays 상태에 저장
         } else {
           console.log('Failed to get the calendar data');
+          console.log('id는??', id);
+          console.log(month);
         }
       })
       .catch(error => {
