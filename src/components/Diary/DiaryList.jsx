@@ -10,11 +10,20 @@ const BoardList = () => {
 
   return (
     <>
-      <div>
+      <div className="flex flex-col gap-2">
         {isLoading
           ? 'Loading...'
           : data?.map(diary => (
-              <Link to={`/diary/${diary.diaryId}`}>
+              <Link
+                to={`/diary/${diary.diaryId}`}
+                state={{
+                  diaryId: diary.diaryId,
+                  diaryTitle: diary.diaryTitle,
+                  diaryContent: diary.diaryContent,
+                  nickname: diary.nickname,
+                  image: diary.image,
+                  mood: diary.mood,
+                }}>
                 <Diary
                   key={diary.diaryId}
                   id={diary.diaryId}
