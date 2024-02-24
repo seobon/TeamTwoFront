@@ -31,13 +31,9 @@ const NickNameChange = () => {
   const onChangeFormLib = async data => {
     console.log(data.newNickName);
     try {
-      const response = await axios.patch(
-        `${process.env.REACT_APP_HOST}/user/profile/${userid}`,
-        {
-          newNickName: data.newNickName,
-        },
-        { headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` } },
-      );
+      const response = await axios.patch(`${process.env.REACT_APP_HOST}/user/profile/${userid}/nickname`, {
+        newNickName: data.newNickName,
+      });
       console.log('마이페이지 닉네임 변경:', response.data);
       navigate('/mypage');
     } catch (error) {
@@ -54,7 +50,7 @@ const NickNameChange = () => {
             id="newNickName"
             name="newNickName"
             type="text"
-            placeholder={userInfo? userInfo.nickname : '닉네임'}
+            placeholder={userInfo ? userInfo.nickname : '닉네임'}
             register={register}
             rules={{
               required: '변경하실 닉네임을 작성해주세요.',
