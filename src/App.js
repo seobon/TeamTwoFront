@@ -18,7 +18,9 @@ import PasswordChange from './pages/Mypage/PasswordChange.jsx';
 function App() {
   return (
     <BrowserRouter>
-      <div className="bg-gray-100 p-3">
+
+      <div className="p-3">
+
         <Routes>
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
