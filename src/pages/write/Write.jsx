@@ -29,7 +29,7 @@ export default function Write() {
       location: '서울', // '위치' 대신 실제 위치를 입력해야 함
       weather: '1', // '날씨' 대신 실제 날씨를 입력해야 함
       isPublic: isPublic,
-      currentLocation: [37.5665, 126.978], // 서울의 위도 경도
+      currentLocation: [37.5665, 126.978], // 실제 [위도, 경도를 입력해야 함
     };
 
     console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', data);
