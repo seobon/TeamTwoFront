@@ -6,6 +6,7 @@ import axios from 'axios';
 
 const PopupNegative = ({ closeDeletetPopup, showDeletePopup }) => {
   const navigate = useNavigate();
+  const userid = localStorage.getItem('userid');
 
   const {
     handleSubmit,
@@ -15,15 +16,18 @@ const PopupNegative = ({ closeDeletetPopup, showDeletePopup }) => {
   } = useForm();
 
   const onChangeForm = async data => {
-    console.log('hi');
     try {
-      const response = await axios.post(`${process.env.REACT_APP_HOST}/delete`, {
-        password: data.password,
-      });
+      const response = await axios.delete(
+        `${process.env.REACT_APP_HOST}/user/profile/${userid}/delete`,
+        { userid: userid},
+        { headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` } },
+      );
       navigate('/calendar');
       console.log('회원탈퇴 완료', response.data);
     } catch (error) {
       console.error('회원탈퇴 에러!!', error);
+      console.log(userid)
+
     }
   };
 
