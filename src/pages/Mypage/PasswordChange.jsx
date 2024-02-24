@@ -2,8 +2,12 @@ import React, { useRef } from 'react';
 import Header1 from '../../components/Header/Header1';
 import Input from '../../components/Input/Input';
 import { useForm } from 'react-hook-form';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const PasswordChange = () => {
+  const navigate = useNavigate();
+  const userid = localStorage.getItem('userid');
   const {
     handleSubmit,
     register,
@@ -11,9 +15,28 @@ const PasswordChange = () => {
     formState: { errors },
   } = useForm();
   const password = useRef();
-  password.current = watch('password');
-  const onChangeFormLib = data => {
-    console.log('비밀번호 정보', data);
+  password.current = watch('newPassword');
+  
+  const onChangeFormLib = async data => {
+    try {
+      const response = await axios.patch(
+        `${process.env.REACT_APP_HOST}/user/profile/${userid}`,
+        {
+          currentPassword: data.password,
+          newPassword: data.newPasswordConfirm,
+        },
+        { headers: {Authorization: `Bearer ${localStorage.getItem("accessToken")}`} }
+      );
+      console.log('비밀번호 변경:', response.data);
+      localStorage.removeItem('userid');
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
+      localStorage.removeItem('id');
+      navigate('/signin');
+    } catch (error) {
+      console.error('비밀번호 변경 에러:', error);
+    }
+    // console.log('회원가입 정보', data);
   };
   return (
     <>
@@ -51,8 +74,8 @@ const PasswordChange = () => {
         </div>
         <div className="relative">
           <Input
-            id="nerPasswordConfirm"
-            name="nerPasswordConfirm"
+            id="newPasswordConfirm"
+            name="newPasswordConfirm"
             type="password"
             placeholder="변경 비밀번호 확인"
             register={register}
