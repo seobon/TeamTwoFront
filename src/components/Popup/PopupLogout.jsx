@@ -26,7 +26,7 @@ const PopupLogout = ({ closeLogoutPopup, showLogoutPopup }) => {
               localStorage.removeItem('accessToken');
               localStorage.removeItem('refreshToken');
               localStorage.removeItem('id');
-              navigate('/calendar');
+              navigate('/signin');
             }}>
             로그아웃
           </button>

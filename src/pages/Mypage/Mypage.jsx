@@ -13,11 +13,9 @@ const Mypage = () => {
   const userid = localStorage.getItem('userid');
   const id = localStorage.getItem('id');
 
-
   const [image, setImage] = useState();
   const [imagePath, setImagePath] = useState('');
   const ENV_URL = process.env.REACT_APP_DB_HOST;
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,9 +39,8 @@ const Mypage = () => {
     showLogoutPopup(!closeLogoutPopup);
   };
 
-
   // SB: 파일 전송 함수
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
 
     const formData = new FormData();
@@ -51,7 +48,7 @@ const Mypage = () => {
     formData.append('image', image);
 
     if (!image) {
-      alert("프로필로 사용할 이미지 파일을 업로드 해주세요.")
+      alert('프로필로 사용할 이미지 파일을 업로드 해주세요.');
     } else {
       try {
         const response = await axios.post(
@@ -62,20 +59,19 @@ const Mypage = () => {
             headers: {
               'Content-Type': 'multipart/form-data',
             },
-          }
+          },
         );
         setImagePath(response.data);
       } catch (error) {
-        alert("파일 전송에 실패했습니다. 잠시 후 다시 시도해주세요")
+        alert('파일 전송에 실패했습니다. 잠시 후 다시 시도해주세요');
       }
     }
   };
 
-    // SB: 파일 url을 useState로 저장하는 함수  
-    const handleImageUpload = (e) => {
-      setImage(e.target.files[0]);
-    };
-
+  // SB: 파일 url을 useState로 저장하는 함수
+  const handleImageUpload = e => {
+    setImage(e.target.files[0]);
+  };
 
   return (
     <div className="relative">
@@ -83,46 +79,32 @@ const Mypage = () => {
       <div className="text-gray-600">
         <div className="flex justify-center">
           <div className="w-32 h-32 bg-gray-200 mb-4 rounded-full">
-
-
-          {/* SB: 파일 전송 폼 태그 */}
+            {/* SB: 파일 전송 폼 태그 */}
             <form className="fileForm" onSubmit={handleSubmit}>
               <label htmlFor="fileInput">
                 {!image && (
                   <div className="fileExImage">
                     <img
-                        src="/static/exImage.png"
-                        alt="img example"
-                        className="exImage"
-                        style={{ width: '65px', height: '50px' }}
-                      />
+                      src="/static/exImage.png"
+                      alt="img example"
+                      className="exImage"
+                      style={{ width: '65px', height: '50px' }}
+                    />
                   </div>
                 )}
-                <input
-                    id="fileInput"
-                    type="file"
-                    onChange={handleImageUpload}
-                    style={{ display: 'none' }}
-                  />
-                  {image && (
-                    <img
-                      src={URL.createObjectURL(image)}
-                      alt="preview"
-                      className="exImage"
-                      style={{ width: '150px' }}
-                    />
-                  )}
+                <input id="fileInput" type="file" onChange={handleImageUpload} style={{ display: 'none' }} />
+                {image && (
+                  <img src={URL.createObjectURL(image)} alt="preview" className="exImage" style={{ width: '150px' }} />
+                )}
               </label>
               {/* SB: 전송 버튼 */}
               <button type="submit" className="submitButton">
-                  이미지 업로드
+                이미지 업로드
               </button>
             </form>
-
-
           </div>
         </div>
-        <p className="font-Body1 mb-6 text-center">{userInfo?.userid} id </p>
+        <p className="font-Body1 mb-6 text-center">{userInfo?.userid}</p>
 
         <div className="rounded-lg mb-6 w-full bg-gray-200 p-3">
           <div className="relative">
