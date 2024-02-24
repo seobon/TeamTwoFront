@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useState } from 'react';
 import Header1 from '../../components/Header/Header1';
 import TabsBar from '../../components/TabsBar/TabsBar';
 import FindId from './Find/FindId';

@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Input from '../../../components/Input/Input';
 import axios from 'axios';
 
 const FindPw = () => {
+  const [errorFindPw, setErrorFindPw] = useState('');
+
   const {
     handleSubmit,
     register,
@@ -17,13 +19,18 @@ const FindPw = () => {
   };
   const onChangeFormLib = async data => {
     try {
-      const response = await axios.post(`${process.env.REACT_APP_HOST}/mail/resetPassword`, {
-        email: data.email,
+      const response = await axios.post(`${process.env.REACT_APP_HOST}/mail/resetPassword`, data, {
+        headers: [
+          { Authorization: `Bearer ${localStorage.getItem('accessToken')}` },
+          { 'Content-Type': 'application/json' },
+        ],
       });
-      console.log('이메일 정보', data);
-      alert('임시 비밀번호 발성하였습니다.');
-      navigator('/signin');
+      console.log(response);
+      if (response.status == 200) {
+        setErrorFindPw("이메일로 임시비밀번호가 전송되었습니다. 메일함을 확인해주세요.");
+      }
     } catch (error) {
+      setErrorFindPw("이메일로 임시비밀번호가 전송할수없습니다. 이메일을 확인해주세요.");
       console.error('에러발생발생!!!!', error);
     }
   };
@@ -40,8 +47,8 @@ const FindPw = () => {
         rules={{ required: '이메일을 입력해주세요.', pattern: emailPattern }}
         errors={errors}
       />
-        <p className='font-Heading4 text-gray-600 mb-2'> 임시 비밀번호 </p>
-        <p className='font-Body1  text-gray-800 mb-8'> 임시 비밀번호 </p>
+      <p className="font-Body3 text-deepRed mb-2">{errorFindPw}</p>
+
       <button className="btn-full-fill" type="submit">
         비밀번호 찾기
       </button>
