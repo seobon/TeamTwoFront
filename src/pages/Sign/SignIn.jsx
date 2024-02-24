@@ -17,34 +17,42 @@ const SignIn = () => {
     }
   }, []);
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      // 로그인 상태가 true라면, 캘린더 페이지로 이동
-      alert('이미 로그인이 되어 있는 상태 입니다.');
-      navigate('/calendar');
-    }
-  }, [isLoggedIn, navigate]);
+  // useEffect(() => {
+  //   if (isLoggedIn) {
+  //     // 로그인 상태가 true라면, 캘린더 페이지로 이동
+  //     alert('로그인 성공했습니당~.');
+  //     navigate('/calendar');
+  //   } else if (!isLoggedIn) {
+  //     alert('로그인 하십쇼!!!');
+  //   } else {
+  //     alert('로그인 ㄱㄱ');
+  //   }
+  // }, [isLoggedIn, navigate]);
 
   useEffect(() => {
     const checkLoginStatus = async () => {
-      try {
-        const token = localStorage.getItem('accessToken');
-        if (token) {
-          // 토큰이 있으면 서버에 로그인 상태를 확인하는 요청을 보냄.
+      const token = localStorage.getItem('accessToken');
+      if (token) {
+        try {
           const response = await axios.get(`${process.env.REACT_APP_HOST}/user/check`, {
             headers: { Authorization: `Bearer ${token}` },
           });
           if (response.status === 200) {
-            console.log('response: ', response);
             setIsLoggedIn(true);
           }
+        } catch (error) {
+          console.log('로그인 상태 확인 에러!!', error);
         }
-      } catch (error) {
-        console.log('로그인 상태 확인 에러!!', error);
+      }
+
+      if (isLoggedIn) {
+        alert('로그인 성공했습니당~.');
+        navigate('/calendar');
       }
     };
+
     checkLoginStatus();
-  }, []);
+  }, [isLoggedIn, navigate]);
 
   const {
     handleSubmit,

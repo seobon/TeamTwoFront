@@ -17,17 +17,22 @@ const PopupNegative = ({ closeDeletetPopup, showDeletePopup }) => {
 
   const onChangeForm = async data => {
     try {
-      const response = await axios.delete(
-        `${process.env.REACT_APP_HOST}/user/profile/${userid}/delete`,
-        { userid: userid},
-        { headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` } },
-      );
-      navigate('/calendar');
+      const response = await axios({
+        method: 'delete',
+        url: `${process.env.REACT_APP_HOST}/user/profile/${userid}/delete`,
+        data: { currentPassword: data.currentPassword },
+        headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` },
+      });
+      alert('회원탈퇴 성공!!');
+      localStorage.removeItem('userid');
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
+      localStorage.removeItem('id');
+      navigate('/signin');
       console.log('회원탈퇴 완료', response.data);
     } catch (error) {
       console.error('회원탈퇴 에러!!', error);
-      console.log(userid)
-
+      console.log(userid);
     }
   };
 
@@ -41,8 +46,8 @@ const PopupNegative = ({ closeDeletetPopup, showDeletePopup }) => {
           </div>
 
           <Input
-            id="password"
-            name="password"
+            id="currentPassword"
+            name="currentPassword"
             type="password"
             placeholder="비밀번호"
             register={register}

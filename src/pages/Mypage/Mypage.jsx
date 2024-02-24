@@ -39,9 +39,11 @@ const Mypage = () => {
   const userLogout = () => {
     showLogoutPopup(!closeLogoutPopup);
   };
+
   const handleImgError = e => {
     e.target.src = defultImg;
   };
+
 
   // SB: 파일 전송 함수
   const handleSubmit = async e => {
@@ -83,6 +85,7 @@ const Mypage = () => {
       <Header2 title="마이페이지" />
       <div className="text-gray-600">
         <div className="flex justify-center">
+
           <div className="w-32 h-32 bg-gray-200 bg-no-repeat bg-cover mb-6 rounded-full relative">
             {/* SB: 파일 전송 폼 태그 */}
             <form className="fileForm text-center" onSubmit={handleSubmit}>
@@ -94,6 +97,7 @@ const Mypage = () => {
                 )}
                 <input id="fileInput" type="file" onChange={handleImageUpload} style={{ display: 'none' }} />
                 {image && (
+
                   <img src={URL.createObjectURL(image)} alt="preview" className="rounded-full" style={{ width: '150px' }} />
                 )}
               </label>
@@ -106,6 +110,7 @@ const Mypage = () => {
           </div>
         </div>
         <p className="font-Body1 mb-6 text-center">{userInfo?.nickname} </p>
+
 
         <div className="rounded-lg mb-6 w-full bg-gray-200 p-3">
           <div className="relative">
