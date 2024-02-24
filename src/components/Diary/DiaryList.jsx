@@ -26,13 +26,13 @@ const BoardList = () => {
       return lastPage.length === 0 ? undefined : allPages.length + 1;
     },
   });
+
   const contents = data?.pages[0];
   // console.log('contents', contents);
   // const content = data?.pages.map(diaries => diaries.map(diary => diary));
 
   useEffect(() => {
     if (inView && hasNextPage) {
-      // fetchNextPage();
       console.log('inView', inView);
       fetchNextPage();
     }
@@ -45,10 +45,19 @@ const BoardList = () => {
         {status === 'pending'
           ? 'Loading...'
           : contents?.map(diary => (
-              <Link to={`/diary/${diary.diaryId}`}>
+              <Link
+                to={`/diary/${diary.diaryId}`}
+                state={{
+                  diaryId: diary.diaryId,
+                  diaryTitle: diary.diaryTitle,
+                  diaryContent: diary.diaryContent,
+                  nickname: diary.nickname,
+                  image: diary.image,
+                  mood: diary.mood,
+                }}>
                 <Diary
                   key={diary.diaryId}
-                  id={diary.diaryId}
+                  diaryId={diary.diaryId}
                   diaryTitle={diary.diaryTitle}
                   diaryContent={diary.diaryContent}
                   nickname={diary.nickname}
@@ -58,9 +67,9 @@ const BoardList = () => {
               </Link>
             ))}
       </div>
-      <button ref={ref} disabled={!hasNextPage || isFetchingNextPage}>
-        button
-      </button>
+      <div ref={ref} disabled={!hasNextPage || isFetchingNextPage}>
+        observer
+      </div>
       <ReactQueryDevtools initialIsOpen />
     </>
   );

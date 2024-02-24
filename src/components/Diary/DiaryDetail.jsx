@@ -5,7 +5,7 @@ import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 import { Link, useLocation, useParams, useMatch } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getEveryDiary } from '../../api';
-import Header1 from '../../components/Header/Header1';
+import Header1 from '../Header/Header1';
 
 export default function BoardDetail() {
   const { refetch } = useQuery({ queryKey: ['diaries'], queryFn: getEveryDiary });
