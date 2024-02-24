@@ -12,6 +12,7 @@ import Diaries from './pages/Diary/Diaries.jsx';
 import DiaryDetail from './components/Diary/DiaryDetail.jsx';
 import Mypage from './pages/Mypage/Mypage.jsx';
 import PasswordChange from './pages/Mypage/PasswordChange.jsx';
+import NickNameChange from './pages/Mypage/NickNameChange.jsx';
 
 function App() {
   return (
@@ -22,7 +23,8 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/useridpw" element={<UserIdPw />} />
           <Route path="/mypage" element={<Mypage />} />
-          <Route path="/profile" element={<PasswordChange />} />
+          <Route path="/profile/password" element={<PasswordChange />} />
+          <Route path="/profile/nickname" element={<NickNameChange />} />
 
           <Route path="/test" element={<Test />} />
           <Route path="/calendar" element={<Calendar1 />} />

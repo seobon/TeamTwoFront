@@ -31,7 +31,7 @@ const Mypage = () => {
   }, []);
 
   const navigatePwChange = () => {
-    navigate('/profile');
+    navigate('/profile/password');
   };
   const userDelete = () => {
     showDeletePopup(!closeDeletetPopup);
@@ -43,6 +43,11 @@ const Mypage = () => {
   const handleImgError = e => {
     e.target.src = defultImg;
   };
+
+
+  const nickNameChange =  () => {
+    navigate('/profile/nickname');
+  }
 
 
   // SB: 파일 전송 함수
@@ -89,13 +94,14 @@ const Mypage = () => {
           <div className="w-32 h-32 bg-gray-200 bg-no-repeat bg-cover mb-6 rounded-full relative">
             {/* SB: 파일 전송 폼 태그 */}
             <form className="fileForm text-center" onSubmit={handleSubmit}>
-              <label htmlFor="fileInput">
+              <label htmlFor="fileInput" className='text-center'>
                 {!image && (
-                  <div className="fileExImage text-center">
+                  <div className="fileExImage text-center relative">
                     <img src="/static/exImage.png" alt="수정하기" className="rounded-full" onError={handleImgError} />
                   </div>
                 )}
                 <input id="fileInput" type="file" onChange={handleImageUpload} style={{ display: 'none' }} />
+                <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 text-white drop-shadow-sm font-Caption">수정하기</div>
                 {image && (
 
                   <img src={URL.createObjectURL(image)} alt="preview" className="rounded-full" style={{ width: '150px' }} />
@@ -109,7 +115,7 @@ const Mypage = () => {
             </form>
           </div>
         </div>
-        <p className="font-Body1 mb-6 text-center">{userInfo?.nickname} </p>
+        <p className="font-Body1 mb-6 text-center p-1 hover:cursor-pointer" onClick={nickNameChange}>{userInfo?.nickname} </p>
 
 
         <div className="rounded-lg mb-6 w-full bg-gray-200 p-3">
