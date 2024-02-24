@@ -96,7 +96,9 @@ const SignIn = () => {
     navigate('/useridpw');
   };
   return isLoggedIn ? (
-    <div>{location.pathname === '/signin' ? navigate('/calendar') : null}</div>
+    <>
+      <div>{location.pathname === '/signin' ? navigate('/calendar') : null}</div>
+    </>
   ) : (
     // <div>
     //   <p>로그인 되었습니다.</p>

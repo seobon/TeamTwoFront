@@ -4,6 +4,7 @@ import Header2 from '../../components/Header/Header2';
 import PopupNegative from '../../components/Popup/PopupNegative';
 import PopupLogout from '../../components/Popup/PopupLogout';
 import axios from 'axios';
+import defultImg from '../../assets/profileDefult.jpg';
 
 const Mypage = () => {
   const [closeLogoutPopup, showLogoutPopup] = useState(false);
@@ -39,6 +40,11 @@ const Mypage = () => {
     showLogoutPopup(!closeLogoutPopup);
   };
 
+  const handleImgError = e => {
+    e.target.src = defultImg;
+  };
+
+
   // SB: 파일 전송 함수
   const handleSubmit = async e => {
     e.preventDefault();
@@ -73,50 +79,48 @@ const Mypage = () => {
     setImage(e.target.files[0]);
   };
 
+
   return (
     <div className="relative">
       <Header2 title="마이페이지" />
       <div className="text-gray-600">
         <div className="flex justify-center">
-          <div className="w-32 h-32 bg-gray-200 mb-4 rounded-full">
+
+          <div className="w-32 h-32 bg-gray-200 bg-no-repeat bg-cover mb-6 rounded-full relative">
             {/* SB: 파일 전송 폼 태그 */}
-            <form className="fileForm" onSubmit={handleSubmit}>
+            <form className="fileForm text-center" onSubmit={handleSubmit}>
               <label htmlFor="fileInput">
                 {!image && (
-                  <div className="fileExImage">
-                    <img
-                      src="/static/exImage.png"
-                      alt="img example"
-                      className="exImage"
-                      style={{ width: '65px', height: '50px' }}
-                    />
+                  <div className="fileExImage text-center">
+                    <img src="/static/exImage.png" alt="수정하기" className="rounded-full" onError={handleImgError} />
                   </div>
                 )}
                 <input id="fileInput" type="file" onChange={handleImageUpload} style={{ display: 'none' }} />
                 {image && (
-                  <img src={URL.createObjectURL(image)} alt="preview" className="exImage" style={{ width: '150px' }} />
+
+                  <img src={URL.createObjectURL(image)} alt="preview" className="rounded-full" style={{ width: '150px' }} />
                 )}
               </label>
-              {/* SB: 전송 버튼 */}
-              <button type="submit" className="submitButton">
-                이미지 업로드
-              </button>
+              {image && (
+                <button type="submit" className="submitButton p-2">
+                  이미지 저장
+                </button>
+              )}
             </form>
           </div>
         </div>
-        <p className="font-Body1 mb-6 text-center">{userInfo?.userid}</p>
+        <p className="font-Body1 mb-6 text-center">{userInfo?.nickname} </p>
+
 
         <div className="rounded-lg mb-6 w-full bg-gray-200 p-3">
           <div className="relative">
             <p className="font-Caption mb-1.5">아이디</p>
             <p className="font-Body1 mb-6"> {userInfo?.userid} </p>
-            {/* <p className="font-Body1 mb-6"> id </p> */}
           </div>
 
           <div>
             <p className="font-Caption mb-1.5">이메일</p>
             <p className="font-Body1 mb-6"> {userInfo?.email} </p>
-            {/* <p className="font-Body1 mb-6"> email </p> */}
           </div>
 
           <button className="font-Caption mb-1.5" onClick={navigatePwChange}>

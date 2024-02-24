@@ -19,21 +19,26 @@ export default function Write() {
     const contents = editorRef.current.getInstance().getHTML(); // getHTML(): 에디터의 내용을 HTML로 가져옴
     console.log(contents);
 
-    // 일반 JavaScript 객체
+    const id = localStorage.getItem('id'); // 로컬 스토리지에서 id 값을 가져옴
+
     const data = {
-      id: '4', // 사용자ID 대신 실제 사용자ID를 입력해야 함
+      id: id,
       diaryTitle: '제목', // '제목' 대신 실제 제목을 입력해야 함
       diaryContent: contents,
       mood: 'annoying', // '기분' 대신 실제 기분 입력해야 함
-      location: 'Korea', // '위치' 대신 실제 위치를 입력해야 함
+      location: '서울', // '위치' 대신 실제 위치를 입력해야 함
       weather: '1', // '날씨' 대신 실제 날씨를 입력해야 함
       isPublic: isPublic,
+      currentLocation: [37.5665, 126.978], // 서울의 위도 경도
     };
+
+    console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', data);
 
     axios
       .post(`${process.env.REACT_APP_HOST}/diary/postDiary`, data, {
         withCredentials: true,
         headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
           'Content-Type': 'application/json',
         },
       })
@@ -51,6 +56,8 @@ export default function Write() {
       .catch(error => {
         console.log('글 등록 실패: ', error);
         console.log(data);
+        console.log('id: ', id);
+        console.log('userid: ', id);
       });
   };
 
@@ -83,7 +90,7 @@ export default function Write() {
           </div>
           <div className="mt-[0px]">
             <Editor
-              initialValue="Fucking Axios!" // 에디터의 초기 값
+              initialValue="외않돼지???!!?" // 에디터의 초기 값
               previewStyle="vertical" // 에디터와 미리보기 패널의 배치
               initialEditType="wysiwyg" // 워지웍 타입 선택
               hideModeSwitch={true} // 하단의 타입 선택 탭 숨김 (마크다운/워지웍)
