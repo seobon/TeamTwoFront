@@ -68,6 +68,7 @@ const Mypage = () => {
           {
             headers: {
               'Content-Type': 'multipart/form-data',
+              // Cookie: 'JSESSIONID=5514A3BAA93825EC043007EED56EAF5F',
             },
           },
         );
