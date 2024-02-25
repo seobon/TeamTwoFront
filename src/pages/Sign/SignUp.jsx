@@ -12,6 +12,7 @@ const SignUp = () => {
     register,
     watch,
     formState: { errors },
+    setError
   } = useForm();
   const password = useRef();
   password.current = watch('password');
@@ -35,6 +36,8 @@ const SignUp = () => {
       console.log('회원가입 응답:', response.data);
       navigator('/signin');
     } catch (error) {
+      setError("nickname", {message:"닉네임을 변경해주세요."},{ shouldFocus: true })
+      setError("userid", {message:"아이디를 변경해주세요."},{ shouldFocus: true })
     }
   };
   return (
