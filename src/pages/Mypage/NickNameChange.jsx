@@ -12,7 +12,6 @@ const NickNameChange = () => {
   const {
     handleSubmit,
     register,
-    watch,
     formState: { errors },
   } = useForm();
 
@@ -22,7 +21,7 @@ const NickNameChange = () => {
         const response = await axios.get(`${process.env.REACT_APP_HOST}/user/profile/${userid}`);
         setUserInfo(response.data);
       } catch (error) {
-        console.log('유저 데이터 찾기 싪패: ', error);
+        navigate("/signin")
       }
     };
     fetchData();
@@ -31,9 +30,13 @@ const NickNameChange = () => {
   const onChangeFormLib = async data => {
     console.log(data.newNickName);
     try {
-      const response = await axios.patch(`${process.env.REACT_APP_HOST}/user/profile/${userid}/nickname`, {
-        newNickName: data.newNickName,
-      });
+      const response = await axios.patch(
+        `${process.env.REACT_APP_HOST}/user/profile/${userid}/nickname`,
+        {
+          newNickName: data.newNickName,
+        },
+        { headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` } },
+      );
       console.log('마이페이지 닉네임 변경:', response.data);
       navigate('/mypage');
     } catch (error) {

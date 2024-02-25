@@ -33,12 +33,9 @@ const SignUp = () => {
         passwordConfirm: data.passwordConfirm,
       });
       console.log('회원가입 응답:', response.data);
-      alert('회원가입에 성공하였습니다');
       navigator('/signin');
     } catch (error) {
-      console.error('회원가입 에러:', error);
     }
-    // console.log('회원가입 정보', data);
   };
   return (
     <>

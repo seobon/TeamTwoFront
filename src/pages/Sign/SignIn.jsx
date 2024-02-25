@@ -7,27 +7,16 @@ import axios from 'axios';
 const SignIn = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태를 관리하는 상태
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [errMsg, setErrMsg] = useState("");
 
   useEffect(() => {
-    // 로컬 스토리지를 확인해서 로그인 상태 설정하기.
     const token = localStorage.getItem('accessToken');
     if (token) {
       setIsLoggedIn(true);
     }
   }, []);
 
-  // useEffect(() => {
-  //   if (isLoggedIn) {
-  //     // 로그인 상태가 true라면, 캘린더 페이지로 이동
-  //     alert('로그인 성공했습니당~.');
-  //     navigate('/calendar');
-  //   } else if (!isLoggedIn) {
-  //     alert('로그인 하십쇼!!!');
-  //   } else {
-  //     alert('로그인 ㄱㄱ');
-  //   }
-  // }, [isLoggedIn, navigate]);
 
   useEffect(() => {
     const checkLoginStatus = async () => {
@@ -41,12 +30,10 @@ const SignIn = () => {
             setIsLoggedIn(true);
           }
         } catch (error) {
-          console.log('로그인 상태 확인 에러!!', error);
+          navigate('/signin')
         }
       }
-
       if (isLoggedIn) {
-        alert('로그인 성공했습니당~.');
         navigate('/calendar');
       }
     };
@@ -57,6 +44,7 @@ const SignIn = () => {
   const {
     handleSubmit,
     register,
+    reset,
     watch,
     formState: { errors },
   } = useForm();
@@ -65,27 +53,23 @@ const SignIn = () => {
   passwordRef.current = watch('password');
 
   const onChangeFormLib = async data => {
+    setErrMsg("")
+    reset()
     try {
       const response = await axios.post(`${process.env.REACT_APP_HOST}/user/login`, {
         userid: data.userid,
         password: data.password,
       });
-
-      console.log('로그인 응답', response.data);
-
       if (response.status == 200) {
-        // 로그인 성공시
         localStorage.setItem('accessToken', response.data.accessToken);
         localStorage.setItem('refreshToken', response.data.refreshToken);
         localStorage.setItem('userid', response.data.userid);
         localStorage.setItem('id', response.data.id);
         setIsLoggedIn(true);
-        console.log('토큰 저장 성공이요!!', response.data.accessToken, response.data.refreshToken);
-      } else {
-        throw new Error('로그인 실패');
       }
     } catch (error) {
-      console.error('로그인 에러!!', error);
+      console.error(error)
+      setErrMsg("가입되어있지 않거나 로그인 정보를 확인할수없습니다.")
     }
   };
 
@@ -100,9 +84,6 @@ const SignIn = () => {
       <div>{location.pathname === '/signin' ? navigate('/calendar') : null}</div>
     </>
   ) : (
-    // <div>
-    //   <p>로그인 되었습니다.</p>
-    // </div>
     <>
       <div className="text-center">
         <p className="font-Heading3"> 계정을 만들어주세요!</p>
@@ -148,6 +129,8 @@ const SignIn = () => {
             errors={errors}
           />
         </div>
+
+        <p className='font-Body2 w-full text-deepRed font-Caption'>{errMsg}</p>
 
         <button className="btn-full-fill" type="submit">
           로그인

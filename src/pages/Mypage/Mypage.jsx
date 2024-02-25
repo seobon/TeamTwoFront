@@ -12,7 +12,6 @@ const Mypage = () => {
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState(null);
   const userid = localStorage.getItem('userid');
-  const id = localStorage.getItem('id');
 
   const [image, setImage] = useState();
   const [imagePath, setImagePath] = useState('');
@@ -24,7 +23,7 @@ const Mypage = () => {
         const response = await axios.get(`${process.env.REACT_APP_HOST}/user/profile/${userid}`);
         setUserInfo(response.data);
       } catch (error) {
-        console.log('유저 데이터 찾기 싪패: ', error);
+        navigate("/signin")
       }
     };
     fetchData();

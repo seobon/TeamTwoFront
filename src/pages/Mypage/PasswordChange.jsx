@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import Header1 from '../../components/Header/Header1';
 import Input from '../../components/Input/Input';
 import { useForm } from 'react-hook-form';
@@ -13,6 +13,7 @@ const PasswordChange = () => {
     register,
     watch,
     formState: { errors },
+    setError
   } = useForm();
   const password = useRef();
   password.current = watch('newPassword');
@@ -27,16 +28,14 @@ const PasswordChange = () => {
         },
         { headers: {Authorization: `Bearer ${localStorage.getItem("accessToken")}`} }
       );
-      console.log('비밀번호 변경:', response.data);
       localStorage.removeItem('userid');
       localStorage.removeItem('accessToken');
       localStorage.removeItem('refreshToken');
       localStorage.removeItem('id');
       navigate('/signin');
     } catch (error) {
-      console.error('비밀번호 변경 에러:', error);
+      setError("password", {message:"비밀번호가 일치하지 않습니다."},{ shouldFocus: true })
     }
-    // console.log('회원가입 정보', data);
   };
   return (
     <>
