@@ -11,7 +11,7 @@ const PopupNegative = ({ closeDeletetPopup, showDeletePopup }) => {
   const {
     handleSubmit,
     register,
-    watch,
+    setError,
     formState: { errors },
   } = useForm();
 
@@ -20,19 +20,18 @@ const PopupNegative = ({ closeDeletetPopup, showDeletePopup }) => {
       const response = await axios({
         method: 'delete',
         url: `${process.env.REACT_APP_HOST}/user/profile/${userid}/delete`,
-        data: { currentPassword: data.currentPassword },
+        data: { userid: userid,
+          currentPassword : data.currentPassword
+        },
         headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` },
       });
-      alert('회원탈퇴 성공!!');
       localStorage.removeItem('userid');
       localStorage.removeItem('accessToken');
       localStorage.removeItem('refreshToken');
       localStorage.removeItem('id');
       navigate('/signin');
-      console.log('회원탈퇴 완료', response.data);
     } catch (error) {
-      console.error('회원탈퇴 에러!!', error);
-      console.log(userid);
+      setError("currentPassword",{message:"비밀번호가 일치하지 않습니다."})
     }
   };
 

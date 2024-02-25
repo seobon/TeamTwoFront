@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import Input from '../../../components/Input/Input';
 import { useForm } from 'react-hook-form';
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 
 const FindId = () => {
   const [errorFindId, setErrorFindId] = useState('');
   const {
     handleSubmit,
     register,
-    watch,
     formState: { errors },
   } = useForm();
   const onChangeFormLib = async data => {
@@ -18,13 +17,11 @@ const FindId = () => {
           'Content-Type': 'application/json',
         },
       });
-      console.log(response);
       if (response.status == 200) {
         setErrorFindId(`이메일로 아이디가 전송되었습니다. 메일함을 확인해주세요.`);
       }
     } catch (error) {
       setErrorFindId(`이메일로 아이디를 보내드릴수가 없습니다. 이메일을 확인해주세요.`);
-      console.error('아이디 에러발생발생!!!!', error);
     }
   };
   return (

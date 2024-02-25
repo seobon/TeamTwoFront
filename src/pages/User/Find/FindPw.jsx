@@ -31,7 +31,6 @@ const FindPw = () => {
       }
     } catch (error) {
       setErrorFindPw("이메일로 임시비밀번호가 전송할수없습니다. 이메일을 확인해주세요.");
-      console.error('에러발생발생!!!!', error);
     }
   };
   return (
