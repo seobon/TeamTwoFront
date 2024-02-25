@@ -1,0 +1,18 @@
+.myMenu {
+  position: fixed;
+  bottom: 0;
+  width: 430px;
+  background-color: lightgray;
+  z-index: 999;
+}
+
+.myMenu a {
+  width: 100%;
+  padding: 0.5em;
+}
+.myMenu a:hover {
+  background-color: greenyellow;
+}
+.myMenu a:active {
+  background-color: yellowgreen;
+}
