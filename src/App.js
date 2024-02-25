@@ -12,7 +12,9 @@ import Diaries from './pages/Diary/Diaries.jsx';
 import DiaryDetail from './components/Diary/DiaryDetail.jsx';
 import Mypage from './pages/Mypage/Mypage.jsx';
 import PasswordChange from './pages/Mypage/PasswordChange.jsx';
+import Menu from './Layout/Menu.jsx';
 import NickNameChange from './pages/Mypage/NickNameChange.jsx';
+
 
 function App() {
   return (
@@ -37,6 +39,7 @@ function App() {
           <Route path="/diary/:id" element={<DiaryDetail />} />
         </Routes>
       </div>
+      <Menu />
     </BrowserRouter>
   );
 }

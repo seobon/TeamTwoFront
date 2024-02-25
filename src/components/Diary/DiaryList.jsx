@@ -33,7 +33,6 @@ const BoardList = () => {
 
   useEffect(() => {
     if (inView && hasNextPage) {
-      console.log('inView', inView);
       fetchNextPage();
     }
   }, [inView, hasNextPage, fetchNextPage]);
