@@ -91,10 +91,17 @@ const Mypage = () => {
       <div className="text-gray-600">
         <div className="flex justify-center">
 
-          <div className="w-32 h-32 bg-gray-200 bg-no-repeat bg-cover mb-6 rounded-full relative">
+          <div >
             {/* SB: 파일 전송 폼 태그 */}
+
             <form className="fileForm text-center" onSubmit={handleSubmit}>
-              <label htmlFor="fileInput" className='text-center'>
+            {image && (
+                <button type="submit" className="submitButton p-2">
+                  이미지 저장
+                </button>
+              )}
+            <div className="w-32 h-32 bg-gray-200 bg-no-repeat bg-cover mb-2 rounded-full relative overflow-clip">
+            <label htmlFor="fileInput" className='text-center'>
                 {!image && (
                   <div className="fileExImage text-center relative">
                     <img src="/static/exImage.png" alt="수정하기" className="rounded-full" onError={handleImgError} />
@@ -107,11 +114,9 @@ const Mypage = () => {
                   <img src={URL.createObjectURL(image)} alt="preview" className="rounded-full" style={{ width: '150px' }} />
                 )}
               </label>
-              {image && (
-                <button type="submit" className="submitButton p-2">
-                  이미지 저장
-                </button>
-              )}
+              </div>
+
+
             </form>
           </div>
         </div>
