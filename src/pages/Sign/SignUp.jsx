@@ -12,6 +12,7 @@ const SignUp = () => {
     register,
     watch,
     formState: { errors },
+    setError
   } = useForm();
   const password = useRef();
   password.current = watch('password');
@@ -33,12 +34,11 @@ const SignUp = () => {
         passwordConfirm: data.passwordConfirm,
       });
       console.log('회원가입 응답:', response.data);
-      alert('회원가입에 성공하였습니다');
       navigator('/signin');
     } catch (error) {
-      console.error('회원가입 에러:', error);
+      setError("nickname", {message:"닉네임을 변경해주세요."},{ shouldFocus: true })
+      setError("userid", {message:"아이디를 변경해주세요."},{ shouldFocus: true })
     }
-    // console.log('회원가입 정보', data);
   };
   return (
     <>

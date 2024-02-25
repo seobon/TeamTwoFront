@@ -13,17 +13,20 @@ export default function Calendar1() {
   useEffect(() => {
     const id = localStorage.getItem('id');
     const month = today.getMonth() + 1;
+    const monthString = month > 9 ? month : `0${month}`;
 
     axios
-      .get(`${process.env.REACT_APP_HOST}/diary/getCalendar?id=${id}&month=${month}`)
+      .get(`${process.env.REACT_APP_HOST}/diary/getCalendar?id=${id}&month=${monthString}`)
       .then(response => {
         if (response.data[0].diaryId != null) {
-          // diaryData에 서버로부터 받은 데이터 저장
-          const writtenDates = response.data.map(diary => diary.createdAt.split(',')[0]); // 작성된 날짜만 추출
+          setDiaryData(response.data); // 서버로부터 받은 데이터를 diaryData에 저장
 
-          setWrittenDays(writtenDates); // 작성된 날짜를 writtenDays 상태에 저장
+          // const writtenDates = response.data.map(diary => diary.createdAt.split(' ').slice(0, 3).join(' ')); // 작성된 날짜 ("24. 2. 24." 문자열 형식)
+          // setWrittenDays(writtenDates); // 작성된 날짜를 writtenDays 상태에 저장
+
           console.log('response.data: ', response.data);
           console.log('댔다!!');
+          makeCalendar(response.data);
         } else {
           console.log('Failed to get the calendar data');
           console.log('response.data: ', response.data);
@@ -59,42 +62,65 @@ export default function Calendar1() {
     setToday(new Date());
   };
 
-  const weekDays = ['일', '월', '화', '수', '목', '금', '토'];
+  const [calendar, setCalendar] = useState([]);
 
-  let calendar = [];
-  // 요일
-  for (let i = 0; i < weekDays.length; i++) {
-    calendar.push(<div className="h-10 flex justify-center text-gray-900 font-Heading3">{weekDays[i]}</div>);
-  }
+  const makeCalendar = diaryData => {
+    const weekDays = ['일', '월', '화', '수', '목', '금', '토'];
 
-  for (let i = 0; i < firstDay; i++) {
-    calendar.push(<div className=""></div>);
-  }
-  // 일
-  for (let i = 1; i <= daysInMonth; i++) {
-    const date = new Date(today.getFullYear(), today.getMonth(), i);
-    calendar.push(
-      <div style={{ textAlign: 'center' }}>
-        {/* 감정 버튼 */}
-        <div
-          onClick={() => mood(date)}
-          className="w-10 h-10 rounded-full bg-gray-200 mx-auto flex items-center justify-center cursor-pointer"></div>
-        {/* 숫자(날짜) */}
-        <div className="mt-[3px] mb-4 text-[12px]">{i}</div>
-      </div>,
-    );
-  }
+    const calendarTemp = [];
 
+    for (let i = 0; i < weekDays.length; i++) {
+      calendarTemp.push(<div className="h-10 flex justify-center text-gray-900 font-Heading3">{weekDays[i]}</div>);
+    }
+
+    for (let i = 0; i < firstDay; i++) {
+      calendarTemp.push(<div className=""></div>);
+    }
+
+    // 일
+    for (let i = 1; i <= daysInMonth; i++) {
+      const date = new Date(today.getFullYear(), today.getMonth(), i);
+
+      let diaryId;
+      let dateColor = 'bg-gray-200';
+      for (const diary of diaryData) {
+        const DiaryDate = new Date(diary.createdAt).getDate();
+        if (i === DiaryDate) {
+          diaryId = { id: `diary-${diary.diaryId}` };
+          dateColor = 'bg-yellow';
+        }
+      }
+
+      calendarTemp.push(
+        <div style={{ textAlign: 'center' }}>
+          {/* 감정 버튼 */}
+          <div
+            onClick={() => mood(date)}
+            className={`w-10 h-10 rounded-full ${dateColor} mx-auto flex items-center justify-center cursor-pointer`}></div>
+          {/* 숫자(날짜) */}
+          <div className="mt-[3px] mb-4 text-[12px]" {...diaryId}>
+            {/* <Link> */}
+            {i}
+            {/* </Link> */}
+          </div>
+        </div>,
+      );
+    }
+
+    setCalendar(calendarTemp);
+  };
+
+  // 캘린더 감정 아이콘
   const mood = day => {
-    let momentDate = moment(day).format();
-    const dateString = momentDate.split('T')[0]; // 날짜를 문자열로 변환
-
-    if (writtenDays.includes(dateString)) {
-      // 작성된 날짜를 클릭하면 글 수정 페이지로 이동
-      navigator(`/edit/${dateString}`);
+    let dateString = moment(day).format('YYYY. M. D.'); // 날짜를 "2024. 2. 24." 형식의 문자열로 변환
+    console.log('dateString: ', dateString);
+    console.log('writtenDays', writtenDays);
+    if (writtenDays) {
+      // navigator(`/write`);
     } else {
       // 작성되지 않은 날짜를 클릭하면 글 작성 페이지로 이동
-      navigator(`/write/${dateString}`);
+      // navigator(`/write`);
+      alert('이 날에 작성된 글이 없습니다.');
     }
   };
 

@@ -11,23 +11,27 @@ const PopupNegative = ({ closeDeletetPopup, showDeletePopup }) => {
   const {
     handleSubmit,
     register,
-    watch,
+    setError,
     formState: { errors },
   } = useForm();
 
   const onChangeForm = async data => {
     try {
-      const response = await axios.delete(
-        `${process.env.REACT_APP_HOST}/user/profile/${userid}/delete`,
-        { userid: userid},
-        { headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` } },
-      );
-      navigate('/calendar');
-      console.log('회원탈퇴 완료', response.data);
+      const response = await axios({
+        method: 'delete',
+        url: `${process.env.REACT_APP_HOST}/user/profile/${userid}/delete`,
+        data: { userid: userid,
+          currentPassword : data.currentPassword
+        },
+        headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` },
+      });
+      localStorage.removeItem('userid');
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
+      localStorage.removeItem('id');
+      navigate('/signin');
     } catch (error) {
-      console.error('회원탈퇴 에러!!', error);
-      console.log(userid)
-
+      setError("currentPassword",{message:"비밀번호가 일치하지 않습니다."})
     }
   };
 
@@ -41,8 +45,8 @@ const PopupNegative = ({ closeDeletetPopup, showDeletePopup }) => {
           </div>
 
           <Input
-            id="password"
-            name="password"
+            id="currentPassword"
+            name="currentPassword"
             type="password"
             placeholder="비밀번호"
             register={register}
