@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 export default function Todo() {
   const [toDoList, setToDoList] = useState([
@@ -12,11 +13,51 @@ export default function Todo() {
   const [inputText, setInputText] = useState('');
   const [editIndex, setEditIndex] = useState(null);
 
+  // useEffect(() => {
+  //   const id = localStorage.getItem('id');
+  // });
+
   // todo 작성
   const addTodo = todo => {
     setToDoList([...toDoList, { text: todo, isCheck: false }]);
     console.log('addTodo 함수 실행');
   };
+
+  // todo 작성
+  // const addTodo = async todo => {
+  //   const token = localStorage.getItem('accessToken');
+  //   try {
+  //     const response = await axios.post(`${process.env.REACT_APP_HOST}/todo/post`, todo, {
+  //       headers: { Authorization: `Bearer ${token}` },
+  //     });
+  //     setToDoList([...toDoList, { text: todo, isCheck: false }]);
+  //     console.log('Todo 작성 성공');
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
+  // const addTodo = async todo => {
+  //   const response = await axios.post(
+  //     `${process.env.REACT_APP_HOST}/todo/post`,
+  //     {
+  //       id: localStorage.getItem('id'),
+  //       todo_content: todo,
+  //     },
+  //     {
+  //       headers: {
+  //         Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+  //       },
+  //     },
+  //   );
+
+  //   if (response.data) {
+  //     setToDoList([...toDoList, { text: todo, isCheck: false }]);
+  //     console.log('addTodo 함수 실행');
+  //   } else {
+  //     console.log('Todo 추가 실패');
+  //   }
+  // };
 
   // 토글 버튼
   const toggleCheck = index => {
