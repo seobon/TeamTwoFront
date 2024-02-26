@@ -3,9 +3,19 @@ import { useNavigate } from 'react-router-dom';
 import Header2 from '../../components/Header/Header2';
 import PopupNegative from '../../components/Popup/PopupNegative';
 
+import axios from 'axios';
+
 const Mypage = () => {
   const [closeLogoutPopup, showLogoutPopup] = useState(false);
   const [closeDeletetPopup, showDeletePopup] = useState(false);
+
+
+  const [image, setImage] = useState();
+  const [imagePath, setImagePath] = useState('');
+
+  const ENV_URL = process.env.REACT_APP_DB_HOST;
+
+
   const navigate = useNavigate();
   const navigatePwChange = () => {
     navigate('/profile');
@@ -16,12 +26,82 @@ const Mypage = () => {
   const userLogout = () => {
     showDeletePopup(!closeDeletetPopup);
   };
+
+
+  // SB: 파일 전송 함수
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+
+    formData.append('image', image);
+
+    if (!image) {
+      alert("프로필로 사용할 이미지 파일을 업로드 해주세요.")
+    } else {
+      try {
+        const response = await axios.post(
+          // `${ENV_URL}/image/:id`,
+          `${ENV_URL}/image/1`,
+          formData,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          }
+        );
+        setImagePath(response.data);
+      } catch (error) {
+        alert("파일 전송에 실패했습니다. 잠시 후 다시 시도해주세요")
+      }
+    }
+  };
+
+    // SB: 파일 url을 useState로 저장하는 함수  
+    const handleImageUpload = (e) => {
+      setImage(e.target.files[0]);
+    };
+
   return (
     <>
       <Header2 title="마이페이지" />
       <div className="text-gray-600">
         <div className="flex justify-center">
-          <div className="w-32 h-32 bg-gray-200 mb-4 rounded-full"></div>
+          <div className="w-32 h-32 bg-gray-200 mb-4 rounded-full">
+
+            <form className="fileForm" onSubmit={handleSubmit}>
+              <label htmlFor="fileInput">
+                {!image && (
+                  <div className="fileExImage">
+                    <img
+                      src="/static/exImage.png"
+                      alt="img example"
+                      className="exImage"
+                      style={{ width: '65px', height: '50px' }}
+                    />
+                  </div>
+                )}
+                <input
+                  id="fileInput"
+                  type="file"
+                  onChange={handleImageUpload}
+                  style={{ display: 'none' }}
+                />
+                {image && (
+                  <img
+                    src={URL.createObjectURL(image)}
+                    alt="preview"
+                    className="exImage"
+                    style={{ width: '150px' }}
+                  />
+                )}
+              </label>
+              <button type="submit" className="submitButton">
+                이미지 업로드
+              </button>
+            </form>
+
+          </div>
         </div>
         <p className="font-Body1 mb-6 text-center"> id </p>
 
