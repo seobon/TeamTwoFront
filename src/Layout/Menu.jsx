@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import styles from './menu.module.css';
 
 const menuse = [
-  ['home', '/'],
+  ['home', '/calendar'],
   ['diary', '/diary'],
   ['write', '/write'],
   ['user', '/mypage'],
