@@ -42,8 +42,12 @@ export default function BoardDetail() {
       // `${ENV_URL}/diary/checkUser?diaryId=17` 를
       // `${ENV_URL}/diary/checkUser?diaryId=${diaryId}` 로
       // 수정하시면 되겠습니다.
-      const response = await axios.get(`${ENV_URL}/diary/checkUser?diaryId=1`);
-
+      
+      // const response = await axios.get(`${ENV_URL}/diary/checkUser?diaryId=1`);
+      const response = await axios.get(
+        `${ENV_URL}/diary/checkUser?diaryId=1`
+      );
+      
       // SB: 콘솔 확인 부분입니다. 추후 삭제하시면 됩니다.
       console.log('checkUser data', response.data);
       console.log('id', id);
@@ -127,8 +131,12 @@ export default function BoardDetail() {
       // `${ENV_URL}/diary/getOneDiary?diaryId=12` 를
       // `${ENV_URL}/diary/getOneDiary?diaryId=${diaryId}` 로
       // 수정하시면 되겠습니다.
-      const response = await axios.get(`${ENV_URL}/diary/getOneDiary?diaryId=16`);
 
+      // const response = await axios.get(`${ENV_URL}/diary/getOneDiary?diaryId=16`);
+      const response = await axios.get(
+        `${ENV_URL}/diary/getOneDiary?diaryId=1`
+      );
+  
       // SB: 콘솔 확인 부분입니다. 추후 삭제하시면 됩니다.
       console.log('getOneDiary data', response.data);
 
