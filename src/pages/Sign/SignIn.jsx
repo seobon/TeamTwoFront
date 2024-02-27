@@ -117,7 +117,7 @@ const SignIn = () => {
           </svg>
         </span>
       </div>
-      <form onSubmit={handleSubmit(onChangeFormLib)}>
+      <form onSubmit={handleSubmit(onChangeFormLib)} onChange={()=>{setErrMsg("")}}>
         <Input
           id="userid"
           name="userid"
