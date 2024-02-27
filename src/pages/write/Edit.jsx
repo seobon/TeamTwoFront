@@ -50,7 +50,7 @@ export default function Write() {
 
 
   const onValid = () => {
-    const contents = editorRef.current.getInstance().getMarkdown(); // getHTML(): 에디터의 내용을 HTML로 가져옴
+    const contents = editorRef.current.getInstance().getMarkdown();
 
     console.log(contents);
     const id = localStorage.getItem('id'); // 로컬 스토리지에서 id 값을 가져옴
@@ -110,6 +110,33 @@ export default function Write() {
       <Header1 title="수정하기" />
       <form onSubmit={handleSubmit(onValid)}>
         <div className="mt-[0px]">
+        <p className="font-Heading4">오늘의 기분</p>
+            <div
+              className="flex justify-between items-center font-Body4 p-4 px-12"
+              onChange={e => {
+                setMood(e.target.value);
+              }}>
+              <label htmlFor="happy">
+                <input id="happy" type="radio" name="mood" value="happy" className="hidden" />{' '}
+                <Happy className={mood === 'happy' ? 'opacity-100' : 'opacity-50'} />
+              </label>
+              <label htmlFor="great">
+                <input id="great" type="radio" name="mood" value="great" className="hidden" />{' '}
+                <Great className={mood === 'great' ? 'opacity-100' : 'opacity-50'} />
+              </label>
+              <label htmlFor="soso">
+                <input id="soso" type="radio" name="mood" value="soso" className="hidden" />{' '}
+                <Soso className={mood === 'soso' ? 'opacity-100' : 'opacity-50'} />
+              </label>
+              <label htmlFor="sad">
+                <input id="sad" type="radio" name="mood" value="sad" className="hidden" />{' '}
+                <Sad className={mood === 'sad' ? 'opacity-100' : 'opacity-50'} />
+              </label>
+              <label htmlFor="annoying">
+                <input id="annoying" type="radio" name="mood" value="annoying" className="hidden" />{' '}
+                <Annoying className={mood === 'annoying' ? 'opacity-100' : 'opacity-50'} />
+              </label>
+            </div>
           <div className="ml-[5px]">
             비공개{' '}
             <button type="button" onClick={IsPublicToggle} className="">
@@ -147,11 +174,6 @@ export default function Write() {
           </div>
         </div>
       </form>
-      <button style={{ margin: '5px', backgroundColor: 'red' }} onClick={()=>{setMood("happy")}}>happy</button>
-      <button style={{ margin: '5px', backgroundColor: 'green' }} onClick={()=>{setMood("great")}}>great</button>
-      <button style={{ margin: '5px', backgroundColor: 'yellow' }} onClick={()=>{setMood("soso")}}>soso</button>
-      <button style={{ margin: '5px', backgroundColor: 'blue' }} onClick={()=>{setMood("sad")}}>sad</button>
-      <button style={{ margin: '5px', backgroundColor: 'purple' }} onClick={()=>{setMood("annoying")}}>annoying</button>
     </>
   );
 }
