@@ -24,7 +24,7 @@ function App() {
         <Route path="/mypage" element={<Mypage />} />
         <Route path="/profile/password" element={<PasswordChange />} />
         <Route path="/profile/nickname" element={<NickNameChange />} />
-         <Route path="/write" element={<Write />} />
+        <Route path="/write" element={<Write />} />
 
         <Route path="/" element={<Menu />}>
           <Route path="signin" element={<SignIn />} />
