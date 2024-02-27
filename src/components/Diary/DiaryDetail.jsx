@@ -16,14 +16,14 @@ export default function BoardDetail() {
   const [myDiaryInfo, setMyDiaryInfo] = useState({});
   const [oneDiaryInfo, setOneDiaryInfo] = useState({});
 
-  const [whoDiary, setWhoDiary] = useState("");
+  const [whoDiary, setWhoDiary] = useState('');
 
-  const [title, setTitle] = useState("");
-  const [diaryTitle, setDiaryTitle] = useState("");
-  const [diaryContent, setDiaryContent] = useState("");
-  const [mood, setMood] = useState("");
-  const [weather, setWeather] = useState("");
-  const [createdAt, setCreatedAt] = useState("");
+  const [title, setTitle] = useState('');
+  const [diaryTitle, setDiaryTitle] = useState('');
+  const [diaryContent, setDiaryContent] = useState('');
+  const [mood, setMood] = useState('');
+  const [weather, setWeather] = useState('');
+  const [createdAt, setCreatedAt] = useState('');
 
   // pthsname 정보와 상위 컴포넌트에서 정보를 state에 담아서 받아오기
   const state = useLocation();
@@ -34,7 +34,6 @@ export default function BoardDetail() {
   // const params = useParams();
   // console.log('params', params);
 
-
   // SB: 나의 다이어리일 경우 실행시키는(캘린더에서 이어지는) 다이어리 정보 조회 함수입니다.
   const checkUser = async () => {
     try {
@@ -43,24 +42,25 @@ export default function BoardDetail() {
       // `${ENV_URL}/diary/checkUser?diaryId=17` 를
       // `${ENV_URL}/diary/checkUser?diaryId=${diaryId}` 로
       // 수정하시면 되겠습니다.
+      
+      // const response = await axios.get(`${ENV_URL}/diary/checkUser?diaryId=1`);
       const response = await axios.get(
         `${ENV_URL}/diary/checkUser?diaryId=1`
       );
-  
-      // SB: 콘솔 확인 부분입니다. 추후 삭제하시면 됩니다.
-      console.log("checkUser data", response.data)
-      console.log("id", id)
       
+      // SB: 콘솔 확인 부분입니다. 추후 삭제하시면 됩니다.
+      console.log('checkUser data', response.data);
+      console.log('id', id);
+
       if (response.data == id) {
-        console.log("나의 다이어리 입니다.")
+        console.log('나의 다이어리 입니다.');
         getMyDiary();
-        setWhoDiary("mine");
+        setWhoDiary('mine');
       } else {
-        console.log("남의 다이어리 입니다.")
+        console.log('남의 다이어리 입니다.');
         getOneDiary();
-        setWhoDiary("someone");
+        setWhoDiary('someone');
       }
-  
     } catch (error) {
       console.error('Check User Error:', error); // Diary 정보 가져오기 오류 출력
     }
@@ -74,12 +74,10 @@ export default function BoardDetail() {
       // `${ENV_URL}/diary/getMyDiary?diaryId=17` 를
       // `${ENV_URL}/diary/getMyDiary?diaryId=${diaryId}` 로
       // 수정하시면 되겠습니다.
-      const response = await axios.get(
-        `${ENV_URL}/diary/getMyDiary?diaryId=17`
-      );
-  
+      const response = await axios.get(`${ENV_URL}/diary/getMyDiary?diaryId=1`);
+
       // SB: 콘솔 확인 부분입니다. 추후 삭제하시면 됩니다.
-      console.log("getMyDiary data", response.data)
+      console.log('getMyDiary data', response.data);
 
       // API 응답 데이터를 기반으로 다이어리 정보 설정
       setMyDiaryInfo({
@@ -101,18 +99,18 @@ export default function BoardDetail() {
         angry: response.data.angry, // angry 수
       });
 
-      setTitle("일기")
+      setTitle('일기');
 
       let originDate = response.data.createdAt.split(' ')[0];
       let month = response.data.createdAt.split(' ')[0].split('-')[1].replace('0', '');
       let day = response.data.createdAt.split(' ')[0].split('-')[2];
 
-      var week = new Array('일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일');
+      let week = new Array('일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일');
 
-      var today = new Date(originDate).getDay();
-      var todayLabel = week[today];
+      let today = new Date(originDate).getDay();
+      let todayLabel = week[today];
 
-      let date = month + "월 " + day + "일 " + todayLabel;
+      let date = month + '월 ' + day + '일 ' + todayLabel;
 
       setCreatedAt(date);
 
@@ -133,12 +131,14 @@ export default function BoardDetail() {
       // `${ENV_URL}/diary/getOneDiary?diaryId=12` 를
       // `${ENV_URL}/diary/getOneDiary?diaryId=${diaryId}` 로
       // 수정하시면 되겠습니다.
+
+      // const response = await axios.get(`${ENV_URL}/diary/getOneDiary?diaryId=16`);
       const response = await axios.get(
         `${ENV_URL}/diary/getOneDiary?diaryId=1`
       );
   
       // SB: 콘솔 확인 부분입니다. 추후 삭제하시면 됩니다.
-      console.log("getOneDiary data", response.data)
+      console.log('getOneDiary data', response.data);
 
       // API 응답 데이터를 기반으로 다이어리 정보 설정
       setOneDiaryInfo({
@@ -156,14 +156,14 @@ export default function BoardDetail() {
         public: response.data.public, // 공개 여부
       });
 
-      setTitle(`${response.data.nickname}의 다이어리`)
+      setTitle(`${response.data.nickname}의 다이어리`);
       setDiaryTitle(response.data.diaryTitle);
       setDiaryContent(response.data.diaryContent);
     } catch (error) {
       console.error('Get One Diary Error:', error); // Diary 정보 가져오기 오류 출력
     }
   };
-  
+
   useEffect(() => {
     checkUser();
   }, []);
@@ -175,10 +175,21 @@ export default function BoardDetail() {
       <div>{diaryTitle}</div>
       <div>{diaryContent}</div> */}
       {/* <Viewer initialValue={contents || ''} /> */}
-      <div>
+
+      <div className="ml-[330px] mb-[3px]">
+        <span className="mr-[10px]">
+          <Link to={'/calendar'}>수정</Link>
+        </span>
+        <span className="">
+          <button onClick={''}>삭제</button>
+        </span>
+      </div>
+
+      {/* 본문 */}
+      <div className="w-[410px] min-h-[790px] rounded-xl ml-[10px] bg-white">
         {whoDiary === 'mine' ? (
-            <>
-            <div>{createdAt}</div>
+          <div className="m-[15px]">
+            <div className="font-Heading3 text-center mb-[20px]">{createdAt}</div>
             <div style={{ backgroundColor: 'pink' }}>
               <div>오늘의 기분</div>
               <div>기분 이미지</div>
@@ -189,13 +200,15 @@ export default function BoardDetail() {
               <div>날씨 이미지</div>
               <div>{weather}</div>
             </div>
-            </>
-          ) : (
-            <></>
-          )}
-        <div style={{ backgroundColor: 'lightgreen' }}>
-          <div>{diaryTitle}</div>
-          <div>{diaryContent}</div>
+          </div>
+        ) : (
+          <></>
+        )}
+        <div className="m-[15px]">
+          <div style={{ backgroundColor: 'lightgreen' }}>
+            <div>{diaryTitle}</div>
+            <div>{diaryContent}</div>
+          </div>
         </div>
       </div>
     </>
