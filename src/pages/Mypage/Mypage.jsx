@@ -15,7 +15,7 @@ const Mypage = () => {
 
   const [image, setImage] = useState();
   const [imagePath, setImagePath] = useState('');
-  const ENV_URL = process.env.REACT_APP_DB_HOST;
+  const ENV_URL = process.env.REACT_APP_HOST;
 
   useEffect(() => {
     const fetchData = async () => {
