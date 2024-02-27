@@ -1,13 +1,11 @@
 // 게시판 상세 페이지
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Viewer } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 import { Link, useLocation, useParams, useMatch } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getEveryDiary } from '../../api';
 import Header1 from '../Header/Header1';
-
-import { useState } from 'react';
 import axios from 'axios';
 
 export default function BoardDetail() {
