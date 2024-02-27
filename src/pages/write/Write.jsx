@@ -9,6 +9,7 @@ import 'tui-color-picker/dist/tui-color-picker.css';
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
 import '@toast-ui/editor/dist/i18n/ko-kr';
 import Header1 from '../../components/Header/Header1';
+
 import Toggle from '../../components/BTN/Toggle';
 import { ReactComponent as Annoying } from '../../assets/Mood/Annoying.svg';
 import { ReactComponent as Great } from '../../assets/Mood/Great.svg';
@@ -24,12 +25,17 @@ export default function Write() {
   const navigate = useNavigate();
 
   const editorRef = useRef(); // 에디터 컴포넌트에 접근하기 위한 ref 생성
+
+  const [isPublic, setIsPublic] = useState(true); // 글 비공개 여부
+  const { handleSubmit } = useForm();
+
   const [isOn, setIsOn] = useState(false);
   const [mood, setMood] = useState('happy');
   const [title, setTitle] = useState();
   // const { location, error } = useCurrentLocation();
 
   const diaryWriteSubmit = () => {
+
 
     const contents = editorRef.current.getInstance().getHTML(); // getHTML(): 에디터의 내용을 HTML로 가져옴
     console.log(contents);
@@ -131,8 +137,10 @@ export default function Write() {
             </div>
           </div>
           <div className="openApi">
+
             {/* <Location />
             <Weather /> */}
+
           </div>
           <input
             className="w-full h-10 mb-4 p-2 bg-white rounded-lg border border-solid focus:outline-none focus:bg-white active:bg-white"
