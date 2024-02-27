@@ -9,7 +9,6 @@ import 'tui-color-picker/dist/tui-color-picker.css';
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
 import '@toast-ui/editor/dist/i18n/ko-kr';
 import Header1 from '../../components/Header/Header1';
-
 import Toggle from '../../components/BTN/Toggle';
 import { ReactComponent as Annoying } from '../../assets/Mood/Annoying.svg';
 import { ReactComponent as Great } from '../../assets/Mood/Great.svg';
@@ -17,9 +16,9 @@ import { ReactComponent as Happy } from '../../assets/Mood/Happy.svg';
 import { ReactComponent as Sad } from '../../assets/Mood/Sad.svg';
 import { ReactComponent as Soso } from '../../assets/Mood/Soso.svg';
 import { useNavigate } from 'react-router-dom';
-// import useCurrentLocation from '../../hooks/useGeoLocation';
-// import Location from '../../components/Diary/Location';
-// import Weather from '../../components/Diary/Weather';
+import Location from '../../components/Diary/Location';
+import Weather from '../../components/Diary/Weather';
+
 
 export default function Write() {
   const navigate = useNavigate();

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import useCurrentLocation from '../../hooks/useGeolocation';
+import useCurrentLocation from '../../hooks/useGeoLocation';
 
 const Weather = () => {
   const { location, error } = useCurrentLocation();
