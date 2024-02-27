@@ -17,11 +17,11 @@ export default function Calendar1() {
     const monthString = month > 9 ? month : `0${month}`;
     const monthNumber = Number(monthString);
 
-    console.log('idNumber: ', idNumber); // 6
-    console.log('idNumber+idNumber:  ', idNumber + idNumber); // 12
+    // console.log('idNumber: ', idNumber); // 6
+    // console.log('idNumber+idNumber:  ', idNumber + idNumber); // 12
 
     axios
-      .get(`${process.env.REACT_APP_HOST}/diary/getCalendar?id=${idNumber}&month=${monthString}`)
+      .get(`${process.env.REACT_APP_HOST}/diary/getCalendar?id=${id}&month=${monthString}`)
       .then(response => {
         if (response.data[0].diaryId != null) {
           setDiaryData(response.data); // 서버로부터 받은 데이터를 diaryData에 저장
@@ -87,7 +87,9 @@ export default function Calendar1() {
       let diaryId;
       let dateColor = 'bg-gray-200';
       for (const diary of diaryData) {
+        if (!diary.createdAt) continue;
         const DiaryDate = new Date(diary.createdAt).getDate();
+
         if (i === DiaryDate) {
           diaryId = { id: `diary-${diary.diaryId}` };
           console.log('i: ', i);
