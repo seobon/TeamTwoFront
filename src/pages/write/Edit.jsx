@@ -10,6 +10,12 @@ import 'tui-color-picker/dist/tui-color-picker.css';
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
 import '@toast-ui/editor/dist/i18n/ko-kr';
 import Header1 from '../../components/Header/Header1';
+
+import { ReactComponent as Annoying } from '../../assets/Mood/Annoying.svg';
+import { ReactComponent as Great } from '../../assets/Mood/Great.svg';
+import { ReactComponent as Happy } from '../../assets/Mood/Happy.svg';
+import { ReactComponent as Sad } from '../../assets/Mood/Sad.svg';
+import { ReactComponent as Soso } from '../../assets/Mood/Soso.svg';
 // import useCurrentLocation from '../../hooks/useGeoLocation';
 // import Location from '../../components/Diary/Location';
 // import Weather from '../../components/Diary/Weather';
@@ -118,23 +124,23 @@ export default function Write() {
               }}>
               <label htmlFor="happy">
                 <input id="happy" type="radio" name="mood" value="happy" className="hidden" />{' '}
-                <Happy className={mood === 'happy' ? 'opacity-100' : 'opacity-50'} />
+                <Happy className={'opacity-100'} />
               </label>
               <label htmlFor="great">
                 <input id="great" type="radio" name="mood" value="great" className="hidden" />{' '}
-                <Great className={mood === 'great' ? 'opacity-100' : 'opacity-50'} />
+                <Great className={'opacity-100'} />
               </label>
               <label htmlFor="soso">
                 <input id="soso" type="radio" name="mood" value="soso" className="hidden" />{' '}
-                <Soso className={mood === 'soso' ? 'opacity-100' : 'opacity-50'} />
+                <Soso className={'opacity-100'} />
               </label>
               <label htmlFor="sad">
                 <input id="sad" type="radio" name="mood" value="sad" className="hidden" />{' '}
-                <Sad className={mood === 'sad' ? 'opacity-100' : 'opacity-50'} />
+                <Sad className={'opacity-100'} />
               </label>
               <label htmlFor="annoying">
                 <input id="annoying" type="radio" name="mood" value="annoying" className="hidden" />{' '}
-                <Annoying className={mood === 'annoying' ? 'opacity-100' : 'opacity-50'} />
+                <Annoying className={'opacity-100'} />
               </label>
             </div>
           <div className="ml-[5px]">
