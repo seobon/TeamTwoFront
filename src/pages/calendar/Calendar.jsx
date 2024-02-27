@@ -49,12 +49,10 @@ export default function Calendar1() {
   };
 
   const prevMonth = () => {
-    makeCalendar(diaryData);
     setToday(new Date(today.getFullYear(), today.getMonth() - 1));
   };
 
   const nextMonth = () => {
-    makeCalendar(diaryData);
     setToday(new Date(today.getFullYear(), today.getMonth() + 1));
   };
 
@@ -64,12 +62,15 @@ export default function Calendar1() {
   // 오늘 날짜
   const goToToday = () => {
     setToday(new Date());
-    makeCalendar(diaryData);
   };
+
+  useEffect(() => {
+    if (diaryData) makeCalendar();
+  }, [today, diaryData]);
 
   const [calendar, setCalendar] = useState([]);
 
-  const makeCalendar = diaryData => {
+  const makeCalendar = () => {
     const weekDays = ['일', '월', '화', '수', '목', '금', '토'];
 
     const calendarTemp = [];
@@ -134,13 +135,6 @@ export default function Calendar1() {
     let dateString = moment(day).format('YYYY. M. D.'); // 날짜를 "2024. 2. 24." 형식의 문자열로 변환
     console.log('dateString: ', dateString);
     console.log('writtenDays', writtenDays);
-    if (writtenDays) {
-      // navigator(`/write`);
-    } else {
-      // 작성되지 않은 날짜를 클릭하면 글 작성 페이지로 이동
-      // navigator(`/write`);
-      alert('이 날에 작성된 글이 없습니다.');
-    }
   };
 
   return (
