@@ -24,13 +24,12 @@ function App() {
         <Route path="/mypage" element={<Mypage />} />
         <Route path="/profile/password" element={<PasswordChange />} />
         <Route path="/profile/nickname" element={<NickNameChange />} />
+         <Route path="/write" element={<Write />} />
 
         <Route path="/" element={<Menu />}>
           <Route path="signin" element={<SignIn />} />
-          <Route path="test" element={<Test />} />
           <Route path="calendar" element={<Calendar1 />} />
           <Route path="todo" element={<Todo />} />
-          <Route path="write" element={<Write />} />
           <Route path="diary/detail" element={<DiaryDetail />} />
           <Route path="edit" element={<Edit />} />
 
