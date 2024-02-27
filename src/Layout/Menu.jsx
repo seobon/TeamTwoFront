@@ -1,9 +1,9 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
 import styles from './menu.module.css';
 
 const menuse = [
-  ['home', '/'],
+  ['home', '/calendar'],
   ['diary', '/diary'],
   ['write', '/write'],
   ['user', '/mypage'],
@@ -14,20 +14,23 @@ const menuse = [
 
 const Menu = () => {
   return (
-    <div className={styles.myMenu}>
-      <div className="flex justify-between">
-        {Array.from(menuse).map((menu, index) => {
-          return (
-            <NavLink to={menu[1]} key={index}>
-              <div className="flex flex-col justify-center items-center">
-                <div className="bg-black w-10 h-10 rounded-3xl"></div>
-                {menu[0]}
-              </div>
-            </NavLink>
-          );
-        })}
+    <>
+    <Outlet />
+      <div className={styles.myMenu}>
+        <div className="flex justify-between">
+          {Array.from(menuse).map((menu, index) => {
+            return (
+              <NavLink to={menu[1]} key={index}>
+                <div className="flex flex-col justify-center items-center">
+                  <div className="bg-black w-10 h-10 rounded-3xl"></div>
+                  {menu[0]}
+                </div>
+              </NavLink>
+            );
+          })}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

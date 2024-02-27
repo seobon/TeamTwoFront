@@ -16,7 +16,7 @@ const Mypage = () => {
 
   const [image, setImage] = useState();
   const [imagePath, setImagePath] = useState('');
-  const ENV_URL = process.env.REACT_APP_DB_HOST;
+  const ENV_URL = process.env.REACT_APP_HOST;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -139,7 +139,7 @@ const Mypage = () => {
                   <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 text-white drop-shadow-sm font-Caption">
                     수정하기
                   </div>
-                  {image && (
+{image && (
                     <img
                       src={URL.createObjectURL(image)}
                       alt="preview"

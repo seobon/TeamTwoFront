@@ -12,19 +12,22 @@ export default function Calendar1() {
   // 캘린더 조회
   useEffect(() => {
     const id = localStorage.getItem('id');
+    const idNumber = Number(id);
     const month = today.getMonth() + 1;
     const monthString = month > 9 ? month : `0${month}`;
+    const monthNumber = Number(monthString);
+
+    // console.log('idNumber: ', idNumber); // 6
+    // console.log('idNumber+idNumber:  ', idNumber + idNumber); // 12
 
     axios
       .get(`${process.env.REACT_APP_HOST}/diary/getCalendar?id=${id}&month=${monthString}`)
       .then(response => {
         if (response.data[0].diaryId != null) {
           setDiaryData(response.data); // 서버로부터 받은 데이터를 diaryData에 저장
-
-          // const writtenDates = response.data.map(diary => diary.createdAt.split(' ').slice(0, 3).join(' ')); // 작성된 날짜 ("24. 2. 24." 문자열 형식)
-          // setWrittenDays(writtenDates); // 작성된 날짜를 writtenDays 상태에 저장
-
           console.log('response.data: ', response.data);
+          console.log('id: ', id);
+          console.log('diaryId: ', response.data.diaryId);
           console.log('댔다!!');
           makeCalendar(response.data);
         } else {
@@ -79,14 +82,20 @@ export default function Calendar1() {
 
     // 일
     for (let i = 1; i <= daysInMonth; i++) {
-      const date = new Date(today.getFullYear(), today.getMonth(), i);
+      const date = new Date(today.getFullYear(), today.getMonth(), i); // 연도, 월, 일
 
       let diaryId;
       let dateColor = 'bg-gray-200';
       for (const diary of diaryData) {
+        if (!diary.createdAt) continue;
         const DiaryDate = new Date(diary.createdAt).getDate();
+
         if (i === DiaryDate) {
           diaryId = { id: `diary-${diary.diaryId}` };
+          console.log('i: ', i);
+          console.log('diary.createdAt', diary.createdAt);
+          console.log('DiaryDate: ', DiaryDate);
+          console.log('diaryId: ', diaryId);
           dateColor = 'bg-yellow';
         }
       }
