@@ -2,62 +2,96 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 export default function Todo() {
-  const [toDoList, setToDoList] = useState([
-    { text: '토마토 사기', isCheck: false },
-    { text: 'Spring Boot 공부해야 함!', isCheck: false },
-    { text: '아.. 공부하기 싫다', isCheck: false },
-    { text: '오늘 저녁은 양꼬치 먹기', isCheck: false },
-    { text: '벚꽃 피면 한강 놀러가야지', isCheck: false },
-  ]);
+  const [toDoList, setToDoList] = useState([]);
 
   const [inputText, setInputText] = useState('');
   const [editIndex, setEditIndex] = useState(null);
 
-  // useEffect(() => {
-  //   const id = localStorage.getItem('id');
-  // });
+  useEffect(() => {
+    readTodo();
+  }, []);
 
-  // todo 작성
-  const addTodo = todo => {
-    setToDoList([...toDoList, { text: todo, isCheck: false }]);
-    console.log('addTodo 함수 실행');
+  // todo 조회
+  const readTodo = async () => {
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_HOST}/todo/todolist/${localStorage.getItem('id')}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      });
+
+      if (response.data) {
+        const newData = response.data.map(item => {
+          return { text: item.todoContent, isCheck: item.state === 'done' };
+        });
+
+        console.log('Todo 조회 성공');
+        console.log(response.data);
+        setToDoList([...toDoList, ...newData]);
+      } else {
+        console.log('Todo 조회 실패');
+      }
+    } catch (error) {
+      console.log('Todo 조회 에러:', error);
+    }
   };
 
   // todo 작성
-  // const addTodo = async todo => {
-  //   const token = localStorage.getItem('accessToken');
-  //   try {
-  //     const response = await axios.post(`${process.env.REACT_APP_HOST}/todo/post`, todo, {
-  //       headers: { Authorization: `Bearer ${token}` },
-  //     });
-  //     setToDoList([...toDoList, { text: todo, isCheck: false }]);
-  //     console.log('Todo 작성 성공');
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
+  const addTodo = async todo => {
+    const response = await axios.post(
+      `${process.env.REACT_APP_HOST}/todo/todocreate/${localStorage.getItem('id')}`,
+      {
+        id: localStorage.getItem('id'),
+        todoContent: todo,
+        state: 'notstart', // 'notstart' or 'done'
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      },
+    );
 
-  // const addTodo = async todo => {
-  //   const response = await axios.post(
-  //     `${process.env.REACT_APP_HOST}/todo/post`,
-  //     {
-  //       id: localStorage.getItem('id'),
-  //       todo_content: todo,
-  //     },
-  //     {
-  //       headers: {
-  //         Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-  //       },
-  //     },
-  //   );
+    if (response.data) {
+      setToDoList([...toDoList, { text: todo, isCheck: false }]);
+      console.log('Todo 작성 성공');
+    } else {
+      console.log('Todo 작성 실패');
+    }
+  };
 
-  //   if (response.data) {
-  //     setToDoList([...toDoList, { text: todo, isCheck: false }]);
-  //     console.log('addTodo 함수 실행');
-  //   } else {
-  //     console.log('Todo 추가 실패');
-  //   }
-  // };
+  // todo 수정
+  const updateTodo = async (todoId, newTodoContent, newDeadline, newState) => {
+    try {
+      const response = await axios.put(
+        `${process.env.REACT_APP_HOST}/todo/todolistupdate/${todoId}`,
+        {
+          newTodoContent: newTodoContent,
+          newDeadline: newDeadline,
+          newState: newState,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        },
+      );
+
+      if (response.data) {
+        const newData = response.data.map(item => {
+          return { text: item.todoContent, isCheck: item.state === 'done' };
+        });
+
+        console.log('Todo 수정 성공');
+        console.log(response.data);
+        setToDoList([...toDoList, ...newData]);
+      } else {
+        console.log('Todo 수정 실패');
+      }
+    } catch (error) {
+      console.log('Todo 수정 에러:', error);
+    }
+  };
 
   // 토글 버튼
   const toggleCheck = index => {
@@ -115,7 +149,7 @@ export default function Todo() {
               <button onClick={() => toggleCheck(index)} className="mr-1">
                 {/* todo 체크 버튼 */}
                 {todo.isCheck ? (
-                  <span className="">
+                  <span className="" onClick={() => updateTodo()}>
                     <svg
                       class="h-4 w-4 text-red-500"
                       width="24"
@@ -132,26 +166,33 @@ export default function Todo() {
                     </svg>
                   </span>
                 ) : (
-                  <svg
-                    class="h-4 w-4 text-red-500"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    stroke-width="2"
-                    stroke="currentColor"
-                    fill="none"
-                    stroke-linecap="round"
-                    stroke-linejoin="round">
-                    {' '}
-                    <path stroke="none" d="M0 0h24v24H0z" /> <circle cx="12" cy="12" r="9" />
-                  </svg>
+                  <span className="" onClick={() => updateTodo()}>
+                    <svg
+                      class="h-4 w-4 text-red-500"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      stroke-width="2"
+                      stroke="currentColor"
+                      fill="none"
+                      stroke-linecap="round"
+                      stroke-linejoin="round">
+                      {' '}
+                      <path stroke="none" d="M0 0h24v24H0z" /> <circle cx="12" cy="12" r="9" />
+                    </svg>
+                  </span>
                 )}
               </button>
               {/* todo 수정 & 삭제 */}
               {editIndex === index ? (
                 <form onSubmit={handleEditSubmit}>
-                  <input type="text" value={inputText} onChange={handleInputChange} className="h-6" />
-                  <button type="submit">수정</button>
+                  <input
+                    type="text"
+                    value={inputText}
+                    onChange={handleInputChange}
+                    className="h-6 outline-none rounded"
+                  />
+                  <button onClick={e => updateTodo()}>수정</button>
                   <button onClick={e => deleteTodo(e, index)} className="ml-1">
                     삭제
                   </button>
@@ -184,7 +225,12 @@ export default function Todo() {
                 <path stroke="none" d="M0 0h24v24H0z" /> <circle cx="12" cy="12" r="9" />
               </svg>
             </span>
-            <input type="text" value={inputText} onChange={handleInputChange} className="h-6 w-30 ml-1" />
+            <input
+              type="text"
+              value={inputText}
+              onChange={handleInputChange}
+              className="h-6 w-30 ml-1 outline-none rounded"
+            />
             <button type="submit" className="ml-2">
               등록
             </button>
