@@ -23,7 +23,10 @@ const PopupLogout = ({ closeLogoutPopup, showLogoutPopup }) => {
             className="w-full font-Heading3 bg-red text-white p-3.5 rounded-lg"
             onClick={() => {
               localStorage.removeItem('userid');
-              navigate('/calendar');
+              localStorage.removeItem('accessToken');
+              localStorage.removeItem('refreshToken');
+              localStorage.removeItem('id');
+              navigate('/signin');
             }}>
             로그아웃
           </button>

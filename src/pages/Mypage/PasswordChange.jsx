@@ -1,19 +1,41 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import Header1 from '../../components/Header/Header1';
 import Input from '../../components/Input/Input';
 import { useForm } from 'react-hook-form';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const PasswordChange = () => {
+  const navigate = useNavigate();
+  const userid = localStorage.getItem('userid');
   const {
     handleSubmit,
     register,
     watch,
     formState: { errors },
+    setError
   } = useForm();
   const password = useRef();
-  password.current = watch('password');
-  const onChangeFormLib = data => {
-    console.log('비밀번호 정보', data);
+  password.current = watch('newPassword');
+  
+  const onChangeFormLib = async data => {
+    try {
+      const response = await axios.patch(
+        `${process.env.REACT_APP_HOST}/user/profile/${userid}`,
+        {
+          currentPassword: data.password,
+          newPassword: data.newPasswordConfirm,
+        },
+        { headers: {Authorization: `Bearer ${localStorage.getItem("accessToken")}`} }
+      );
+      localStorage.removeItem('userid');
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
+      localStorage.removeItem('id');
+      navigate('/signin');
+    } catch (error) {
+      setError("password", {message:"비밀번호가 일치하지 않습니다."},{ shouldFocus: true })
+    }
   };
   return (
     <>
@@ -51,8 +73,8 @@ const PasswordChange = () => {
         </div>
         <div className="relative">
           <Input
-            id="nerPasswordConfirm"
-            name="nerPasswordConfirm"
+            id="newPasswordConfirm"
+            name="newPasswordConfirm"
             type="password"
             placeholder="변경 비밀번호 확인"
             register={register}
