@@ -13,13 +13,13 @@ const Header1 = ({ title, nav }) => {
     <div className="h-12 relative mb-8">
       <span className="absolute top-1/2 -translate-y-1/2" onClick={onBeforePageHandler}>
         <svg
-          class="h-6 w-6 text-gray-600"
+          className="h-6 w-6 text-gray-600"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round">
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round">
           {' '}
           <polyline points="15 18 9 12 15 6" />
         </svg>

@@ -1,13 +1,13 @@
 import React, { forwardRef } from 'react';
 
-const Input = forwardRef(({ id, name, type, placeholder, errors, rules, register, ...props }, ref) => {
+const Input = forwardRef(({id, name, type, placeholder, errors, rules, register, ...props }, ref) => {
   const inputCss =
-    'font-Body2 w-full py-3.5 px-4 mb-1 bg-transparent rounded-lg border border-solid focus:outline-none';
+    'font-Body2 w-full py-3.5 px-4 mb-1 bg-transparent rounded-lg border border-solid focus:outline-none focus:bg-transparent active:bg-transparent';
   const errorMessages = errors[name] && errors[name].message;
   const hasError = !!(errors && errorMessages);
 
   return (
-    <div className="mb-5">
+    <div className="mb-5 w-full">
       <input
         id={id}
         name={name}
