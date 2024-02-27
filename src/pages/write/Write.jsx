@@ -1,5 +1,5 @@
 // 글 작성 컴포넌트
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import '@toast-ui/editor/dist/toastui-editor.css';
@@ -9,11 +9,15 @@ import 'tui-color-picker/dist/tui-color-picker.css';
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
 import '@toast-ui/editor/dist/i18n/ko-kr';
 import Header1 from '../../components/Header/Header1';
+import useCurrentLocation from '../../hooks/useGeoLocation';
+import Location from '../../components/Diary/Location';
+import Weather from '../../components/Diary/Weather';
 
 export default function Write() {
   const editorRef = useRef(); // 에디터 컴포넌트에 접근하기 위한 ref 생성
   const [isPublic, setIsPublic] = useState(true); // 글 비공개 여부
   const { handleSubmit } = useForm();
+  const { location, error } = useCurrentLocation();
 
   const onValid = () => {
     const contents = editorRef.current.getInstance().getHTML(); // getHTML(): 에디터의 내용을 HTML로 가져옴
@@ -88,9 +92,13 @@ export default function Write() {
               작성하기
             </button>
           </div>
+          <div className="openApi">
+            <Location />
+            <Weather />
+          </div>
           <div className="mt-[0px]">
             <Editor
-              initialValue="외않돼지???!!?" // 에디터의 초기 값
+              initialValue="Fill out this form:)" // 에디터의 초기 값
               previewStyle="vertical" // 에디터와 미리보기 패널의 배치
               initialEditType="wysiwyg" // 워지웍 타입 선택
               hideModeSwitch={true} // 하단의 타입 선택 탭 숨김 (마크다운/워지웍)

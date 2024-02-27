@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Todo from './Todo';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import moment from 'moment';
 
@@ -15,13 +15,12 @@ export default function Calendar1() {
     const idNumber = Number(id);
     const month = today.getMonth() + 1;
     const monthString = month > 9 ? month : `0${month}`;
-    const monthNumber = Number(monthString);
 
-    console.log('idNumber: ', idNumber); // 6
-    console.log('idNumber+idNumber:  ', idNumber + idNumber); // 12
+    // console.log('idNumber: ', idNumber); // 6
+    // console.log('idNumber+idNumber:  ', idNumber + idNumber); // 12
 
     axios
-      .get(`${process.env.REACT_APP_HOST}/diary/getCalendar?id=${idNumber}&month=${monthString}`)
+      .get(`${process.env.REACT_APP_HOST}/diary/getCalendar?id=${id}&month=${monthString}`)
       .then(response => {
         if (response.data[0].diaryId != null) {
           setDiaryData(response.data); // 서버로부터 받은 데이터를 diaryData에 저장
@@ -50,10 +49,12 @@ export default function Calendar1() {
   };
 
   const prevMonth = () => {
+    makeCalendar(diaryData);
     setToday(new Date(today.getFullYear(), today.getMonth() - 1));
   };
 
   const nextMonth = () => {
+    makeCalendar(diaryData);
     setToday(new Date(today.getFullYear(), today.getMonth() + 1));
   };
 
@@ -63,6 +64,7 @@ export default function Calendar1() {
   // 오늘 날짜
   const goToToday = () => {
     setToday(new Date());
+    makeCalendar(diaryData);
   };
 
   const [calendar, setCalendar] = useState([]);
@@ -83,32 +85,42 @@ export default function Calendar1() {
     // 일
     for (let i = 1; i <= daysInMonth; i++) {
       const date = new Date(today.getFullYear(), today.getMonth(), i); // 연도, 월, 일
+      const month = today.getMonth() + 1;
 
       let diaryId;
       let dateColor = 'bg-gray-200';
+      let linkTo = '/write';
+
       for (const diary of diaryData) {
-        const DiaryDate = new Date(diary.createdAt).getDate();
-        if (i === DiaryDate) {
-          diaryId = { id: `diary-${diary.diaryId}` };
-          console.log('i: ', i);
-          console.log('diary.createdAt', diary.createdAt);
-          console.log('DiaryDate: ', DiaryDate);
-          console.log('diaryId: ', diaryId);
-          dateColor = 'bg-yellow';
+        if (!diary.createdAt) continue;
+
+        const DiaryMonth = new Date(diary.createdAt).getMonth() + 1; // 작성월
+        const DiaryDate = new Date(diary.createdAt).getDate(); // 작성일
+
+        if (month === DiaryMonth) {
+          if (i === DiaryDate) {
+            diaryId = { id: `diary-${diary.diaryId}` };
+            console.log('i: ', i);
+            console.log('diary.createdAt', diary.createdAt);
+            console.log('DiaryDate: ', DiaryDate);
+            console.log('diaryId: ', diaryId);
+            dateColor = 'bg-yellow';
+            linkTo = '/diary/detail';
+          }
         }
       }
 
       calendarTemp.push(
         <div style={{ textAlign: 'center' }}>
           {/* 감정 버튼 */}
-          <div
-            onClick={() => mood(date)}
-            className={`w-10 h-10 rounded-full ${dateColor} mx-auto flex items-center justify-center cursor-pointer`}></div>
+          <Link to={linkTo}>
+            <div
+              onClick={() => mood(date)}
+              className={`w-10 h-10 rounded-full ${dateColor} mx-auto flex items-center justify-center cursor-pointer`}></div>
+          </Link>
           {/* 숫자(날짜) */}
           <div className="mt-[3px] mb-4 text-[12px]" {...diaryId}>
-            {/* <Link> */}
             {i}
-            {/* </Link> */}
           </div>
         </div>,
       );

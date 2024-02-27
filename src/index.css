@@ -16,7 +16,8 @@
   }
   body {
     width: 430px;
-    height: 932px;
+    min-height: 375px;
+    max-height: 932px;
     background-color: #F8F8F8;
     border: 1px solid black;
     /* border-radius: 20px; */

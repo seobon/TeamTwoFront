@@ -68,17 +68,23 @@ const SignUp = () => {
     }
   };
   const onChangeFormLib = async data => {
-    try {
-      const response = await axios.post(`${process.env.REACT_APP_HOST}/user/signup`, {
-        nickname: data.nickname,
-        userid: data.userid,
-        email: data.email,
-        password: data.password,
-        passwordConfirm: data.passwordConfirm,
-      });
-      console.log('회원가입 응답:', response.data);
-      navigator('/signin');
-    } catch (error) {}
+    if (nickName === '닉네임 사용가능') {
+      try {
+        const response = await axios.post(`${process.env.REACT_APP_HOST}/user/signup`, {
+          nickname: data.nickname,
+          userid: data.userid,
+          email: data.email,
+          password: data.password,
+          passwordConfirm: data.passwordConfirm,
+        });
+        console.log('회원가입 응답:', response.data);
+        navigator('/signin');
+      } catch (error) {
+        
+      }
+    }else{
+      setError('nickname', { message: '이미 사용중인 닉네임입니다.' });
+    }
   };
   return (
     <>
@@ -88,8 +94,7 @@ const SignUp = () => {
           className="flex justify-between"
           onChange={() => {
             setNickName('닉네임 중복확인');
-            clearErrors("nickname")
-
+            clearErrors('nickname');
           }}>
           <Input
             id="nickname"
@@ -114,7 +119,7 @@ const SignUp = () => {
           className="flex justify-between"
           onChange={() => {
             setUserId('아이디 중복확인');
-            clearErrors("userid")
+            clearErrors('userid');
           }}>
           <Input
             id="userid"
