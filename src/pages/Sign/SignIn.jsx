@@ -83,8 +83,8 @@ const SignIn = () => {
       <div>{location.pathname === '/signin' ? navigate('/calendar') : null}</div>
     </>
   ) : (
-    <>
-      <div className="text-center mt-5">
+    <div className="">
+      <div className="text-center mt-5 ">
         <p className="font-Heading3 mt-2"> 계정을 만들어주세요!</p>
         <p className="font-Body4">
           실수로 앱을 삭제하거나 기기를 바꿔도
@@ -155,7 +155,7 @@ const SignIn = () => {
       <button className="btn-full-line" type="button" onClick={navigateSignUp}>
         회원가입
       </button>
-    </>
+    </div>
   );
 };
 

@@ -78,7 +78,9 @@ const SignUp = () => {
       });
       console.log('회원가입 응답:', response.data);
       navigator('/signin');
-    } catch (error) {}
+    } catch (error) {
+      setError("nickname", { message: '이미 사용중인 닉네임입니다.' });
+    }
   };
   return (
     <>
