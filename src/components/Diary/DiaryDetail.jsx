@@ -7,6 +7,12 @@ import { useQuery } from '@tanstack/react-query';
 import { getEveryDiary } from '../../api';
 import Header1 from '../Header/Header1';
 import axios from 'axios';
+import { ReactComponent as Annoying } from '../../assets/Mood/Annoying.svg';
+import { ReactComponent as Great } from '../../assets/Mood/Great.svg';
+import { ReactComponent as Happy } from '../../assets/Mood/Happy.svg';
+import { ReactComponent as Sad } from '../../assets/Mood/Sad.svg';
+import { ReactComponent as Soso } from '../../assets/Mood/Soso.svg';
+import Edit from '../../pages/write/Edit.jsx';
 
 export default function BoardDetail() {
   const ENV_URL = process.env.REACT_APP_HOST;
@@ -37,9 +43,28 @@ export default function BoardDetail() {
   // console.log('params', params);
 
   const diarySet = async () => {
-    setDiaryId(7)
-  }
+    setDiaryId(29);
+  };
 
+  const moodIcon = () => {
+    switch (mood) {
+      case 'happy':
+        return <Happy />;
+        break;
+      case 'annoying':
+        return <Annoying />;
+        break;
+      case 'great':
+        return <Great />;
+        break;
+      case 'sad':
+        return <Sad />;
+        break;
+      case 'soso':
+        return <Soso />;
+        break;
+    }
+  };
   // SB: 나의 다이어리일 경우 실행시키는(캘린더에서 이어지는) 다이어리 정보 조회 함수입니다.
   const checkUser = async () => {
     try {
@@ -48,12 +73,10 @@ export default function BoardDetail() {
       // `${ENV_URL}/diary/checkUser?diaryId=17` 를
       // `${ENV_URL}/diary/checkUser?diaryId=${diaryId}` 로
       // 수정하시면 되겠습니다.
-      
+
       // const response = await axios.get(`${ENV_URL}/diary/checkUser?diaryId=1`);
-      const response = await axios.get(
-        `${ENV_URL}/diary/checkUser?diaryId=${diaryId}`
-      );
-      
+      const response = await axios.get(`${ENV_URL}/diary/checkUser?diaryId=${diaryId}`);
+
       // SB: 콘솔 확인 부분입니다. 추후 삭제하시면 됩니다.
       console.log('checkUser data', response.data);
       console.log('id', id);
@@ -80,10 +103,8 @@ export default function BoardDetail() {
       // `${ENV_URL}/diary/getMyDiary?diaryId=17` 를
       // `${ENV_URL}/diary/getMyDiary?diaryId=${diaryId}` 로
       // 수정하시면 되겠습니다.
-      const response = await axios.get(
-        `${ENV_URL}/diary/getMyDiary?diaryId=${diaryId}`
-      );
-      
+      const response = await axios.get(`${ENV_URL}/diary/getMyDiary?diaryId=${diaryId}`);
+
       // SB: 콘솔 확인 부분입니다. 추후 삭제하시면 됩니다.
       console.log('getMyDiary data', response.data);
 
@@ -141,10 +162,8 @@ export default function BoardDetail() {
       // 수정하시면 되겠습니다.
 
       // const response = await axios.get(`${ENV_URL}/diary/getOneDiary?diaryId=16`);
-      const response = await axios.get(
-        `${ENV_URL}/diary/getOneDiary?diaryId=${diaryId}`
-      );
-  
+      const response = await axios.get(`${ENV_URL}/diary/getOneDiary?diaryId=${diaryId}`);
+
       // SB: 콘솔 확인 부분입니다. 추후 삭제하시면 됩니다.
       console.log('getOneDiary data', response.data);
 
@@ -171,35 +190,28 @@ export default function BoardDetail() {
       console.error('Get One Diary Error:', error); // Diary 정보 가져오기 오류 출력
     }
   };
-  
-  const patchDiary = async () => {
-  }
 
   const deleteDiary = async () => {
     let data = {
-      "diaryId": 1
-      };
-      
-    try {
-      const response = await axios.delete(
-        `${ENV_URL}/diary/deleteDiary`, data,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-  
-      // SB: 콘솔 확인 부분입니다. 추후 삭제하시면 됩니다.
-      console.log("deleteDiary data", response.data)
+      diaryId: 1,
+    };
 
+    try {
+      const response = await axios.delete(`${ENV_URL}/diary/deleteDiary`, data, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      // SB: 콘솔 확인 부분입니다. 추후 삭제하시면 됩니다.
+      console.log('deleteDiary data', response.data);
     } catch (error) {
       console.error('Delete Diary Error:', error); // Diary 삭제 오류 출력
     }
-  }
+  };
 
   useEffect(() => {
-    if(diaryId != null) {
+    if (diaryId != null) {
       checkUser();
     } else {
       diarySet();
@@ -214,42 +226,79 @@ export default function BoardDetail() {
       <div>{diaryContent}</div> */}
       {/* <Viewer initialValue={contents || ''} /> */}
 
-      <div className="ml-[330px] mb-[3px]">
-        <span className="mr-[10px]">
-          <Link to={'/calendar'}>수정</Link>
-        </span>
+      <div className="text-right px-7">
+        <div className="inline-block mr-3">
+          <Link to={'/edit'}>
+            <svg
+              className="h-6 w-6 text-gray-500"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round">
+              {' '}
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />{' '}
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+            </svg>
+          </Link>
+          {/* <Link to={{
+            pathname: '/edit',
+            state: { data: diaryContent }
+          }}>수정</Link> */}
+        </div>
         <span className="">
-          <button onClick={''}>삭제</button>
+          <button onClick={() => deleteDiary()}>
+            <svg
+              className="h-6 w-6 text-gray-500"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round">
+              {' '}
+              <polyline points="3 6 5 6 21 6" />{' '}
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />{' '}
+              <line x1="10" y1="11" x2="10" y2="17" /> <line x1="14" y1="11" x2="14" y2="17" />
+            </svg>
+          </button>
         </span>
       </div>
 
       {/* 본문 */}
-      <div className="w-[410px] min-h-[790px] rounded-xl ml-[10px] bg-white">
+      <div className=" min-h-40 rounded-xl mx-8 my-2 p-4 bg-white">
         {whoDiary === 'mine' ? (
-          <div className="m-[15px]">
-            <div className="font-Heading3 text-center mb-[20px]">{createdAt}</div>
-            <div style={{ backgroundColor: 'pink' }}>
-              <div>오늘의 기분</div>
-              <div>기분 이미지</div>
-              <div>{mood}</div>
-            </div>
-            <div style={{ backgroundColor: 'lightyellow' }}>
-              <div>오늘의 날씨</div>
-              <div>날씨 이미지</div>
-              <div>{weather}</div>
+          <div className="">
+            <div className="font-Heading3 text-center mb-8">{createdAt}</div>
+            <div className="flex justify-between px-9">
+              <div className="text-center">
+                <p className="font-Heading3 mb-3">오늘의 기분</p>
+                <p className="inline-block  mb-0.5">{moodIcon()}</p>
+                <p className="font-Body4 text-gray-800">{mood}</p>
+              </div>
+              <div className="text-center">
+                <p className="font-Heading3 mb-3">오늘의 날씨</p>
+                <p className="inline-block  mb-0.5">날씨 이미지</p>
+                <div className="font-Body4 text-gray-800">{weather}</div>
+              </div>
             </div>
           </div>
         ) : (
           <></>
         )}
-        <div className="m-[15px]">
-          <div style={{ backgroundColor: 'lightgreen' }}>
-            <div>{diaryTitle}</div>
-            <div>{diaryContent}</div>
+        <div className="rounded-full border border-gray-300 my-8 mx-4"></div>
+
+        <div className="px-4">
+          <div className="text-center">
+            <div className="font-Heading2 p-2">{diaryTitle}</div>
+            <div className="font-Body2 p-2">{diaryContent}</div>
           </div>
         </div>
       </div>
-      <button onClick={() => diarySet()}></button>
     </>
   );
 }
