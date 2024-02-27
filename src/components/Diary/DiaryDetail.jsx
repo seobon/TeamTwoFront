@@ -25,6 +25,8 @@ export default function BoardDetail() {
   const [weather, setWeather] = useState('');
   const [createdAt, setCreatedAt] = useState('');
 
+  const [diaryId, setDiaryId] = useState(null);
+
   // pthsname 정보와 상위 컴포넌트에서 정보를 state에 담아서 받아오기
   const state = useLocation();
   console.log('state', state);
@@ -33,6 +35,10 @@ export default function BoardDetail() {
   // url에 있는 정보값 받아오기
   // const params = useParams();
   // console.log('params', params);
+
+  const diarySet = async () => {
+    setDiaryId(7)
+  }
 
   // SB: 나의 다이어리일 경우 실행시키는(캘린더에서 이어지는) 다이어리 정보 조회 함수입니다.
   const checkUser = async () => {
@@ -45,7 +51,7 @@ export default function BoardDetail() {
       
       // const response = await axios.get(`${ENV_URL}/diary/checkUser?diaryId=1`);
       const response = await axios.get(
-        `${ENV_URL}/diary/checkUser?diaryId=1`
+        `${ENV_URL}/diary/checkUser?diaryId=${diaryId}`
       );
       
       // SB: 콘솔 확인 부분입니다. 추후 삭제하시면 됩니다.
@@ -74,8 +80,10 @@ export default function BoardDetail() {
       // `${ENV_URL}/diary/getMyDiary?diaryId=17` 를
       // `${ENV_URL}/diary/getMyDiary?diaryId=${diaryId}` 로
       // 수정하시면 되겠습니다.
-      const response = await axios.get(`${ENV_URL}/diary/getMyDiary?diaryId=1`);
-
+      const response = await axios.get(
+        `${ENV_URL}/diary/getMyDiary?diaryId=${diaryId}`
+      );
+      
       // SB: 콘솔 확인 부분입니다. 추후 삭제하시면 됩니다.
       console.log('getMyDiary data', response.data);
 
@@ -134,7 +142,7 @@ export default function BoardDetail() {
 
       // const response = await axios.get(`${ENV_URL}/diary/getOneDiary?diaryId=16`);
       const response = await axios.get(
-        `${ENV_URL}/diary/getOneDiary?diaryId=1`
+        `${ENV_URL}/diary/getOneDiary?diaryId=${diaryId}`
       );
   
       // SB: 콘솔 확인 부분입니다. 추후 삭제하시면 됩니다.
@@ -163,10 +171,40 @@ export default function BoardDetail() {
       console.error('Get One Diary Error:', error); // Diary 정보 가져오기 오류 출력
     }
   };
+  
+  const patchDiary = async () => {
+  }
+
+  const deleteDiary = async () => {
+    let data = {
+      "diaryId": 1
+      };
+      
+    try {
+      const response = await axios.delete(
+        `${ENV_URL}/diary/deleteDiary`, data,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+  
+      // SB: 콘솔 확인 부분입니다. 추후 삭제하시면 됩니다.
+      console.log("deleteDiary data", response.data)
+
+    } catch (error) {
+      console.error('Delete Diary Error:', error); // Diary 삭제 오류 출력
+    }
+  }
 
   useEffect(() => {
-    checkUser();
-  }, []);
+    if(diaryId != null) {
+      checkUser();
+    } else {
+      diarySet();
+    }
+  }, [diaryId]);
 
   return (
     <>
@@ -211,6 +249,7 @@ export default function BoardDetail() {
           </div>
         </div>
       </div>
+      <button onClick={() => diarySet()}></button>
     </>
   );
 }
