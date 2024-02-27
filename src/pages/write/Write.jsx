@@ -30,15 +30,12 @@ export default function Write() {
   const { handleSubmit } = useForm();
 
   const [isOn, setIsOn] = useState(false);
-  const [mood, setMood] = useState('happy');
+  const [mood, setMood] = useState("");
   const [title, setTitle] = useState();
   // const { location, error } = useCurrentLocation();
 
   const diaryWriteSubmit = () => {
-
-
-    const contents = editorRef.current.getInstance().getHTML(); // getHTML(): 에디터의 내용을 HTML로 가져옴
-    console.log(contents);
+    const contents = editorRef.current.getInstance().getMarkdown(); // getHTML(): 에디터의 내용을 HTML로 가져옴
 
     const id = localStorage.getItem('id'); // 로컬 스토리지에서 id 값을 가져옴
 
@@ -47,14 +44,14 @@ export default function Write() {
       diaryTitle: title,
       diaryContent: contents,
       mood: mood,
-      location: '서울', // '위치' 대신 실제 위치를 입력해야 함
-      weather: '1', // '날씨' 대신 실제 날씨를 입력해야 함
+      // location: '서울', // '위치' 대신 실제 위치를 입력해야 함
+      // weather: '1', // '날씨' 대신 실제 날씨를 입력해야 함
       isPublic: isOn,
-      currentLocation: [37.5665, 126.978], // 실제 [위도, 경도를 입력해야 함
+      // currentLocation: [37.5665, 126.978], // 실제 [위도, 경도를 입력해야 함
     };
 
-    console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', data);
-
+    console.log(data);
+    
     axios
       .post(`${process.env.REACT_APP_HOST}/diary/postDiary`, data, {
         withCredentials: true,
