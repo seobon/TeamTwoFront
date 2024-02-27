@@ -7,6 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getEveryDiary } from '../../api';
 import Header1 from '../Header/Header1';
 import axios from 'axios';
+import Edit from '../../pages/write/Edit.jsx';
 
 export default function BoardDetail() {
   const ENV_URL = process.env.REACT_APP_HOST;
@@ -37,7 +38,7 @@ export default function BoardDetail() {
   // console.log('params', params);
 
   const diarySet = async () => {
-    setDiaryId(7)
+    setDiaryId(6)
   }
 
   // SB: 나의 다이어리일 경우 실행시키는(캘린더에서 이어지는) 다이어리 정보 조회 함수입니다.
@@ -171,9 +172,6 @@ export default function BoardDetail() {
       console.error('Get One Diary Error:', error); // Diary 정보 가져오기 오류 출력
     }
   };
-  
-  const patchDiary = async () => {
-  }
 
   const deleteDiary = async () => {
     let data = {
@@ -216,10 +214,14 @@ export default function BoardDetail() {
 
       <div className="ml-[330px] mb-[3px]">
         <span className="mr-[10px]">
-          <Link to={'/calendar'}>수정</Link>
+          <Link to={'/edit'}>수정</Link>
+          {/* <Link to={{
+            pathname: '/edit',
+            state: { data: diaryContent }
+          }}>수정</Link> */}
         </span>
         <span className="">
-          <button onClick={''}>삭제</button>
+          <button onClick={() => deleteDiary()}>삭제</button>
         </span>
       </div>
 
@@ -249,7 +251,6 @@ export default function BoardDetail() {
           </div>
         </div>
       </div>
-      <button onClick={() => diarySet()}></button>
     </>
   );
 }

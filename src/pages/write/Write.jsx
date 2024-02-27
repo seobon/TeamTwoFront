@@ -9,15 +9,15 @@ import 'tui-color-picker/dist/tui-color-picker.css';
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
 import '@toast-ui/editor/dist/i18n/ko-kr';
 import Header1 from '../../components/Header/Header1';
-import useCurrentLocation from '../../hooks/useGeoLocation';
-import Location from '../../components/Diary/Location';
-import Weather from '../../components/Diary/Weather';
+// import useCurrentLocation from '../../hooks/useGeoLocation';
+// import Location from '../../components/Diary/Location';
+// import Weather from '../../components/Diary/Weather';
 
 export default function Write() {
   const editorRef = useRef(); // 에디터 컴포넌트에 접근하기 위한 ref 생성
   const [isPublic, setIsPublic] = useState(true); // 글 비공개 여부
   const { handleSubmit } = useForm();
-  const { location, error } = useCurrentLocation();
+  // const { location, error } = useCurrentLocation();
 
   const onValid = () => {
     const contents = editorRef.current.getInstance().getHTML(); // getHTML(): 에디터의 내용을 HTML로 가져옴
@@ -93,8 +93,8 @@ export default function Write() {
             </button>
           </div>
           <div className="openApi">
-            <Location />
-            <Weather />
+            {/* <Location /> */}
+            {/* <Weather /> */}
           </div>
           <div className="mt-[0px]">
             <Editor
