@@ -17,6 +17,8 @@ import Edit from '../../pages/write/Edit.jsx';
 export default function BoardDetail() {
   const { refetch } = useQuery({ queryKey: ['diaries'], queryFn: getEveryDiary });
   const id = localStorage.getItem('id'); // 로컬 스토리지에서 id 값을 가져옴
+  const diaryIdParams = useParams();
+  console.log('diaryIdParams', diaryIdParams.id);
 
   const [myDiaryInfo, setMyDiaryInfo] = useState({});
   const [oneDiaryInfo, setOneDiaryInfo] = useState({});
@@ -42,7 +44,9 @@ export default function BoardDetail() {
   // console.log('params', params);
 
   const diarySet = async () => {
-    setDiaryId(10);
+
+    setDiaryId(diaryIdParams);
+
   };
 
   const moodIcon = () => {
@@ -68,7 +72,9 @@ export default function BoardDetail() {
   const checkUser = async () => {
     try {
       // Diary 작성자 정보를 가져오는 API 호출
-      const response = await axios.get(`${process.env.REACT_APP_HOST}/diary/checkUser?diaryId=${diaryId}`);
+      const response = await axios.get(`${process.env.REACT_APP_HOST}/diary/checkUser?diaryId=${diaryIdParams.id}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` },
+      });
 
       // SB: 콘솔 확인 부분입니다. 추후 삭제하시면 됩니다.
       console.log('checkUser data', response.data);
@@ -87,12 +93,12 @@ export default function BoardDetail() {
       console.error('Check User Error:', error); // Diary 정보 가져오기 오류 출력
     }
   };
-
+console.log("myDiaryInfo",myDiaryInfo)
   // SB: 나의 다이어리일 경우 실행시키는(캘린더에서 이어지는) 다이어리 정보 조회 함수입니다.
   const getMyDiary = async () => {
     try {
       // Diary 정보를 가져오는 API 호출
-      const response = await axios.get(`${process.env.REACT_APP_HOST}/diary/getMyDiary?diaryId=${diaryId}`);
+      const response = await axios.get(`${process.env.REACT_APP_HOST}/diary/getMyDiary?diaryId=${diaryIdParams.id}`);
 
       // SB: 콘솔 확인 부분입니다. 추후 삭제하시면 됩니다.
       console.log('getMyDiary data', response.data);
