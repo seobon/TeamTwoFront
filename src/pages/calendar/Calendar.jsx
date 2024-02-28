@@ -49,7 +49,7 @@ export default function Calendar1() {
       .catch(error => {
         console.error('Error!', error);
       });
-  }, [diaryData]);
+  }, []);
 
   const getDaysInMonth = (month, year) => {
     return new Date(year, month + 1, 0).getDate();
@@ -174,12 +174,6 @@ export default function Calendar1() {
     setCalendar(calendarTemp);
   };
 
-  // 캘린더 감정 아이콘
-  const mood = day => {
-    let dateString = moment(day).format('YYYY. M. D.'); // 날짜를 "2024. 2. 24." 형식의 문자열로 변환
-    console.log('dateString: ', dateString);
-    console.log('writtenDays', writtenDays);
-  };
 
   return (
     <>
