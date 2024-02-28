@@ -1,6 +1,11 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
+import { HiOutlinePencilSquare } from 'react-icons/hi2';
+import { BsTrash3 } from 'react-icons/bs';
+import { BsCheckCircle } from 'react-icons/bs';
+import { BsCircle } from 'react-icons/bs';
+
 export default function Todo() {
   const [toDoList, setToDoList] = useState([]);
   const [inputText, setInputText] = useState('');
@@ -20,10 +25,6 @@ export default function Todo() {
       });
 
       if (response.data) {
-        // const newData = response.data.map(item => {
-        //   return { text: item.todoContent, isCheck: item.state === 'done' };
-        // });
-
         console.log('Todo 조회 성공');
         console.log(response.data);
         setToDoList(response.data);
@@ -129,7 +130,7 @@ export default function Todo() {
   // todo 수정
   const handleEditClick = index => {
     setEditIndex(index);
-    setInputText(toDoList[index].text);
+    setInputText(toDoList[index].todoContent);
   };
 
   // todo 등록
@@ -156,20 +157,7 @@ export default function Todo() {
                       // setInputText(toDoList[index].text);
                       updateTodo(todo.todoId, 'notstart', todo.todoContent);
                     }}>
-                    <svg
-                      class="h-4 w-4 text-red-500"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      stroke-width="2"
-                      stroke="currentColor"
-                      fill="none"
-                      stroke-linecap="round"
-                      stroke-linejoin="round">
-                      {' '}
-                      <path stroke="none" d="M0 0h24v24H0z" /> <circle cx="12" cy="12" r="9" />{' '}
-                      <path d="M9 12l2 2l4 -4" />
-                    </svg>
+                    <BsCheckCircle className="bg-[#ffd633] rounded-lg" />
                   </span>
                 ) : (
                   <span
@@ -178,19 +166,7 @@ export default function Todo() {
                       // setInputText(toDoList[index].text);
                       updateTodo(todo.todoId, 'done', todo.todoContent);
                     }}>
-                    <svg
-                      class="h-4 w-4 text-red-500"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      stroke-width="2"
-                      stroke="currentColor"
-                      fill="none"
-                      stroke-linecap="round"
-                      stroke-linejoin="round">
-                      {' '}
-                      <path stroke="none" d="M0 0h24v24H0z" /> <circle cx="12" cy="12" r="9" />
-                    </svg>
+                    <BsCircle />
                   </span>
                 )}
               </button>
@@ -202,12 +178,18 @@ export default function Todo() {
                       type="text"
                       value={inputText}
                       onChange={handleInputChange}
-                      className="h-6 outline-none rounded"
+                      className="h-6 w-[270px] bg-transparent outline-none rounded"
                     />
-                    <button onClick={() => updateTodo(todo.todoId)}>수정</button>
-                    <button onClick={() => deleteTodo(todo.todoId)} className="ml-1">
-                      삭제
-                    </button>
+                    <span>
+                      <button onClick={() => updateTodo(todo.todoId)}>
+                        {/* 수정 버튼 */}
+                        <HiOutlinePencilSquare />
+                      </button>
+                      <button onClick={() => deleteTodo(todo.todoId)} className="ml-1">
+                        {/* 삭제 버튼 */}
+                        <BsTrash3 className="w-[14px] h-[14px] ml-[4px] mb-[1px]" />
+                      </button>
+                    </span>
                   </form>
 
                   {/* <form onSubmit={handleDeleteTodo} className="inline-block"></form> */}
@@ -228,28 +210,17 @@ export default function Todo() {
         {editIndex === null && (
           <form onSubmit={handleAddSubmit} className="flex align-middle">
             <span className="mt-1">
-              <svg
-                class="h-4 w-4 text-red-500"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                stroke-width="2"
-                stroke="currentColor"
-                fill="none"
-                stroke-linecap="round"
-                stroke-linejoin="round">
-                {' '}
-                <path stroke="none" d="M0 0h24v24H0z" /> <circle cx="12" cy="12" r="9" />
-              </svg>
+              <BsCircle />
             </span>
             <input
               type="text"
               value={inputText}
               onChange={handleInputChange}
-              className="h-6 w-30 ml-1 outline-none rounded"
+              className="h-6 w-[270px] ml-1 bg-transparent outline-none rounded"
             />
             <button type="submit" className="ml-2">
-              등록
+              {/* 작성 버튼 */}
+              <HiOutlinePencilSquare />
             </button>
           </form>
         )}

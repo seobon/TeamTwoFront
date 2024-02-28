@@ -46,6 +46,7 @@ const Menu = () => {
 
     const NowDate = now.getDate();
 
+
     if (NowDate == i) {
       diaryId = 'true';
     }
@@ -68,6 +69,7 @@ const Menu = () => {
         return navigator(`/diary/detail/${diaryIdParams}`);
     }
   };
+
 
   return (
     <div className="relative">

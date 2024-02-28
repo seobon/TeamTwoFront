@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Viewer } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor-viewer.css';
-import { Link, useLocation, useParams, useMatch } from 'react-router-dom';
+import { Link, useLocation, useParams, useMatch, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 // import { getEveryDiary } from '../../api';
 import Header1 from '../Header/Header1';
@@ -18,6 +18,7 @@ export default function BoardDetail() {
   // const { refetch } = useQuery({ queryKey: ['diaries'], queryFn: getEveryDiary });
   const id = localStorage.getItem('id'); // 로컬 스토리지에서 id 값을 가져옴
   const diaryIdParams = useParams();
+  const navigate = useNavigate();
   console.log('diaryIdParams', diaryIdParams.id);
 
   const [myDiaryInfo, setMyDiaryInfo] = useState({});
@@ -189,15 +190,14 @@ export default function BoardDetail() {
   };
 
   const deleteDiary = async () => {
-    let data = {
-      diaryId: diaryIdParams.id,
-    };
-
     try {
       const response = await axios.delete(`${process.env.REACT_APP_HOST}/diary/deleteDiary?diaryId=${diaryIdParams.id}`);
 
       // SB: 콘솔 확인 부분입니다. 추후 삭제하시면 됩니다.
       console.log('Delete Diary data', response.data);
+
+      navigate("/calendar");
+      window.location.reload();
     } catch (error) {
       console.error('Delete Diary Error:', error); // Diary 삭제 오류 출력
     }
