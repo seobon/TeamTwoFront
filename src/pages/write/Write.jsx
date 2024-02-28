@@ -9,7 +9,6 @@ import 'tui-color-picker/dist/tui-color-picker.css';
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
 import '@toast-ui/editor/dist/i18n/ko-kr';
 import Header1 from '../../components/Header/Header1';
-
 import Toggle from '../../components/BTN/Toggle';
 import { ReactComponent as Annoying } from '../../assets/Mood/Annoying.svg';
 import { ReactComponent as Great } from '../../assets/Mood/Great.svg';
@@ -17,9 +16,10 @@ import { ReactComponent as Happy } from '../../assets/Mood/Happy.svg';
 import { ReactComponent as Sad } from '../../assets/Mood/Sad.svg';
 import { ReactComponent as Soso } from '../../assets/Mood/Soso.svg';
 import { useNavigate } from 'react-router-dom';
-// import useCurrentLocation from '../../hooks/useGeoLocation';
-// import Location from '../../components/Diary/Location';
-// import Weather from '../../components/Diary/Weather';
+import Location from '../../components/Diary/Location';
+import Weather from '../../components/Diary/Weather';
+
+import useCurrentLocation from '../../hooks/useGeolocation';
 
 export default function Write() {
   const navigate = useNavigate();
@@ -32,7 +32,70 @@ export default function Write() {
   const [isOn, setIsOn] = useState(false);
   const [mood, setMood] = useState("");
   const [title, setTitle] = useState();
-  // const { location, error } = useCurrentLocation();
+
+  // SB : 현 위치 가져오는 변수
+  const { location, error } = useCurrentLocation();
+  const [weather, setWeather] = useState(null);
+  const [address, setAddress] = useState('');
+
+  // SB : 현 위치 가져오는 함수
+  useEffect(() => {
+    const getAddressFromCoordinates = async () => {
+      try {
+        if (location) {
+          const { latitude, longitude } = location;
+          const locationApiKey = process.env.REACT_APP_OPENWEATHERMAP_API_KEY;
+          const locationResponse = await axios.get(
+            `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${locationApiKey}`,
+          );
+        }
+      } catch (error) {
+        console.error('Error fetching address: ', error);
+      }
+    };
+
+    getAddressFromCoordinates();
+  }, [location]);
+
+  // SB : 현 위치 기반 날씨 정보 가져오기
+  // Get weather information only once when Compent mounts
+  useEffect(() => {
+    const getWeather = async () => {
+      if (location) {
+        try {
+          const weatherApiKey = process.env.REACT_APP_OPENWEATHERMAP_API_KEY;
+
+          const weatherResponse = await axios.get(
+            `https://api.openweathermap.org/data/2.5/weather?lat=${location.latitude}&lon=${location.longitude}&appid=${weatherApiKey}&units=metric`,
+          );
+
+          console.log('weatherResponse.data: ', weatherResponse.data);
+          console.log('weatherResponse.data.name: ', weatherResponse.data.name);
+
+          const weatherIcon = weatherResponse.data.weather[0].icon;
+          setAddress(weatherResponse.data.name)
+          console.log("weatherIcon", weatherIcon)
+          const weatherIcondAdrs = `http://openweathermap.org/img/wn/${weatherIcon}@2x.png`;
+          const temp = Math.round(weatherResponse.data.main.temp);
+
+          console.log({
+            icon: weatherIcondAdrs,
+            name: location,
+            temp: temp,
+          });
+
+          setWeather({
+            icon: weatherIcondAdrs,
+            name: weatherResponse.data.weather[0].main,
+            temp: temp,
+          });
+        } catch (error) {
+          console.error('Failed to fetch weather data: ', error);
+        }
+      }
+    };
+    getWeather();
+  }, [location]);
 
   const diaryWriteSubmit = () => {
     const contents = editorRef.current.getInstance().getMarkdown(); // getHTML(): 에디터의 내용을 HTML로 가져옴
@@ -135,8 +198,17 @@ export default function Write() {
           </div>
           <div className="openApi">
 
-            {/* <Location />
-            <Weather /> */}
+          <div>
+            {location ? (
+              <div>
+                Latitude: {location.latitude}, Longitude: {location.longitude}
+                <br />
+              </div>
+            ) : (
+              <div>Loading</div>
+            )}
+          </div>
+            <Weather />
 
           </div>
           <input
