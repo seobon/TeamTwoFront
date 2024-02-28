@@ -4,6 +4,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import moment from 'moment';
 import PopupDiaryInfo from '../../components/Popup/PopupDiaryInfo';
+import { ReactComponent as Annoying } from '../../assets/Mood/Annoying.svg';
+import { ReactComponent as Great } from '../../assets/Mood/Great.svg';
+import { ReactComponent as Happy } from '../../assets/Mood/Happy.svg';
+import { ReactComponent as Sad } from '../../assets/Mood/Sad.svg';
+import { ReactComponent as Soso } from '../../assets/Mood/Soso.svg';
 
 export default function Calendar1() {
   const [closeDiaryInfoPopup, showDiaryInfoPopup] = useState(false); // 다이어리없을때 팝업
@@ -32,7 +37,6 @@ export default function Calendar1() {
           console.log('response.data: ', response.data);
           console.log('id: ', id);
           console.log('diaryId: ', response.data.diaryId);
-          console.log('댔다!!');
           makeCalendar(response.data);
         } else {
           console.log('Failed to get the calendar data');
@@ -94,7 +98,7 @@ export default function Calendar1() {
       const month = today.getMonth() + 1;
 
       let diaryId;
-      let dateColor = 'bg-gray-200';
+      let diaryMood;
       let linkTo = '/write';
       let diaryBoolean;
 
@@ -110,8 +114,10 @@ export default function Calendar1() {
             // console.log('diary.createdAt', diary.createdAt);
             // console.log('DiaryDate: ', DiaryDate);
             // console.log('diaryId: ', diaryId);
+            // console.log("mood",  diary.mood)
+            // console.log("diaryData[]", DiaryMonth)
             diaryId = { id: `diary-${diary.diaryId}` };
-            dateColor = 'bg-yellow';
+            diaryMood = diary.mood;
             linkTo = '/diary/detail';
             diaryBoolean = true;
           } else {
@@ -119,6 +125,32 @@ export default function Calendar1() {
           }
         }
       }
+      const moodIcon = () => {
+        switch (diaryMood) {
+          case 'soso':
+            return <Soso />;
+            break;
+          case 'happy':
+            return <Happy />;
+            break;
+          case 'annoying':
+            return <Annoying />;
+            break;
+          case 'great':
+            return <Great />;
+            break;
+          case 'sad':
+            return <Sad />;
+            break;
+          default:
+            return (
+              <div
+                className={`w-10 h-10 rounded-full bg-gray-200 mx-auto flex items-center justify-center cursor-pointer`}
+              />
+            );
+        }
+      };
+
       calendarTemp.push(
         <div style={{ textAlign: 'center' }}>
           <div
@@ -129,7 +161,9 @@ export default function Calendar1() {
             {/* 감정 버튼 */}
             <div
               onClick={() => mood(date)}
-              className={`w-10 h-10 rounded-full ${dateColor} mx-auto flex items-center justify-center cursor-pointer`}></div>
+              className={`w-10 h-10 rounded-full mx-auto flex items-center justify-center cursor-pointer`}>
+              {moodIcon()}
+            </div>
           </div>
           {/* 숫자(날짜) */}
           <div className="mt-[3px] mb-4 text-[12px]" {...diaryId}>
@@ -151,7 +185,7 @@ export default function Calendar1() {
 
   return (
     <>
-      <div className=''>
+      <div className="">
         <div className="flex justify-center relative h-[60px] pt-2">
           <div className="absolute flex items-center ">
             <button onClick={prevMonth} className="h-10  top-[6px]">
