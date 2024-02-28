@@ -98,7 +98,6 @@ export default function Calendar1() {
       let diaryId;
       let diaryMood;
       let linkTo = '/write';
-      let diaryBoolean;
       let diaryIdParams;
 
       for (const diary of data) {
@@ -109,19 +108,10 @@ export default function Calendar1() {
 
         if (month === DiaryMonth) {
           if (i === DiaryDate) {
-            // console.log('i: ', i);
-            // console.log('diary.createdAt', diary.createdAt);
-            // console.log('DiaryDate: ', DiaryDate);
-            // console.log('diaryId: ', diaryId);
-            // console.log("mood",  diary.mood)
-            // console.log("diaryData[]", DiaryMonth)
             diaryId = { id: `diary-${diary.diaryId}` };
             diaryIdParams = diary.diaryId;
             diaryMood = diary.mood;
-            linkTo = `/diary/detail/${diary.diaryId}`;
-            diaryBoolean = true;
-          } else {
-            diaryBoolean = false;
+            linkTo =`/diary/detail/${diary.diaryId}`;
           }
         }
       }
@@ -150,12 +140,11 @@ export default function Calendar1() {
             );
         }
       };
-
       calendarTemp.push(
         <div style={{ textAlign: 'center' }}>
           <div
-            onClick={() => {
-              diaryBoolean ? navigator(`/diary/detail/${diaryIdParams}`) : showPopup();
+            onClick={(e) => {
+              diaryId ? navigator(`/diary/detail/${diaryIdParams}`) : showPopup();
             }}>
             {/* 감정 버튼 */}
             <div
