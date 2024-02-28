@@ -46,7 +46,7 @@ const BoardList = () => {
           ? 'Loading...'
           : contents?.map(diary => (
               <Link
-                to={`/diary/${diary.diaryId}`}
+                to={`/diary/detail/${diary.diaryId}`}
                 state={{
                   diaryId: diary.diaryId,
                   diaryTitle: diary.diaryTitle,
