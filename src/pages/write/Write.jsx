@@ -96,7 +96,7 @@ export default function Write() {
       alert("현 위치를 가져옵니다.")
     } else {
       setLatlon("37.413294/127.269311")
-      alert("현위치를 가져올 수 없습니다.")
+      alert("현위치를 가져올 수 없습니다. 기본 위치값를 가져옵니다.")
     }
 
     if (weather != null) {

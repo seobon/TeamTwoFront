@@ -44,9 +44,7 @@ export default function BoardDetail() {
   // console.log('params', params);
 
   const diarySet = async () => {
-
     setDiaryId(diaryIdParams);
-
   };
 
   const moodIcon = () => {

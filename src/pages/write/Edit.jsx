@@ -1,6 +1,6 @@
 // 글 수정 컴포넌트
 import React, { useRef, useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import '@toast-ui/editor/dist/toastui-editor.css';
@@ -16,29 +16,31 @@ import { ReactComponent as Great } from '../../assets/Mood/Great.svg';
 import { ReactComponent as Happy } from '../../assets/Mood/Happy.svg';
 import { ReactComponent as Sad } from '../../assets/Mood/Sad.svg';
 import { ReactComponent as Soso } from '../../assets/Mood/Soso.svg';
-// import useCurrentLocation from '../../hooks/useGeoLocation';
-// import Location from '../../components/Diary/Location';
-// import Weather from '../../components/Diary/Weather';
+import { useNavigate } from 'react-router-dom';
+
 
 export default function Write() {
   const location = useLocation();
+  const navigate = useNavigate();
   const editorRef = useRef(); // 에디터 컴포넌트에 접근하기 위한 ref 생성
+  const diaryIdParams = useParams();
   const [diaryId, setDiaryId] = useState(null);
   const [isPublic, setIsPublic] = useState(true); // 글 비공개 여부
-  const [diaryTitle, setDiaryTitle] = useState('');
-  const [diaryContent, setDiaryContent] = useState('');
+  const [diaryTitle, setDiaryTitle] = useState('제목');
+  const [diaryContent, setDiaryContent] = useState('내용');
   const [mood, setMood] = useState('');
   const { handleSubmit } = useForm();
+  
   // const { location, error } = useCurrentLocation();
 
   const diarySet = async () => {
-    setDiaryId(10);
-  }
+    setDiaryId(diaryIdParams.id);
+  };
 
   const getMyDiary = async () => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_HOST}/diary/getMyDiary?diaryId=${diaryId}`
+        `${process.env.REACT_APP_HOST}/diary/getMyDiary?diaryId=${diaryIdParams.id}`
       );
       
       // SB: 콘솔 확인 부분입니다. 추후 삭제하시면 됩니다.
@@ -91,6 +93,8 @@ export default function Write() {
       .catch(error => {
         console.log('다이어리 수정 실패: ', error);
       });
+      navigate(`/diary/detail/${diaryIdParams.id}`);
+      window.location.reload();
   };
 
   // 비공개 토글 버튼
@@ -105,7 +109,7 @@ export default function Write() {
     if(diaryId != null) {
       getMyDiary();
     } else {
-      diarySet();
+      diarySet(diaryIdParams.id);
     }
   }, [diaryId]);
 
@@ -123,23 +127,23 @@ export default function Write() {
               }}>
               <label htmlFor="happy">
                 <input id="happy" type="radio" name="mood" value="happy" className="hidden" />{' '}
-                <Happy className={'opacity-100'} />
+                <Happy className={mood === 'happy' ? 'opacity-100' : 'opacity-50'} />
               </label>
               <label htmlFor="great">
                 <input id="great" type="radio" name="mood" value="great" className="hidden" />{' '}
-                <Great className={'opacity-100'} />
+                <Great className={mood === 'great' ? 'opacity-100' : 'opacity-50'} />
               </label>
               <label htmlFor="soso">
                 <input id="soso" type="radio" name="mood" value="soso" className="hidden" />{' '}
-                <Soso className={'opacity-100'} />
+                <Soso className={mood === 'soso' ? 'opacity-100' : 'opacity-50'} />
               </label>
               <label htmlFor="sad">
                 <input id="sad" type="radio" name="mood" value="sad" className="hidden" />{' '}
-                <Sad className={'opacity-100'} />
+                <Sad className={mood === 'sad' ? 'opacity-100' : 'opacity-50'} />
               </label>
               <label htmlFor="annoying">
                 <input id="annoying" type="radio" name="mood" value="annoying" className="hidden" />{' '}
-                <Annoying className={'opacity-100'} />
+                <Annoying className={mood === 'annoying' ? 'opacity-100' : 'opacity-50'} />
               </label>
             </div>
           <div className="ml-[5px]">
@@ -165,7 +169,7 @@ export default function Write() {
                 />
           <div className="mt-[0px]">
             <Editor
-              initialValue={`Fill out this form:)`} // 에디터의 초기 값
+              initialValue={`${diaryContent}`} // 에디터의 초기 값
               previewStyle="vertical" // 에디터와 미리보기 패널의 배치
               initialEditType="wysiwyg" // 워지웍 타입 선택
               hideModeSwitch={true} // 하단의 타입 선택 탭 숨김 (마크다운/워지웍)
