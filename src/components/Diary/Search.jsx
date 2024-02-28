@@ -8,8 +8,8 @@ function Search() {
   const [searchList, setSearchList] = useState([]);
 
   const diarySet = async () => {
-    setDiaryId(5);
-  };
+    setDiaryId(10);
+  }
 
   // const getSearchList = async () => {
   //   const response = await fetch('http://localhost:3001/search');

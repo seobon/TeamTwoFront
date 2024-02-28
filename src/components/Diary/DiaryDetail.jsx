@@ -15,7 +15,6 @@ import { ReactComponent as Soso } from '../../assets/Mood/Soso.svg';
 import Edit from '../../pages/write/Edit.jsx';
 
 export default function BoardDetail() {
-  const ENV_URL = process.env.REACT_APP_HOST;
   const { refetch } = useQuery({ queryKey: ['diaries'], queryFn: getEveryDiary });
   const id = localStorage.getItem('id'); // 로컬 스토리지에서 id 값을 가져옴
 
@@ -43,7 +42,7 @@ export default function BoardDetail() {
   // console.log('params', params);
 
   const diarySet = async () => {
-    setDiaryId(29);
+    setDiaryId(7);
   };
 
   const moodIcon = () => {
@@ -69,13 +68,7 @@ export default function BoardDetail() {
   const checkUser = async () => {
     try {
       // Diary 작성자 정보를 가져오는 API 호출
-      // SB : 추후에
-      // `${ENV_URL}/diary/checkUser?diaryId=17` 를
-      // `${ENV_URL}/diary/checkUser?diaryId=${diaryId}` 로
-      // 수정하시면 되겠습니다.
-
-      // const response = await axios.get(`${ENV_URL}/diary/checkUser?diaryId=1`);
-      const response = await axios.get(`${ENV_URL}/diary/checkUser?diaryId=${diaryId}`);
+      const response = await axios.get(`${process.env.REACT_APP_HOST}/diary/checkUser?diaryId=${diaryId}`);
 
       // SB: 콘솔 확인 부분입니다. 추후 삭제하시면 됩니다.
       console.log('checkUser data', response.data);
@@ -99,11 +92,7 @@ export default function BoardDetail() {
   const getMyDiary = async () => {
     try {
       // Diary 정보를 가져오는 API 호출
-      // SB : 추후에
-      // `${ENV_URL}/diary/getMyDiary?diaryId=17` 를
-      // `${ENV_URL}/diary/getMyDiary?diaryId=${diaryId}` 로
-      // 수정하시면 되겠습니다.
-      const response = await axios.get(`${ENV_URL}/diary/getMyDiary?diaryId=${diaryId}`);
+      const response = await axios.get(`${process.env.REACT_APP_HOST}/diary/getMyDiary?diaryId=${diaryId}`);
 
       // SB: 콘솔 확인 부분입니다. 추후 삭제하시면 됩니다.
       console.log('getMyDiary data', response.data);
@@ -156,13 +145,7 @@ export default function BoardDetail() {
   const getOneDiary = async () => {
     try {
       // Diary 정보를 가져오는 API 호출
-      // SB : 추후에
-      // `${ENV_URL}/diary/getOneDiary?diaryId=12` 를
-      // `${ENV_URL}/diary/getOneDiary?diaryId=${diaryId}` 로
-      // 수정하시면 되겠습니다.
-
-      // const response = await axios.get(`${ENV_URL}/diary/getOneDiary?diaryId=16`);
-      const response = await axios.get(`${ENV_URL}/diary/getOneDiary?diaryId=${diaryId}`);
+      const response = await axios.get(`${process.env.REACT_APP_HOST}/diary/getOneDiary?diaryId=${diaryId}`);
 
       // SB: 콘솔 확인 부분입니다. 추후 삭제하시면 됩니다.
       console.log('getOneDiary data', response.data);
@@ -193,18 +176,14 @@ export default function BoardDetail() {
 
   const deleteDiary = async () => {
     let data = {
-      diaryId: 1,
+      diaryId: diaryId,
     };
 
     try {
-      const response = await axios.delete(`${ENV_URL}/diary/deleteDiary`, data, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+      const response = await axios.delete(`${process.env.REACT_APP_HOST}/diary/deleteDiary?diaryId=${diaryId}`);
 
       // SB: 콘솔 확인 부분입니다. 추후 삭제하시면 됩니다.
-      console.log('deleteDiary data', response.data);
+      console.log('Delete Diary data', response.data);
     } catch (error) {
       console.error('Delete Diary Error:', error); // Diary 삭제 오류 출력
     }

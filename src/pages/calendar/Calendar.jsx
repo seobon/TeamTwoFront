@@ -4,8 +4,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import moment from 'moment';
 import PopupDiaryInfo from '../../components/Popup/PopupDiaryInfo';
+import { ReactComponent as Annoying } from '../../assets/Mood/Annoying.svg';
+import { ReactComponent as Great } from '../../assets/Mood/Great.svg';
+import { ReactComponent as Happy } from '../../assets/Mood/Happy.svg';
+import { ReactComponent as Sad } from '../../assets/Mood/Sad.svg';
+import { ReactComponent as Soso } from '../../assets/Mood/Soso.svg';
 
 export default function Calendar1() {
+  const [diaryData, setDiaryData] = useState(null); // diaryData를 상태로 추가
   const [closeDiaryInfoPopup, showDiaryInfoPopup] = useState(false); // 다이어리없을때 팝업
   const [today, setToday] = useState(new Date()); // 현재 날짜를 today에 저장
   const [writtenDays, setWrittenDays] = useState([]); // 작성된 날짜를 저장하는 상태
@@ -32,7 +38,6 @@ export default function Calendar1() {
           console.log('response.data: ', response.data);
           console.log('id: ', id);
           console.log('diaryId: ', response.data.diaryId);
-          console.log('댔다!!');
           makeCalendar(response.data);
         } else {
           console.log('Failed to get the calendar data');
@@ -45,9 +50,6 @@ export default function Calendar1() {
         console.error('Error!', error);
       });
   }, []);
-
-  // diaryData를 상태로 추가
-  const [diaryData, setDiaryData] = useState(null);
 
   const getDaysInMonth = (month, year) => {
     return new Date(year, month + 1, 0).getDate();
@@ -94,7 +96,7 @@ export default function Calendar1() {
       const month = today.getMonth() + 1;
 
       let diaryId;
-      let dateColor = 'bg-gray-200';
+      let diaryMood;
       let linkTo = '/write';
       let diaryBoolean;
 
@@ -110,8 +112,10 @@ export default function Calendar1() {
             // console.log('diary.createdAt', diary.createdAt);
             // console.log('DiaryDate: ', DiaryDate);
             // console.log('diaryId: ', diaryId);
+            // console.log("mood",  diary.mood)
+            // console.log("diaryData[]", DiaryMonth)
             diaryId = { id: `diary-${diary.diaryId}` };
-            dateColor = 'bg-yellow';
+            diaryMood = diary.mood;
             linkTo = '/diary/detail';
             diaryBoolean = true;
           } else {
@@ -119,6 +123,32 @@ export default function Calendar1() {
           }
         }
       }
+      const moodIcon = () => {
+        switch (diaryMood) {
+          case 'soso':
+            return <Soso />;
+            break;
+          case 'happy':
+            return <Happy />;
+            break;
+          case 'annoying':
+            return <Annoying />;
+            break;
+          case 'great':
+            return <Great />;
+            break;
+          case 'sad':
+            return <Sad />;
+            break;
+          default:
+            return (
+              <div
+                className={`w-10 h-10 rounded-full bg-gray-200 mx-auto flex items-center justify-center cursor-pointer`}
+              />
+            );
+        }
+      };
+
       calendarTemp.push(
         <div style={{ textAlign: 'center' }}>
           <div
@@ -128,8 +158,10 @@ export default function Calendar1() {
             }}>
             {/* 감정 버튼 */}
             <div
-              onClick={() => mood(date)}
-              className={`w-10 h-10 rounded-full ${dateColor} mx-auto flex items-center justify-center cursor-pointer`}></div>
+              onClick={() => {}}
+              className={`w-10 h-10 rounded-full mx-auto flex items-center justify-center cursor-pointer`}>
+              {moodIcon()}
+            </div>
           </div>
           {/* 숫자(날짜) */}
           <div className="mt-[3px] mb-4 text-[12px]" {...diaryId}>
@@ -142,16 +174,10 @@ export default function Calendar1() {
     setCalendar(calendarTemp);
   };
 
-  // 캘린더 감정 아이콘
-  const mood = day => {
-    let dateString = moment(day).format('YYYY. M. D.'); // 날짜를 "2024. 2. 24." 형식의 문자열로 변환
-    console.log('dateString: ', dateString);
-    console.log('writtenDays', writtenDays);
-  };
 
   return (
     <>
-      <div className=''>
+      <div className="">
         <div className="flex justify-center relative h-[60px] pt-2">
           <div className="absolute flex items-center ">
             <button onClick={prevMonth} className="h-10  top-[6px]">
