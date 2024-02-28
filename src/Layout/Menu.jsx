@@ -13,15 +13,15 @@ const Menu = () => {
 
   const [diaryData, setDiaryData] = useState(null);
   // const Date = new Date();2024-02-29 00:03:55
-  let now = new Date();	// 현재 날짜 및 시간
-  let year = now.getFullYear();	
-  let month = now.getMonth()+1;	
+  let now = new Date(); // 현재 날짜 및 시간
+  let year = now.getFullYear();
+  let month = now.getMonth() + 1;
   let date = now.getDate();
   let hours = now.getHours();
   let minutes = now.getMinutes();
   let seconds = now.getSeconds();
-  const Today = `${year}-${month}-${date} ${hours}:${minutes}:${seconds}`
-  console.log(Today)
+  const Today = `${year}-${month}-${date} ${hours}:${minutes}:${seconds}`;
+  console.log(Today);
   useEffect(() => {
     const month = now.getMonth() + 1;
     const monthString = month > 9 ? month : `0${month}`;
@@ -38,10 +38,6 @@ const Menu = () => {
   }, []);
 
   console.log(diaryData);
-  // for(const diaryDay of diaryData ){
-  //   if (diaryDay.createdAt === Date ) ;
-
-  // }
 
   return (
     <div className="relative">

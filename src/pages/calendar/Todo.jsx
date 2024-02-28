@@ -1,7 +1,10 @@
 import axios from 'axios';
+import { useEffect, useState } from 'react';
+
+import { HiOutlinePencilSquare } from 'react-icons/hi2';
+import { BsTrash3 } from 'react-icons/bs';
 import { BsCheckCircle } from 'react-icons/bs';
 import { BsCircle } from 'react-icons/bs';
-import { useEffect, useState } from 'react';
 
 export default function Todo() {
   const [toDoList, setToDoList] = useState([]);
@@ -22,10 +25,6 @@ export default function Todo() {
       });
 
       if (response.data) {
-        // const newData = response.data.map(item => {
-        //   return { text: item.todoContent, isCheck: item.state === 'done' };
-        // });
-
         console.log('Todo 조회 성공');
         console.log(response.data);
         setToDoList(response.data);
@@ -131,7 +130,7 @@ export default function Todo() {
   // todo 수정
   const handleEditClick = index => {
     setEditIndex(index);
-    setInputText(toDoList[index].text);
+    setInputText(toDoList[index].todoContent);
   };
 
   // todo 등록
@@ -179,12 +178,18 @@ export default function Todo() {
                       type="text"
                       value={inputText}
                       onChange={handleInputChange}
-                      className="h-6 outline-none rounded"
+                      className="h-6 w-[270px] bg-transparent outline-none rounded"
                     />
-                    <button onClick={() => updateTodo(todo.todoId)}>수정</button>
-                    <button onClick={() => deleteTodo(todo.todoId)} className="ml-1">
-                      삭제
-                    </button>
+                    <span>
+                      <button onClick={() => updateTodo(todo.todoId)}>
+                        {/* 수정 버튼 */}
+                        <HiOutlinePencilSquare />
+                      </button>
+                      <button onClick={() => deleteTodo(todo.todoId)} className="ml-1">
+                        {/* 삭제 버튼 */}
+                        <BsTrash3 className="w-[14px] h-[14px] ml-[4px] mb-[1px]" />
+                      </button>
+                    </span>
                   </form>
 
                   {/* <form onSubmit={handleDeleteTodo} className="inline-block"></form> */}
@@ -211,10 +216,11 @@ export default function Todo() {
               type="text"
               value={inputText}
               onChange={handleInputChange}
-              className="h-6 w-30 ml-1 outline-none rounded"
+              className="h-6 w-[270px] ml-1 bg-transparent outline-none rounded"
             />
             <button type="submit" className="ml-2">
-              등록
+              {/* 작성 버튼 */}
+              <HiOutlinePencilSquare />
             </button>
           </form>
         )}
