@@ -29,7 +29,15 @@ export default function BoardDetail() {
   const [diaryTitle, setDiaryTitle] = useState('');
   const [diaryContent, setDiaryContent] = useState('');
   const [mood, setMood] = useState('');
+  
+  // SB : weather 은 날씨를 저장하는 변수입니다.
+  // Clear / Clouds(few clouds, overcast clouds) / Rain(light rain, moderate rain) 의 종류가 있다고 합니다.
+  // 현재는 Clear / Clouds / Rain 의 값이 들어옵니다. 각 값에 맞게 조건문으로 이미지를 넣어주시면 될 것 같아요.
   const [weather, setWeather] = useState('');
+
+  // SB : temperature 은 온도를 저장하는 변수입니다.
+  // "7", "15" 이런 식으로 문자열로 숫자만 가져와지니까 단위( ex) 도, °C )는 따로 붙이셔야합니다
+  const [temperature, setTemperature] = useState('');
   const [createdAt, setCreatedAt] = useState('');
 
   const [diaryId, setDiaryId] = useState(null);
@@ -135,7 +143,8 @@ export default function BoardDetail() {
       setDiaryTitle(response.data.diaryTitle);
       setDiaryContent(response.data.diaryContent);
       setMood(response.data.mood);
-      setWeather(response.data.weather);
+      setWeather(response.data.weather.split("/")[0]);
+      setTemperature(response.data.weather.split("/")[1])
     } catch (error) {
       console.error('Get My Diary Error:', error); // Diary 정보 가져오기 오류 출력
     }
@@ -172,7 +181,8 @@ export default function BoardDetail() {
       setDiaryTitle(response.data.diaryTitle);
       setDiaryContent(response.data.diaryContent);
       setMood(response.data.mood);
-      setWeather(response.data.weather);
+      setWeather(response.data.weather.split("/")[0]);
+      setTemperature(response.data.weather.split("/")[1])
     } catch (error) {
       console.error('Get One Diary Error:', error); // Diary 정보 가져오기 오류 출력
     }
@@ -300,7 +310,7 @@ export default function BoardDetail() {
               <div className="text-center">
                 <p className="font-Heading3 mb-3">오늘의 날씨</p>
                 <p className="inline-block  mb-0.5">날씨 이미지</p>
-                <div className="font-Body4 text-gray-800">{weather}</div>
+                <div className="font-Body4 text-gray-800">{weather} {temperature}도</div>
               </div>
             </div>
           </div>
