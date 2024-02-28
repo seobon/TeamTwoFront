@@ -32,8 +32,8 @@ function App() {
           <Route path="/" element={<Calendar1 />} />
           <Route path="calendar" element={<Calendar1 />} />
           <Route path="todo" element={<Todo />} />
-          <Route path="diary/detail" element={<DiaryDetail />} />
-          <Route path="edit" element={<Edit />} />
+          <Route path="diary/detail/:id" element={<DiaryDetail />} />
+          <Route path="edit/:id" element={<Edit />} />
 
           <Route path="diary" element={<Diaries />} />
           <Route path="diary/:id" element={<DiaryDetail />} />
