@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Nav from './Nav';
 import axios from 'axios';
 import { ReactComponent as Calendar } from '../assets/Nav/Calendar.svg';
@@ -12,19 +13,13 @@ const Menu = () => {
   const [nav, setNav] = useState('');
 
   const [diaryData, setDiaryData] = useState(null);
-  // const Date = new Date();2024-02-29 00:03:55
-  let now = new Date();	// 현재 날짜 및 시간
-  let year = now.getFullYear();	
-  let month = now.getMonth()+1;	
-  let date = now.getDate();
-  let hours = now.getHours();
-  let minutes = now.getMinutes();
-  let seconds = now.getSeconds();
-  const Today = `${year}-${month}-${date} ${hours}:${minutes}:${seconds}`
-  console.log(Today)
+  const navigator = useNavigate();
+  let now = new Date();
+
   useEffect(() => {
     const month = now.getMonth() + 1;
     const monthString = month > 9 ? month : `0${month}`;
+
     axios
       .get(`${process.env.REACT_APP_HOST}/diary/getCalendar?id=${id}&month=${monthString}`)
       .then(response => {
@@ -36,12 +31,43 @@ const Menu = () => {
         console.error('Error!', error);
       });
   }, []);
+  const getDaysInMonth = (month, year) => {
+    return new Date(year, month + 1, 0).getDate();
+  };
+  const data = Array.isArray(diaryData) ? diaryData : [];
 
-  console.log(diaryData);
-  // for(const diaryDay of diaryData ){
-  //   if (diaryDay.createdAt === Date ) ;
+  const daysInMonth = getDaysInMonth(now.getMonth(), now.getFullYear());
+  let diaryId;
+  let diaryIdParams;
 
-  // }
+  for (let i = 1; i <= daysInMonth; i++) {
+    const date = new Date(now.getFullYear(), now.getMonth(), i); // 연도, 월, 일
+    const month = now.getMonth() + 1;
+
+    const NowDate = now.getDate();
+
+    if (NowDate == i) {
+      diaryId = 'true';
+    }
+    for (const diary of data) {
+      const DiaryMonth = new Date(diary.createdAt).getMonth() + 1; // 작성월
+      const DiaryDate = new Date(diary.createdAt).getDate(); // 작성일
+
+      if (month === DiaryMonth) {
+        if (i === DiaryDate) {
+          diaryIdParams = diary.diaryId;
+        }
+      }
+    }
+  }
+  const navPage = () => {
+    switch (diaryIdParams) {
+      case 'true':
+        return navigator('/write');
+      default:
+        return navigator(`/diary/detail/${diaryIdParams}`);
+    }
+  };
 
   return (
     <div className="relative">
@@ -69,7 +95,7 @@ const Menu = () => {
               }}
             />
           </NavLink>
-          <NavLink to="/write">
+          <div onClick={navPage}>
             <Nav
               title="DiaryWrite"
               svg={<DiaryWrite stroke={nav == 'DiaryWrite' ? '#353535' : '#757575'} />}
@@ -77,7 +103,7 @@ const Menu = () => {
                 setNav('DiaryWrite');
               }}
             />
-          </NavLink>
+          </div>
           <NavLink to="/mypage">
             <Nav
               title="User"
