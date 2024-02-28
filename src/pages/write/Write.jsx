@@ -18,8 +18,9 @@ import { ReactComponent as Soso } from '../../assets/Mood/Soso.svg';
 import { useNavigate } from 'react-router-dom';
 import Location from '../../components/Diary/Location';
 import Weather from '../../components/Diary/Weather';
-
 import useCurrentLocation from '../../hooks/useGeolocation';
+
+import { HiOutlinePencilSquare } from 'react-icons/hi2';
 
 export default function Write() {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ export default function Write() {
   const { handleSubmit } = useForm();
 
   const [isOn, setIsOn] = useState(false);
-  const [mood, setMood] = useState("");
+  const [mood, setMood] = useState('');
   const [title, setTitle] = useState();
 
   // SB : 현 위치 가져오는 변수
@@ -38,7 +39,7 @@ export default function Write() {
   const [latlon, setLatlon] = useState(null);
   const [address, setAddress] = useState('');
   const [weather, setWeather] = useState(null);
-  
+
   useEffect(() => {
     getAddressFromCoordinates();
     getWeather();
@@ -54,7 +55,7 @@ export default function Write() {
           `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${locationApiKey}`,
         );
 
-        setLatlon(`${latitude}/${longitude}`)
+        setLatlon(`${latitude}/${longitude}`);
       }
     } catch (error) {
       console.error('Error fetching address: ', error);
@@ -79,7 +80,7 @@ export default function Write() {
         console.log(region);
         console.log(`${main}/${temp}`);
 
-        setAddress(region)
+        setAddress(region);
         setWeather(`${main}/${temp}`);
       } catch (error) {
         console.error('Failed to fetch weather data: ', error);
@@ -93,17 +94,17 @@ export default function Write() {
     const id = localStorage.getItem('id'); // 로컬 스토리지에서 id 값을 가져옴
 
     if (latlon != null) {
-      alert("현 위치를 가져옵니다.")
+      alert('현 위치를 가져옵니다.');
     } else {
-      setLatlon("37.413294/127.269311")
-      alert("현위치를 가져올 수 없습니다. 기본 위치값를 가져옵니다.")
+      setLatlon('37.413294/127.269311');
+      alert('현위치를 가져올 수 없습니다. 기본 위치값를 가져옵니다.');
     }
 
     if (weather != null) {
-      alert("현위치를 기준으로 날씨를 가져옵니다.")
+      alert('현위치를 기준으로 날씨를 가져옵니다.');
     } else {
-      setWeather("날씨를 알 수 없음")
-      alert("알 수 없는 오류로 날씨를 가져올 수 없습니다.")
+      setWeather('날씨를 알 수 없음');
+      alert('알 수 없는 오류로 날씨를 가져올 수 없습니다.');
     }
 
     const data = {
@@ -117,7 +118,7 @@ export default function Write() {
     };
 
     console.log(data);
-    
+
     axios
       .post(`${process.env.REACT_APP_HOST}/diary/postDiary`, data, {
         withCredentials: true,
@@ -139,8 +140,8 @@ export default function Write() {
         alert('알 수 없는 오류로 등록이 실패하였습니다.');
         console.log('글 등록 실패: ', error);
       });
-      navigate("/calendar");
-      window.location.reload();
+    navigate('/calendar');
+    window.location.reload();
   };
 
   //비공개 토글
@@ -188,18 +189,21 @@ export default function Write() {
               <div className="">날씨 아이콘</div>
             </div>
             <div className="text-center inline-block mb-8">
-              {isOn ? (
-                <span className="font-Caption">공개 다이어리</span>
-              ) : (
-                <span className="font-Caption">비공개 다이어리</span>
-              )}
+              {isOn ? <span className="font-Caption">공개</span> : <span className="font-Caption">비공개</span>}
               <Toggle isOn={isOn} toggleHandler={toggleHandler} />
             </div>
           </div>
-          <div className="openApi">
-          </div>
+          <div className="openApi"></div>
+
+          {/* 작성 버튼을 누르면, 작성이 완료되었다는 알림창을 띄우고 다른 컴포넌트로 이동시키기 */}
+          <button type="submit" className="w-[60px] h-[30px] mt-1 ml-[320px] mb-[18px] text-[6px]">
+            {/* 작성 버튼 */}
+            <HiOutlinePencilSquare className="w-[25px] h-[25px] ml-4 mr-4 mb-[1px]" />
+            작성하기
+          </button>
+
           <input
-            className="w-full h-10 mb-4 p-2 bg-white rounded-lg border border-solid focus:outline-none focus:bg-white active:bg-white"
+            className="w-full h-7 mb-2 p-2 bg-white rounded-lg border border-solid focus:outline-none focus:bg-white active:bg-white text-[8px]"
             placeholder="오늘 하루를 짧게 제목을 지어주세요."
             onChange={e => {
               setTitle(e.target.value);
@@ -207,7 +211,7 @@ export default function Write() {
           />
           <div className="">
             <Editor
-              initialValue="Fill out this form:)" // 에디터의 초기 값
+              initialValue="오늘은 어떤 하루였나요?" // 에디터의 초기 값
               previewStyle="vertical" // 에디터와 미리보기 패널의 배치
               initialEditType="wysiwyg" // 워지웍 타입 선택
               hideModeSwitch={true} // 하단의 타입 선택 탭 숨김 (마크다운/워지웍)
@@ -215,13 +219,9 @@ export default function Write() {
               plugins={[colorSyntax]}
               language="ko-KR"
               ref={editorRef}
-              height="300px"
+              height="400px"
             />
           </div>
-          {/* 작성 버튼을 누르면, 작성이 완료되었다는 알림창을 띄우고 다른 컴포넌트로 이동시키기 */}
-          <button type="submit" className="mt-8 btn-full-fill">
-            작성하기
-          </button>
         </div>
       </form>
     </>
