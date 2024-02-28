@@ -4,8 +4,8 @@
 
 @layer base {
   html {
-    max-width: 430px;
-    min-width: 375px;
+    /* max-width: 430px;
+    min-width: 375px; */
     padding: 16px;
     margin: 0;
     font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto,
@@ -15,8 +15,12 @@
     -moz-osx-font-smoothing: grayscale;
   }
   body {
+    width: 430px;
+    min-height: 375px;
+    max-height: 932px;
     background-color: #F8F8F8;
     border: 1px solid black;
+    /* border-radius: 20px; */
   }
 }
 
