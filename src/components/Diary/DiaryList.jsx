@@ -22,15 +22,13 @@ const BoardList = () => {
     queryFn: getEveryDiaryInfinite,
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {
-      console.log('allPages', allPages.length);
+      // console.log('allPages', allPages.length);
       const nextPage = lastPage.length ? allPages.length + 1 : undefined;
       return nextPage;
     },
   });
 
   const contents = data?.pages[0];
-  // console.log('contents', contents);
-  // const content = data?.pages.map(diaries => diaries.map(diary => diary));
 
   useEffect(() => {
     if (inView && hasNextPage) {

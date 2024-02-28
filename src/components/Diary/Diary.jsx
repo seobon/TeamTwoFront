@@ -1,22 +1,43 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { ReactComponent as Annoying } from '../../assets/Mood/Annoying.svg';
+import { ReactComponent as Great } from '../../assets/Mood/Great.svg';
+import { ReactComponent as Happy } from '../../assets/Mood/Happy.svg';
+import { ReactComponent as Sad } from '../../assets/Mood/Sad.svg';
+import { ReactComponent as Soso } from '../../assets/Mood/Soso.svg';
 
-const moods = {
-  soso: { color: 'bg-green', hover: 'hover:bg-green', text: '평온해요' },
-  happy: { color: 'bg-yellow', hover: 'hover:bg-yellow', text: '기뻐요' },
-  great: { color: 'bg-white', hover: 'hover:bg-brown', text: '최고예요' },
-  sad: { color: 'bg-deepBlue', hover: 'hover:bg-deepBlue', text: '슬퍼요' },
-  annoying: { color: 'bg-brown', hover: 'hover:bg-brown', text: '짜증나요' },
-};
+const Diary = ({ day, mood, nickname, diaryTitle, diaryContent, image }) => {
+  if (image === null) {
+    image = '../../assets/profileDefult.jpg';
+  } else {
+  }
 
-const Diary = ({ day, mood, nickname, diaryTitle, diaryContent }) => {
+  const moodIcon = mood => {
+    switch (mood) {
+      case 'happy':
+        return <Happy />;
+        break;
+      case 'annoying':
+        return <Annoying />;
+        break;
+      case 'great':
+        return <Great />;
+        break;
+      case 'sad':
+        return <Sad />;
+        break;
+      case 'soso':
+        return <Soso />;
+        break;
+    }
+  };
+
   return (
     <>
-      <div className="flex gap-2 p-3 pb-6 rounded-xl bg-white ">
+      <div className="flex gap-5 p-3 pb-6 rounded-xl bg-white ">
         <div className="flex flex-col items-center w-10 gap-1">
-          <p className="font-bold text-2xl">{day}15</p>
-          <div className={`w-10 h-10 rounded-xl ${moods[mood]} bg-deepBlue`}>img</div>
-          <p className="text-xs w-10 ">{nickname}</p>
+          <img className={`w-10 h-10 rounded-3xl`} src={image} alt="profileImage" />
+          {/* <div className="w-10 h-10 rounded-3xl">{moodIcon(mood)}</div> */}
+          <p className="text-xs w-10 text-center">{nickname}</p>
         </div>
         <div className="flex flex-col">
           <p className="font-bold">{diaryTitle}</p>
