@@ -38,9 +38,11 @@ const SignUp = () => {
         const response = await axios.post(`${process.env.REACT_APP_HOST}/user/checknickname`, {
           nickname: nickName,
         });
-        if (response.status == 200) {
+        if (response.data === '사용 가능한 닉네임입니다.') {
           console.log('닉네임확인', nickName);
           setNickName('닉네임 사용가능');
+        } else {
+          setError('nickname', { message: '이미 사용중인 닉네임입니다.' });
         }
       } catch (error) {
         console.error(error);
@@ -55,11 +57,13 @@ const SignUp = () => {
     } else {
       try {
         const response = await axios.post(`${process.env.REACT_APP_HOST}/user/checkid`, {
-          userId: userId,
+          userid: userId,
         });
-        if (response.status == 200) {
+        if (response.data === '사용 가능한 아이디입니다.') {
           console.log('아이디확인', userId);
           setUserId('아이디 사용가능');
+        } else {
+          setError('userid', { message: '이미 사용중인 아이디입니다.' });
         }
       } catch (error) {
         console.error(error);
@@ -68,7 +72,7 @@ const SignUp = () => {
     }
   };
   const onChangeFormLib = async data => {
-    if (nickName === '닉네임 사용가능') {
+    if (nickName === '닉네임 사용가능' && userid === '아이디 사용가능') {
       try {
         const response = await axios.post(`${process.env.REACT_APP_HOST}/user/signup`, {
           nickname: data.nickname,
@@ -79,11 +83,10 @@ const SignUp = () => {
         });
         console.log('회원가입 응답:', response.data);
         navigator('/signin');
-      } catch (error) {
-        
-      }
-    }else{
-      setError('nickname', { message: '이미 사용중인 닉네임입니다.' });
+      } catch (error) {}
+    } else {
+      setError('nickname', { message: '닉네임 중복을 확인해주세요.' });
+      setError('userid', { message: '아이디 중복을 확인해주세요.' });
     }
   };
   return (
