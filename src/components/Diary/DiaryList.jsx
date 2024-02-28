@@ -40,7 +40,7 @@ const BoardList = () => {
 
   return (
     <>
-      <div className="h-[500px] flex flex-col gap-2 overflow-auto">
+      <div className="h-[500px] flex flex-col gap-2 p-4 overflow-auto scrollbar-hide">
         {status === 'error' && <div>Error</div>}
         {status === 'pending'
           ? 'Loading...'

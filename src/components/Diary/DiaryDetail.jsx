@@ -4,7 +4,7 @@ import { Viewer } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 import { Link, useLocation, useParams, useMatch } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { getEveryDiary } from '../../api';
+// import { getEveryDiary } from '../../api';
 import Header1 from '../Header/Header1';
 import axios from 'axios';
 import { ReactComponent as Annoying } from '../../assets/Mood/Annoying.svg';
@@ -15,7 +15,7 @@ import { ReactComponent as Soso } from '../../assets/Mood/Soso.svg';
 import Edit from '../../pages/write/Edit.jsx';
 
 export default function BoardDetail() {
-  const { refetch } = useQuery({ queryKey: ['diaries'], queryFn: getEveryDiary });
+  // const { refetch } = useQuery({ queryKey: ['diaries'], queryFn: getEveryDiary });
   const id = localStorage.getItem('id'); // 로컬 스토리지에서 id 값을 가져옴
   const diaryIdParams = useParams();
   console.log('diaryIdParams', diaryIdParams.id);
@@ -44,9 +44,7 @@ export default function BoardDetail() {
   // console.log('params', params);
 
   const diarySet = async () => {
-
     setDiaryId(diaryIdParams);
-
   };
 
   const moodIcon = () => {
@@ -93,7 +91,7 @@ export default function BoardDetail() {
       console.error('Check User Error:', error); // Diary 정보 가져오기 오류 출력
     }
   };
-console.log("myDiaryInfo",myDiaryInfo)
+  console.log('myDiaryInfo', myDiaryInfo);
   // SB: 나의 다이어리일 경우 실행시키는(캘린더에서 이어지는) 다이어리 정보 조회 함수입니다.
   const getMyDiary = async () => {
     try {
