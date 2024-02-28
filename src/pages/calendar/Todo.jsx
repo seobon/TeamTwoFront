@@ -60,12 +60,14 @@ export default function Todo() {
   };
 
   // todo 수정
-  const updateTodo = async (todoId, newState) => {
+  const updateTodo = async (todoId, newState, currentContent = inputText) => {
     const newData = {
-      newTodoContent: inputText, // input value를 newTodoContent에
+      newTodoContent: currentContent, // input value를 newTodoContent에
     };
 
-    if (newState) newData.newState = newState;
+    if (newState) {
+      newData.newState = newState;
+    }
 
     try {
       const response = await axios.put(`${process.env.REACT_APP_HOST}/todo/todolistupdate/${todoId}`, newData, {
@@ -84,7 +86,7 @@ export default function Todo() {
 
         console.log('Todo 수정 성공');
         console.log('response.data', response.data);
-        // setToDoList([...toDoList, ...newData]);
+        window.location.reload(); // 페이지 리로드
       } else {
         console.log('Todo 수정 실패');
       }
@@ -118,11 +120,13 @@ export default function Todo() {
     setToDoList(newToDoList);
   };
 
+  // todo 수정
   const handleInputChange = e => {
     setInputText(e.target.value);
     console.log('handleInputChange 함수 실행');
   };
 
+  // todo 수정
   const handleEditClick = index => {
     setEditIndex(index);
     setInputText(toDoList[index].text);
@@ -144,9 +148,14 @@ export default function Todo() {
           {toDoList.map((todo, index) => (
             <li key={index} className="flex align-middle font-Body2">
               <button onClick={() => toggleCheck(index)} className="mr-1">
-                {/* todo 체크 버튼 */}
-                {todo.state == 'done' ? (
-                  <span className="" onClick={() => updateTodo(todo.todoId, 'done')}>
+                {/* todo 토글 버튼 */}
+                {todo.state === 'done' ? (
+                  <span
+                    className=""
+                    onClick={() => {
+                      // setInputText(toDoList[index].text);
+                      updateTodo(todo.todoId, 'notstart', todo.todoContent);
+                    }}>
                     <svg
                       class="h-4 w-4 text-red-500"
                       width="24"
@@ -163,7 +172,12 @@ export default function Todo() {
                     </svg>
                   </span>
                 ) : (
-                  <span className="" onClick={() => updateTodo(todo.todoId)}>
+                  <span
+                    className=""
+                    onClick={() => {
+                      // setInputText(toDoList[index].text);
+                      updateTodo(todo.todoId, 'done', todo.todoContent);
+                    }}>
                     <svg
                       class="h-4 w-4 text-red-500"
                       width="24"
@@ -188,7 +202,7 @@ export default function Todo() {
                       type="text"
                       value={inputText}
                       onChange={handleInputChange}
-                      className="h-6  outline-none rounded"
+                      className="h-6 outline-none rounded"
                     />
                     <button onClick={() => updateTodo(todo.todoId)}>수정</button>
                     <button onClick={() => deleteTodo(todo.todoId)} className="ml-1">
@@ -200,9 +214,10 @@ export default function Todo() {
                 </div>
               ) : (
                 <span
+                  id="spanContent"
                   onClick={() => handleEditClick(index)}
-                  style={todo.isCheck ? { textDecoration: 'line-through' } : null}
-                  className="min-w-[30px] cursor-pointer">
+                  className={`min-w-[200px] cursor-pointer ${todo.state === 'done' ? 'line-through' : ''}
+                  `}>
                   {todo.todoContent}
                 </span>
               )}
