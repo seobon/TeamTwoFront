@@ -18,33 +18,40 @@ import { ReactComponent as Sad } from '../../assets/Mood/Sad.svg';
 import { ReactComponent as Soso } from '../../assets/Mood/Soso.svg';
 import { useNavigate } from 'react-router-dom';
 // import useCurrentLocation from '../../hooks/useGeoLocation';
-import Location from '../../components/Diary/Location';
-import Weather from '../../components/Diary/Weather';
+// import Location from '../../components/Diary/Location';
+// import Weather from '../../components/Diary/Weather';
 
 export default function Write() {
+  const navigate = useNavigate();
+
   const editorRef = useRef(); // 에디터 컴포넌트에 접근하기 위한 ref 생성
+
   const [isPublic, setIsPublic] = useState(true); // 글 비공개 여부
   const { handleSubmit } = useForm();
 
-  const onValid = () => {
-    const contents = editorRef.current.getInstance().getHTML(); // getHTML(): 에디터의 내용을 HTML로 가져옴
-    console.log(contents);
+  const [isOn, setIsOn] = useState(false);
+  const [mood, setMood] = useState("");
+  const [title, setTitle] = useState();
+  // const { location, error } = useCurrentLocation();
+
+  const diaryWriteSubmit = () => {
+    const contents = editorRef.current.getInstance().getMarkdown(); // getHTML(): 에디터의 내용을 HTML로 가져옴
 
     const id = localStorage.getItem('id'); // 로컬 스토리지에서 id 값을 가져옴
 
     const data = {
       id: id,
-      diaryTitle: '제목', // '제목' 대신 실제 제목을 입력해야 함
+      diaryTitle: title,
       diaryContent: contents,
-      mood: 'annoying', // '기분' 대신 실제 기분 입력해야 함
-      location: '서울', // '위치' 대신 실제 위치를 입력해야 함
-      weather: '1', // '날씨' 대신 실제 날씨를 입력해야 함
-      isPublic: isPublic,
-      currentLocation: [37.5665, 126.978], // 실제 [위도, 경도를 입력해야 함
+      mood: mood,
+      // location: '서울', // '위치' 대신 실제 위치를 입력해야 함
+      // weather: '1', // '날씨' 대신 실제 날씨를 입력해야 함
+      isPublic: isOn,
+      // currentLocation: [37.5665, 126.978], // 실제 [위도, 경도를 입력해야 함
     };
 
-    console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', data);
-
+    console.log(data);
+    
     axios
       .post(`${process.env.REACT_APP_HOST}/diary/postDiary`, data, {
         withCredentials: true,
@@ -70,40 +77,76 @@ export default function Write() {
         console.log('id: ', id);
         console.log('userid: ', id);
       });
+      navigate("/calendar")
   };
 
-  // 비공개 토글 버튼
-  const IsPublicToggle = () => {
-    setIsPublic(!isPublic); // 비공개 여부를 토글
-    if (isPublic === true) console.log(isPublic);
-    else console.log(isPublic);
+  //비공개 토글
+  const toggleHandler = () => {
+    setIsOn(!isOn);
   };
 
   return (
     <>
       <Header1 title="작성하기" />
-      <form onSubmit={handleSubmit(onValid)}>
+      <form onSubmit={diaryWriteSubmit}>
         <div className="mt-[0px]">
-          <div className="ml-[5px]">
-            비공개{' '}
-            <button type="button" onClick={IsPublicToggle} className="">
-              {isPublic ? 'ㅁ' : 'V'}
-            </button>
-            {/* 작성 버튼을 누르면, 작성이 완료되었다는 알림창을 띄우고 다른 컴포넌트로 이동시키기 */}
-            <button
-              type="submit"
-              className="
-              ml-[200px]
-     
-          ">
-              작성하기
-            </button>
+          <div className="text-center">
+            <p className="font-Heading4">오늘의 기분</p>
+            <div
+              className="flex justify-between items-center font-Body4 p-4 px-12"
+              onChange={e => {
+                setMood(e.target.value);
+              }}>
+              <label htmlFor="happy">
+                <input id="happy" type="radio" name="mood" value="happy" className="hidden" />{' '}
+                <Happy className={mood === 'happy' ? 'opacity-100' : 'opacity-50'} />
+              </label>
+              <label htmlFor="great">
+                <input id="great" type="radio" name="mood" value="great" className="hidden" />{' '}
+                <Great className={mood === 'great' ? 'opacity-100' : 'opacity-50'} />
+              </label>
+              <label htmlFor="soso">
+                <input id="soso" type="radio" name="mood" value="soso" className="hidden" />{' '}
+                <Soso className={mood === 'soso' ? 'opacity-100' : 'opacity-50'} />
+              </label>
+              <label htmlFor="sad">
+                <input id="sad" type="radio" name="mood" value="sad" className="hidden" />{' '}
+                <Sad className={mood === 'sad' ? 'opacity-100' : 'opacity-50'} />
+              </label>
+              <label htmlFor="annoying">
+                <input id="annoying" type="radio" name="mood" value="annoying" className="hidden" />{' '}
+                <Annoying className={mood === 'annoying' ? 'opacity-100' : 'opacity-50'} />
+              </label>
+            </div>
+          </div>
+          <div className="flex justify-between items-start mt-4 px-4">
+            <div className="text-center">
+              <span className="font-Caption">오늘의 날씨</span>
+              <div className="">날씨 아이콘</div>
+            </div>
+            <div className="text-center inline-block mb-8">
+              {isOn ? (
+                <span className="font-Caption">공개 다이어리</span>
+              ) : (
+                <span className="font-Caption">비공개 다이어리</span>
+              )}
+              <Toggle isOn={isOn} toggleHandler={toggleHandler} />
+            </div>
           </div>
           <div className="openApi">
-            <Location />
-            <Weather />
+
+            {/* <Location />
+            <Weather /> */}
+
           </div>
-          <div className="mt-[0px]">
+          <input
+            className="w-full h-10 mb-4 p-2 bg-white rounded-lg border border-solid focus:outline-none focus:bg-white active:bg-white"
+            placeholder="오늘 하루를 짧게 제목을 지어주세요."
+            onChange={e => {
+              setTitle(e.target.value);
+            }}
+          />
+          <div className="">
             <Editor
               initialValue="Fill out this form:)" // 에디터의 초기 값
               previewStyle="vertical" // 에디터와 미리보기 패널의 배치
@@ -113,10 +156,13 @@ export default function Write() {
               plugins={[colorSyntax]}
               language="ko-KR"
               ref={editorRef}
-              height="825px"
-              className=""
+              height="300px"
             />
           </div>
+          {/* 작성 버튼을 누르면, 작성이 완료되었다는 알림창을 띄우고 다른 컴포넌트로 이동시키기 */}
+          <button type="submit" className="mt-8 btn-full-fill">
+            작성하기
+          </button>
         </div>
       </form>
     </>

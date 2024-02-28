@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 
 export default function Todo() {
   const [toDoList, setToDoList] = useState([]);
-
   const [inputText, setInputText] = useState('');
   const [editIndex, setEditIndex] = useState(null);
 
@@ -21,13 +20,13 @@ export default function Todo() {
       });
 
       if (response.data) {
-        const newData = response.data.map(item => {
-          return { text: item.todoContent, isCheck: item.state === 'done' };
-        });
+        // const newData = response.data.map(item => {
+        //   return { text: item.todoContent, isCheck: item.state === 'done' };
+        // });
 
         console.log('Todo 조회 성공');
         console.log(response.data);
-        setToDoList([...toDoList, ...newData]);
+        setToDoList(response.data);
       } else {
         console.log('Todo 조회 실패');
       }
@@ -53,7 +52,7 @@ export default function Todo() {
     );
 
     if (response.data) {
-      setToDoList([...toDoList, { text: todo, isCheck: false }]);
+      setToDoList([...toDoList, response.data]);
       console.log('Todo 작성 성공');
     } else {
       console.log('Todo 작성 실패');
@@ -61,35 +60,54 @@ export default function Todo() {
   };
 
   // todo 수정
-  const updateTodo = async (todoId, newTodoContent, newDeadline, newState) => {
+  const updateTodo = async (todoId, newState) => {
+    const newData = {
+      newTodoContent: inputText, // input value를 newTodoContent에
+    };
+
+    if (newState) newData.newState = newState;
+
     try {
-      const response = await axios.put(
-        `${process.env.REACT_APP_HOST}/todo/todolistupdate/${todoId}`,
-        {
-          newTodoContent: newTodoContent,
-          newDeadline: newDeadline,
-          newState: newState,
+      const response = await axios.put(`${process.env.REACT_APP_HOST}/todo/todolistupdate/${todoId}`, newData, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        },
-      );
+      });
 
       if (response.data) {
-        const newData = response.data.map(item => {
-          return { text: item.todoContent, isCheck: item.state === 'done' };
-        });
+        const newData = [
+          {
+            text: response.data.newTodoContent,
+            isCheck: response.data.newState === 'done',
+          },
+        ];
 
         console.log('Todo 수정 성공');
-        console.log(response.data);
-        setToDoList([...toDoList, ...newData]);
+        console.log('response.data', response.data);
+        // setToDoList([...toDoList, ...newData]);
       } else {
         console.log('Todo 수정 실패');
       }
     } catch (error) {
       console.log('Todo 수정 에러:', error);
+    }
+  };
+
+  // todo 삭제
+  const deleteTodo = async (todoId, newState) => {
+    const newData = {
+      newTodoContent: inputText, // input value를 newTodoContent에
+    };
+
+    if (newState) newData.newState = newState;
+
+    try {
+      const response = await axios.delete(`${process.env.REACT_APP_HOST}/todo/tododelete/${todoId}`, newData, {});
+      console.log('Todo 삭제 성공:', response.data);
+      // 삭제 요청이 성공한 경우에 대한 처리를 추가합니다.
+    } catch (error) {
+      console.error('Todo 삭제 요청 실패:', error);
+      // 삭제 요청이 실패한 경우에 대한 처리를 추가합니다.
     }
   };
 
@@ -110,33 +128,12 @@ export default function Todo() {
     setInputText(toDoList[index].text);
   };
 
-  // todo 수정
-  const handleEditSubmit = e => {
-    e.preventDefault();
-    const newToDoList = [...toDoList];
-    newToDoList[editIndex].text = inputText;
-    setToDoList(newToDoList);
-    setEditIndex(null);
-    setInputText(''); // 입력창 초기화
-    console.log('handleEditSubmit 함수 실행');
-  };
-
   // todo 등록
   const handleAddSubmit = e => {
     e.preventDefault();
     addTodo(inputText);
     setInputText(''); // 입력창 초기화
     console.log('handleAddSubmit 함수 실행');
-  };
-
-  // todo 삭제
-  const deleteTodo = (e, index) => {
-    e.stopPropagation();
-    const newToDoList = [...toDoList];
-    newToDoList.splice(index, 1);
-    setToDoList(newToDoList);
-    setEditIndex(null);
-    setInputText(''); // 입력창 초기화
   };
 
   return (
@@ -148,8 +145,8 @@ export default function Todo() {
             <li key={index} className="flex align-middle font-Body2">
               <button onClick={() => toggleCheck(index)} className="mr-1">
                 {/* todo 체크 버튼 */}
-                {todo.isCheck ? (
-                  <span className="" onClick={() => updateTodo()}>
+                {todo.state == 'done' ? (
+                  <span className="" onClick={() => updateTodo(todo.todoId, 'done')}>
                     <svg
                       class="h-4 w-4 text-red-500"
                       width="24"
@@ -166,7 +163,7 @@ export default function Todo() {
                     </svg>
                   </span>
                 ) : (
-                  <span className="" onClick={() => updateTodo()}>
+                  <span className="" onClick={() => updateTodo(todo.todoId)}>
                     <svg
                       class="h-4 w-4 text-red-500"
                       width="24"
@@ -185,23 +182,28 @@ export default function Todo() {
               </button>
               {/* todo 수정 & 삭제 */}
               {editIndex === index ? (
-                <form onSubmit={handleEditSubmit}>
-                  <input
-                    type="text"
-                    value={inputText}
-                    onChange={handleInputChange}
-                    className="h-6 outline-none rounded"
-                  />
-                  <button onClick={e => updateTodo()}>수정</button>
-                  <button onClick={e => deleteTodo(e, index)} className="ml-1">
-                    삭제
-                  </button>
-                </form>
+                <div>
+                  <form className="inline-block">
+                    <input
+                      type="text"
+                      value={inputText}
+                      onChange={handleInputChange}
+                      className="h-6  outline-none rounded"
+                    />
+                    <button onClick={() => updateTodo(todo.todoId)}>수정</button>
+                    <button onClick={() => deleteTodo(todo.todoId)} className="ml-1">
+                      삭제
+                    </button>
+                  </form>
+
+                  {/* <form onSubmit={handleDeleteTodo} className="inline-block"></form> */}
+                </div>
               ) : (
                 <span
                   onClick={() => handleEditClick(index)}
-                  style={todo.isCheck ? { textDecoration: 'line-through' } : null}>
-                  {todo.text}
+                  style={todo.isCheck ? { textDecoration: 'line-through' } : null}
+                  className="min-w-[30px] cursor-pointer">
+                  {todo.todoContent}
                 </span>
               )}
             </li>

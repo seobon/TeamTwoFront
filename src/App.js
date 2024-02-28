@@ -14,7 +14,6 @@ import Mypage from './pages/Mypage/Mypage.jsx';
 import PasswordChange from './pages/Mypage/PasswordChange.jsx';
 import Menu from './Layout/Menu.jsx';
 import NickNameChange from './pages/Mypage/NickNameChange.jsx';
-import Search from './components/Diary/Search.jsx';
 
 function App() {
   return (
@@ -25,7 +24,7 @@ function App() {
         <Route path="/mypage" element={<Mypage />} />
         <Route path="/profile/password" element={<PasswordChange />} />
         <Route path="/profile/nickname" element={<NickNameChange />} />
-         <Route path="/write" element={<Write />} />
+        <Route path="/write" element={<Write />} />
 
         <Route path="/" element={<Menu />}>
           <Route path="signin" element={<SignIn />} />
@@ -36,7 +35,6 @@ function App() {
 
           <Route path="diary" element={<Diaries />} />
           <Route path="diary/:id" element={<DiaryDetail />} />
-          <Route path="diary/search" element={<Search />} />
         </Route>
       </Routes>
     </BrowserRouter>
