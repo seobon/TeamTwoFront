@@ -37,7 +37,7 @@ export default function Calendar1() {
         }
       })
       .catch(error => {
-        console.error('Error!', error);
+        console.error('Error!!', error);
       });
   }, []);
 

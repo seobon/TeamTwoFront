@@ -108,77 +108,9 @@ export default function Write() {
       diarySet();
     }
   }, [diaryId]);
-
-
   return (
     <>
-      <Header1 title="수정하기" />
-      <form onSubmit={handleSubmit(onValid)}>
-        <div className="mt-[0px]">
-        <p className="font-Heading4">오늘의 기분</p>
-            <div
-              className="flex justify-between items-center font-Body4 p-4 px-12"
-              onChange={e => {
-                setMood(e.target.value);
-              }}>
-              <label htmlFor="happy">
-                <input id="happy" type="radio" name="mood" value="happy" className="hidden" />{' '}
-                <Happy className={'opacity-100'} />
-              </label>
-              <label htmlFor="great">
-                <input id="great" type="radio" name="mood" value="great" className="hidden" />{' '}
-                <Great className={'opacity-100'} />
-              </label>
-              <label htmlFor="soso">
-                <input id="soso" type="radio" name="mood" value="soso" className="hidden" />{' '}
-                <Soso className={'opacity-100'} />
-              </label>
-              <label htmlFor="sad">
-                <input id="sad" type="radio" name="mood" value="sad" className="hidden" />{' '}
-                <Sad className={'opacity-100'} />
-              </label>
-              <label htmlFor="annoying">
-                <input id="annoying" type="radio" name="mood" value="annoying" className="hidden" />{' '}
-                <Annoying className={'opacity-100'} />
-              </label>
-            </div>
-          <div className="ml-[5px]">
-            비공개{' '}
-            <button type="button" onClick={IsPublicToggle} className="">
-              {isPublic ? 'ㅁ' : 'V'}
-            </button>
-            {/* 작성 버튼을 누르면, 작성이 완료되었다는 알림창을 띄우고 다른 컴포넌트로 이동시키기 */}
-            <button
-              type="submit"
-              className="ml-[200px]">
-              수정하기
-            </button>
-          </div>
-          <div className="openApi">
-            {/* <Location />
-            <Weather /> */}
-          </div>
-          제목 : <input type="text"
-                  className="titleInput"
-                  value={diaryTitle}
-                  onChange={(e) => setDiaryTitle(e.target.value)}
-                />
-          <div className="mt-[0px]">
-            <Editor
-              initialValue={`Fill out this form:)`} // 에디터의 초기 값
-              previewStyle="vertical" // 에디터와 미리보기 패널의 배치
-              initialEditType="wysiwyg" // 워지웍 타입 선택
-              hideModeSwitch={true} // 하단의 타입 선택 탭 숨김 (마크다운/워지웍)
-              useCommandShortcut={false}
-              plugins={[colorSyntax]}
-              language="ko-KR"
-              ref={editorRef}
-              height="825px"
-              className=""
-            />
-          </div>
-        </div>
-      </form>
+      <div></div>
     </>
   );
 }
