@@ -9,7 +9,6 @@ import 'tui-color-picker/dist/tui-color-picker.css';
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
 import '@toast-ui/editor/dist/i18n/ko-kr';
 import Header1 from '../../components/Header/Header1';
-<<<<<<< HEAD
 
 import Toggle from '../../components/BTN/Toggle';
 import { ReactComponent as Annoying } from '../../assets/Mood/Annoying.svg';
@@ -21,11 +20,10 @@ import { useNavigate } from 'react-router-dom';
 // import useCurrentLocation from '../../hooks/useGeoLocation';
 // import Location from '../../components/Diary/Location';
 // import Weather from '../../components/Diary/Weather';
-=======
-import useCurrentLocation from '../../hooks/useGeoLocation';
+
+// import useCurrentLocation from '../../hooks/useGeoLocation';
 import Location from '../../components/Diary/Location';
 import Weather from '../../components/Diary/Weather';
->>>>>>> parent of 440c5a2 (REFACTOR: 필요없는 코드 삭제)
 
 export default function Write() {
   const navigate = useNavigate();
@@ -34,10 +32,10 @@ export default function Write() {
 
   const [isPublic, setIsPublic] = useState(true); // 글 비공개 여부
   const { handleSubmit } = useForm();
-  const { location, error } = useCurrentLocation();
+  // const { location, error } = useCurrentLocation();
 
   const [isOn, setIsOn] = useState(false);
-  const [mood, setMood] = useState("");
+  const [mood, setMood] = useState('');
   const [title, setTitle] = useState();
   // const { location, error } = useCurrentLocation();
 
@@ -58,7 +56,7 @@ export default function Write() {
     };
 
     console.log(data);
-    
+
     axios
       .post(`${process.env.REACT_APP_HOST}/diary/postDiary`, data, {
         withCredentials: true,
@@ -84,7 +82,7 @@ export default function Write() {
         console.log('id: ', id);
         console.log('userid: ', id);
       });
-      navigate("/calendar")
+    navigate('/calendar');
   };
 
   //비공개 토글
@@ -141,10 +139,8 @@ export default function Write() {
             </div>
           </div>
           <div className="openApi">
-
             {/* <Location />
             <Weather /> */}
-
           </div>
           <input
             className="w-full h-10 mb-4 p-2 bg-white rounded-lg border border-solid focus:outline-none focus:bg-white active:bg-white"
