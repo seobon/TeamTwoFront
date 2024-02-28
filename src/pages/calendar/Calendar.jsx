@@ -45,6 +45,7 @@ export default function Calendar1() {
       })
       .catch(error => {
         console.error('Error!', error);
+        makeCalendar();
       });
   }, []);
 
@@ -75,6 +76,8 @@ export default function Calendar1() {
   const [calendar, setCalendar] = useState([]);
 
   const makeCalendar = () => {
+    // diaryData가 배열인지 확인하고, 그렇지 않으면 빈 배열을 사용
+    const data = Array.isArray(diaryData) ? diaryData : [];
     const weekDays = ['일', '월', '화', '수', '목', '금', '토'];
 
     const calendarTemp = [];
@@ -97,7 +100,7 @@ export default function Calendar1() {
       let linkTo = '/write';
       let diaryIdParams;
 
-      for (const diary of diaryData) {
+      for (const diary of data) {
         if (!diary.createdAt) continue;
 
         const DiaryMonth = new Date(diary.createdAt).getMonth() + 1; // 작성월
@@ -160,7 +163,6 @@ export default function Calendar1() {
 
     setCalendar(calendarTemp);
   };
-
 
   return (
     <>
