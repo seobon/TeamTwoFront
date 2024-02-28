@@ -42,7 +42,7 @@ export default function BoardDetail() {
   // console.log('params', params);
 
   const diarySet = async () => {
-    setDiaryId(7);
+    setDiaryId(10);
   };
 
   const moodIcon = () => {
