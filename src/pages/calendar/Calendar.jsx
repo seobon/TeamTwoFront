@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Todo from './Todo';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import PopupDiaryInfo from '../../components/Popup/PopupDiaryInfo';
 import { ReactComponent as Annoying } from '../../assets/Mood/Annoying.svg';
@@ -98,9 +98,7 @@ export default function Calendar1() {
       let linkTo;
       let diaryIdParams;
       if (NowDate == i) {
-        console.log(i);
         diaryId = 'true';
-        linkTo = `'/write'`;
       }
       for (const diary of data) {
         if (!diary.createdAt) continue;
@@ -113,7 +111,6 @@ export default function Calendar1() {
             diaryId = { id: `diary-${diary.diaryId}` };
             diaryIdParams = diary.diaryId;
             diaryMood = diary.mood;
-            linkTo = `/diary/detail/${diary.diaryId}`;
           }
         }
       }
