@@ -39,6 +39,7 @@ const BoardList = () => {
 
   return (
     <>
+      <Link to={'/diary/search'}>검색</Link>
       <div>
         {status === 'error' && <div>Error</div>}
         {status === 'pending'

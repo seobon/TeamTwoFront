@@ -21,7 +21,6 @@ import { ReactComponent as Soso } from '../../assets/Mood/Soso.svg';
 // import Weather from '../../components/Diary/Weather';
 
 export default function Write() {
-  const ENV_URL = process.env.REACT_APP_HOST;
   const location = useLocation();
   const editorRef = useRef(); // 에디터 컴포넌트에 접근하기 위한 ref 생성
   const [diaryId, setDiaryId] = useState(null);
@@ -39,7 +38,7 @@ export default function Write() {
   const getMyDiary = async () => {
     try {
       const response = await axios.get(
-        `${ENV_URL}/diary/getMyDiary?diaryId=${diaryId}`
+        `${process.env.REACT_APP_HOST}/diary/getMyDiary?diaryId=${diaryId}`
       );
       
       // SB: 콘솔 확인 부분입니다. 추후 삭제하시면 됩니다.

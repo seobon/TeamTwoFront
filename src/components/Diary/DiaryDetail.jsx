@@ -10,7 +10,6 @@ import axios from 'axios';
 import Edit from '../../pages/write/Edit.jsx';
 
 export default function BoardDetail() {
-  const ENV_URL = process.env.REACT_APP_HOST;
   const { refetch } = useQuery({ queryKey: ['diaries'], queryFn: getEveryDiary });
   const id = localStorage.getItem('id'); // 로컬 스토리지에서 id 값을 가져옴
 
@@ -38,21 +37,15 @@ export default function BoardDetail() {
   // console.log('params', params);
 
   const diarySet = async () => {
-    setDiaryId(6)
+    setDiaryId(5)
   }
 
   // SB: 나의 다이어리일 경우 실행시키는(캘린더에서 이어지는) 다이어리 정보 조회 함수입니다.
   const checkUser = async () => {
     try {
       // Diary 작성자 정보를 가져오는 API 호출
-      // SB : 추후에
-      // `${ENV_URL}/diary/checkUser?diaryId=17` 를
-      // `${ENV_URL}/diary/checkUser?diaryId=${diaryId}` 로
-      // 수정하시면 되겠습니다.
-      
-      // const response = await axios.get(`${ENV_URL}/diary/checkUser?diaryId=1`);
       const response = await axios.get(
-        `${ENV_URL}/diary/checkUser?diaryId=${diaryId}`
+        `${process.env.REACT_APP_HOST}/diary/checkUser?diaryId=${diaryId}`
       );
       
       // SB: 콘솔 확인 부분입니다. 추후 삭제하시면 됩니다.
@@ -77,12 +70,8 @@ export default function BoardDetail() {
   const getMyDiary = async () => {
     try {
       // Diary 정보를 가져오는 API 호출
-      // SB : 추후에
-      // `${ENV_URL}/diary/getMyDiary?diaryId=17` 를
-      // `${ENV_URL}/diary/getMyDiary?diaryId=${diaryId}` 로
-      // 수정하시면 되겠습니다.
       const response = await axios.get(
-        `${ENV_URL}/diary/getMyDiary?diaryId=${diaryId}`
+        `${process.env.REACT_APP_HOST}/diary/getMyDiary?diaryId=${diaryId}`
       );
       
       // SB: 콘솔 확인 부분입니다. 추후 삭제하시면 됩니다.
@@ -136,14 +125,8 @@ export default function BoardDetail() {
   const getOneDiary = async () => {
     try {
       // Diary 정보를 가져오는 API 호출
-      // SB : 추후에
-      // `${ENV_URL}/diary/getOneDiary?diaryId=12` 를
-      // `${ENV_URL}/diary/getOneDiary?diaryId=${diaryId}` 로
-      // 수정하시면 되겠습니다.
-
-      // const response = await axios.get(`${ENV_URL}/diary/getOneDiary?diaryId=16`);
       const response = await axios.get(
-        `${ENV_URL}/diary/getOneDiary?diaryId=${diaryId}`
+        `${process.env.REACT_APP_HOST}/diary/getOneDiary?diaryId=${diaryId}`
       );
   
       // SB: 콘솔 확인 부분입니다. 추후 삭제하시면 됩니다.
@@ -174,25 +157,16 @@ export default function BoardDetail() {
   };
 
   const deleteDiary = async () => {
-    let data = {
-      "diaryId": 1
-      };
-      
     try {
       const response = await axios.delete(
-        `${ENV_URL}/diary/deleteDiary`, data,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
+        `${process.env.REACT_APP_HOST}/diary/deleteDiary?diaryId=${diaryId}`
       );
   
       // SB: 콘솔 확인 부분입니다. 추후 삭제하시면 됩니다.
-      console.log("deleteDiary data", response.data)
+      console.log('Delete Diary data', response.data);
 
     } catch (error) {
-      console.error('Delete Diary Error:', error); // Diary 삭제 오류 출력
+      console.error('Delete Diary Error:', error); // Diary 삭제하기 오류 출력
     }
   }
 
