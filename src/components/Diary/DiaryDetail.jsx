@@ -14,6 +14,11 @@ import { ReactComponent as Sad } from '../../assets/Mood/Sad.svg';
 import { ReactComponent as Soso } from '../../assets/Mood/Soso.svg';
 import Edit from '../../pages/write/Edit.jsx';
 
+import { IoSunny } from 'react-icons/io5';
+import { FaCloud } from 'react-icons/fa6';
+import { IoMoon } from 'react-icons/io5';
+import { FaCloudRain } from 'react-icons/fa';
+
 export default function BoardDetail() {
   // const { refetch } = useQuery({ queryKey: ['diaries'], queryFn: getEveryDiary });
   const id = localStorage.getItem('id'); // 로컬 스토리지에서 id 값을 가져옴
@@ -30,7 +35,7 @@ export default function BoardDetail() {
   const [diaryTitle, setDiaryTitle] = useState('');
   const [diaryContent, setDiaryContent] = useState('');
   const [mood, setMood] = useState('');
-  
+
   // SB : weather 은 날씨를 저장하는 변수입니다.
   // Clear / Clouds(few clouds, overcast clouds) / Rain(light rain, moderate rain) 의 종류가 있다고 합니다.
   // 현재는 Clear / Clouds / Rain 의 값이 들어옵니다. 각 값에 맞게 조건문으로 이미지를 넣어주시면 될 것 같아요.
@@ -71,6 +76,22 @@ export default function BoardDetail() {
         break;
     }
   };
+
+  const weatherIcon = () => {
+    switch (weather) {
+      case 'sunny':
+        return <IoSunny className="w-[45px] h-[45px]  mt-[-4px] text-[#ef6767]" />;
+      case 'Clear':
+        return <IoMoon className="w-[45px] h-[45px] mt-[-4px] text-[#d7cfa4]" />;
+      case 'Clouds':
+        return <FaCloud className="w-[45px] h-[45px] mt-[-4px] text-[#addad9]" />;
+      case 'Rain':
+        return <FaCloudRain className="w-[45px] h-[45px] mt-[-4px] text-[#53a9bc]" />;
+      default:
+        return <IoSunny className="w-[45px] h-[45px] text-[#ef6767] mt-[-4px]" />;
+    }
+  };
+
   // SB: 나의 다이어리일 경우 실행시키는(캘린더에서 이어지는) 다이어리 정보 조회 함수입니다.
   const checkUser = async () => {
     try {
@@ -144,8 +165,8 @@ export default function BoardDetail() {
       setDiaryTitle(response.data.diaryTitle);
       setDiaryContent(response.data.diaryContent);
       setMood(response.data.mood);
-      setWeather(response.data.weather.split("/")[0]);
-      setTemperature(response.data.weather.split("/")[1])
+      setWeather(response.data.weather.split('/')[0]);
+      setTemperature(response.data.weather.split('/')[1]);
     } catch (error) {
       console.error('Get My Diary Error:', error); // Diary 정보 가져오기 오류 출력
     }
@@ -182,8 +203,8 @@ export default function BoardDetail() {
       setDiaryTitle(response.data.diaryTitle);
       setDiaryContent(response.data.diaryContent);
       setMood(response.data.mood);
-      setWeather(response.data.weather.split("/")[0]);
-      setTemperature(response.data.weather.split("/")[1])
+      setWeather(response.data.weather.split('/')[0]);
+      setTemperature(response.data.weather.split('/')[1]);
     } catch (error) {
       console.error('Get One Diary Error:', error); // Diary 정보 가져오기 오류 출력
     }
@@ -191,12 +212,14 @@ export default function BoardDetail() {
 
   const deleteDiary = async () => {
     try {
-      const response = await axios.delete(`${process.env.REACT_APP_HOST}/diary/deleteDiary?diaryId=${diaryIdParams.id}`);
+      const response = await axios.delete(
+        `${process.env.REACT_APP_HOST}/diary/deleteDiary?diaryId=${diaryIdParams.id}`,
+      );
 
       // SB: 콘솔 확인 부분입니다. 추후 삭제하시면 됩니다.
       console.log('Delete Diary data', response.data);
 
-      navigate("/calendar");
+      navigate('/calendar');
       window.location.reload();
     } catch (error) {
       console.error('Delete Diary Error:', error); // Diary 삭제 오류 출력
@@ -207,113 +230,114 @@ export default function BoardDetail() {
     checkUser();
   }, []);
 
+  console.log('temperature', temperature);
+  console.log('weather', weather); // sunny ||
+
   return (
     <>
       <Header1 title={title} />
 
       {whoDiary === 'mine' ? (
-
-      <div className="text-right px-7">
-        <div className="inline-block mr-3">
-          <Link to={`/edit/${diaryIdParams.id}`}>
-            <svg
-              className="h-6 w-6 text-gray-500"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round">
-              {' '}
-              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />{' '}
-              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-            </svg>
-          </Link>          
-        </div>
-        <span className="">
-          <button onClick={() => deleteDiary()}>
-            <svg
-              className="h-6 w-6 text-gray-500"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round">
-              {' '}
-              <polyline points="3 6 5 6 21 6" />{' '}
-              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />{' '}
-              <line x1="10" y1="11" x2="10" y2="17" /> <line x1="14" y1="11" x2="14" y2="17" />
-            </svg>
-          </button>
-        </span>
-      </div>
-
-      ) : (
-
         <div className="text-right px-7">
-        <div className="inline-block mr-3">
-          <Link>
-            <svg
-              className="h-6 w-6 text-gray-500"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              style={{ opacity: 0 }}>
-              {' '}
-              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />{' '}
-              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-            </svg>
-          </Link>          
+          <div className="inline-block mr-3">
+            <Link to={`/edit/${diaryIdParams.id}`}>
+              <svg
+                className="h-6 w-6 text-gray-500"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round">
+                {' '}
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />{' '}
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+              </svg>
+            </Link>
+          </div>
+          <span className="">
+            <button onClick={() => deleteDiary()}>
+              <svg
+                className="h-6 w-6 text-gray-500"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round">
+                {' '}
+                <polyline points="3 6 5 6 21 6" />{' '}
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />{' '}
+                <line x1="10" y1="11" x2="10" y2="17" /> <line x1="14" y1="11" x2="14" y2="17" />
+              </svg>
+            </button>
+          </span>
         </div>
-        <span className="">
-          <button>
-            <svg
-              className="h-6 w-6 text-gray-500"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              style={{ opacity: 0 }}>
-              {' '}
-              <polyline points="3 6 5 6 21 6" />{' '}
-              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />{' '}
-              <line x1="10" y1="11" x2="10" y2="17" /> <line x1="14" y1="11" x2="14" y2="17" />
-            </svg>
-          </button>
-        </span>
-      </div>
-
+      ) : (
+        <div className="text-right px-7">
+          <div className="inline-block mr-3">
+            <Link>
+              <svg
+                className="h-6 w-6 text-gray-500"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                style={{ opacity: 0 }}>
+                {' '}
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />{' '}
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+              </svg>
+            </Link>
+          </div>
+          <span className="">
+            <button>
+              <svg
+                className="h-6 w-6 text-gray-500"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                style={{ opacity: 0 }}>
+                {' '}
+                <polyline points="3 6 5 6 21 6" />{' '}
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />{' '}
+                <line x1="10" y1="11" x2="10" y2="17" /> <line x1="14" y1="11" x2="14" y2="17" />
+              </svg>
+            </button>
+          </span>
+        </div>
       )}
-      
+
       {/* 본문 */}
       <div className=" min-h-40 rounded-xl mx-8 my-2 p-4 bg-white">
-          <div className="">
-            <div className="font-Heading3 text-center mb-8">{createdAt}</div>
-            <div className="flex justify-between px-9">
-              <div className="text-center">
-                <p className="font-Heading3 mb-3">오늘의 기분</p>
-                <p className="inline-block  mb-0.5">{moodIcon()}</p>
-                <p className="font-Body4 text-gray-800">{mood}</p>
-              </div>
-              <div className="text-center">
-                <p className="font-Heading3 mb-3">오늘의 날씨</p>
-                <p className="inline-block  mb-0.5">날씨 이미지</p>
-                <div className="font-Body4 text-gray-800">{weather} {temperature}도</div>
-              </div>
+        <div className="">
+          <div className="font-Heading3 text-center mb-8">{createdAt}</div>
+          <div className="flex justify-between px-9">
+            <div className="text-center">
+              <p className="font-Heading3 mb-3">오늘의 기분</p>
+              <p className="inline-block  mb-0.5">{moodIcon()}</p>
+              <p className="font-Body4 text-gray-800">{mood}</p>
+            </div>
+
+            <div className=" text-center">
+              <div className="font-Heading3 mb-3">오늘의 날씨</div>
+              {/* <p className="inline-block  mb-0.5">날씨 이미지</p> */}
+              <div className="flex justify-center font-Body4 text-gray-800">{weatherIcon()}</div>
+              <div>{temperature}℃</div>
             </div>
           </div>
+        </div>
         <div className="rounded-full border border-gray-300 my-8 mx-4"></div>
         <div className="px-4">
           <div className="text-center">
