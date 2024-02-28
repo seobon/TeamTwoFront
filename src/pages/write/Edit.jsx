@@ -20,18 +20,14 @@ import { useNavigate } from 'react-router-dom';
 
 
 export default function Write() {
-  const location = useLocation();
   const navigate = useNavigate();
   const editorRef = useRef(); // 에디터 컴포넌트에 접근하기 위한 ref 생성
   const diaryIdParams = useParams();
   const [isPublic, setIsPublic] = useState(true); // 글 비공개 여부
   const [diaryTitle, setDiaryTitle] = useState('');
-  const [diaryContent, setDiaryContent] = useState(null);
+  const [diaryContent, setDiaryContent] = useState("null");
   const [mood, setMood] = useState('');
   const { handleSubmit } = useForm();
-  
-  // const { location, error } = useCurrentLocation();
-
 
   const getMyDiary = async () => {
     try {
@@ -43,7 +39,7 @@ export default function Write() {
       console.log('getMyDiary data', response.data);
 
       setDiaryTitle(response.data.diaryTitle);
-      setDiaryContent(response.data.diaryTitle);
+      setDiaryContent(response.data.diaryContent);
       setMood(response.data.mood);
       setIsPublic(response.data.public)
     } catch (error) {
@@ -100,6 +96,9 @@ export default function Write() {
     getMyDiary();
   }, []);
 
+  if (diaryContent == "null") {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
@@ -155,7 +154,6 @@ export default function Write() {
                   onChange={(e) => setDiaryTitle(e.target.value)}
                 />
           <div className="mt-[0px]">
-          {diaryContent != null ? (
             <Editor
             initialValue={`${diaryContent}`} // 에디터의 초기 값
             previewStyle="vertical" // 에디터와 미리보기 패널의 배치
@@ -168,20 +166,6 @@ export default function Write() {
             height="825px"
             className=""
           />
-          ) : (
-            <Editor
-              initialValue={""} // 에디터의 초기 값
-              previewStyle="vertical" // 에디터와 미리보기 패널의 배치
-              initialEditType="wysiwyg" // 워지웍 타입 선택
-              hideModeSwitch={true} // 하단의 타입 선택 탭 숨김 (마크다운/워지웍)
-              useCommandShortcut={false}
-              plugins={[colorSyntax]}
-              language="ko-KR"
-              ref={editorRef}
-              height="825px"
-              className=""
-            />
-          )}
           </div>
         </div>
       </form>
