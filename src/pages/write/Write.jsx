@@ -35,82 +35,85 @@ export default function Write() {
 
   // SB : 현 위치 가져오는 변수
   const { location, error } = useCurrentLocation();
-  const [weather, setWeather] = useState(null);
+  const [latlon, setLatlon] = useState(null);
   const [address, setAddress] = useState('');
+  const [weather, setWeather] = useState(null);
+  
+  useEffect(() => {
+    getAddressFromCoordinates();
+    getWeather();
+  }, [location]);
 
   // SB : 현 위치 가져오는 함수
-  useEffect(() => {
-    const getAddressFromCoordinates = async () => {
-      try {
-        if (location) {
-          const { latitude, longitude } = location;
-          const locationApiKey = process.env.REACT_APP_OPENWEATHERMAP_API_KEY;
-          const locationResponse = await axios.get(
-            `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${locationApiKey}`,
-          );
-        }
-      } catch (error) {
-        console.error('Error fetching address: ', error);
-      }
-    };
+  const getAddressFromCoordinates = async () => {
+    try {
+      if (location) {
+        const { latitude, longitude } = location;
+        const locationApiKey = process.env.REACT_APP_OPENWEATHERMAP_API_KEY;
+        const locationResponse = await axios.get(
+          `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${locationApiKey}`,
+        );
 
-    getAddressFromCoordinates();
-  }, [location]);
+        setLatlon(`${latitude}/${longitude}`)
+      }
+    } catch (error) {
+      console.error('Error fetching address: ', error);
+    }
+  };
 
   // SB : 현 위치 기반 날씨 정보 가져오기
   // Get weather information only once when Compent mounts
-  useEffect(() => {
-    const getWeather = async () => {
-      if (location) {
-        try {
-          const weatherApiKey = process.env.REACT_APP_OPENWEATHERMAP_API_KEY;
+  const getWeather = async () => {
+    if (location) {
+      try {
+        const weatherApiKey = process.env.REACT_APP_OPENWEATHERMAP_API_KEY;
 
-          const weatherResponse = await axios.get(
-            `https://api.openweathermap.org/data/2.5/weather?lat=${location.latitude}&lon=${location.longitude}&appid=${weatherApiKey}&units=metric`,
-          );
+        const weatherResponse = await axios.get(
+          `https://api.openweathermap.org/data/2.5/weather?lat=${location.latitude}&lon=${location.longitude}&appid=${weatherApiKey}&units=metric`,
+        );
 
-          console.log('weatherResponse.data: ', weatherResponse.data);
-          console.log('weatherResponse.data.name: ', weatherResponse.data.name);
+        const region = weatherResponse.data.name;
+        const temp = Math.round(weatherResponse.data.main.temp);
+        const main = weatherResponse.data.weather[0].main;
 
-          const weatherIcon = weatherResponse.data.weather[0].icon;
-          setAddress(weatherResponse.data.name)
-          console.log("weatherIcon", weatherIcon)
-          const weatherIcondAdrs = `http://openweathermap.org/img/wn/${weatherIcon}@2x.png`;
-          const temp = Math.round(weatherResponse.data.main.temp);
+        console.log(region);
+        console.log(`${main}/${temp}`);
 
-          console.log({
-            icon: weatherIcondAdrs,
-            name: location,
-            temp: temp,
-          });
-
-          setWeather({
-            icon: weatherIcondAdrs,
-            name: weatherResponse.data.weather[0].main,
-            temp: temp,
-          });
-        } catch (error) {
-          console.error('Failed to fetch weather data: ', error);
-        }
+        setAddress(region)
+        setWeather(`${main}/${temp}`);
+      } catch (error) {
+        console.error('Failed to fetch weather data: ', error);
       }
-    };
-    getWeather();
-  }, [location]);
+    }
+  };
 
   const diaryWriteSubmit = () => {
     const contents = editorRef.current.getInstance().getMarkdown(); // getHTML(): 에디터의 내용을 HTML로 가져옴
 
     const id = localStorage.getItem('id'); // 로컬 스토리지에서 id 값을 가져옴
 
+    if (latlon != null) {
+      alert("현 위치를 가져옵니다.")
+    } else {
+      setLatlon("37.413294/127.269311")
+      alert("현위치를 가져올 수 없습니다.")
+    }
+
+    if (weather != null) {
+      alert("현위치를 기준으로 날씨를 가져옵니다.")
+    } else {
+      setWeather("날씨를 알 수 없음")
+      alert("알 수 없는 오류로 날씨를 가져올 수 없습니다.")
+    }
+
     const data = {
       id: id,
       diaryTitle: title,
       diaryContent: contents,
       mood: mood,
-      // location: '서울', // '위치' 대신 실제 위치를 입력해야 함
-      // weather: '1', // '날씨' 대신 실제 날씨를 입력해야 함
+      currentLocation: latlon,
+      weather: weather,
       isPublic: isOn,
-      // currentLocation: [37.5665, 126.978], // 실제 [위도, 경도를 입력해야 함
     };
 
     console.log(data);
@@ -126,19 +129,15 @@ export default function Write() {
       .then(res => {
         console.log(res.data);
         if (res.data) {
-          console.log('성공');
           alert('게시물이 등록되었습니다.');
+          console.log('글 등록 성공: ', res.data);
         } else {
-          console.log('실패~! 음..');
-          console.log('res.data: ', res.data);
           alert('로그인이 필요한 서비스입니다.');
         }
       })
       .catch(error => {
+        alert('알 수 없는 오류로 등록이 실패하였습니다.');
         console.log('글 등록 실패: ', error);
-        console.log(data);
-        console.log('id: ', id);
-        console.log('userid: ', id);
       });
       navigate("/calendar");
       window.location.reload();
@@ -198,19 +197,6 @@ export default function Write() {
             </div>
           </div>
           <div className="openApi">
-
-          <div>
-            {location ? (
-              <div>
-                Latitude: {location.latitude}, Longitude: {location.longitude}
-                <br />
-              </div>
-            ) : (
-              <div>Loading</div>
-            )}
-          </div>
-            <Weather />
-
           </div>
           <input
             className="w-full h-10 mb-4 p-2 bg-white rounded-lg border border-solid focus:outline-none focus:bg-white active:bg-white"
