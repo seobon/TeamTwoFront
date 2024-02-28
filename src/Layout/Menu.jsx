@@ -9,8 +9,8 @@ import { ReactComponent as User } from '../assets/Nav/User.svg';
 const Menu = () => {
   const [nav, setNav] = useState('');
   return (
-    <div className="">
-      <div className="mb-8">
+    <div className="relative">
+      <div className="mb-8 ">
         <Outlet />
       </div>
 

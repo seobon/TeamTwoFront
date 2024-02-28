@@ -3,11 +3,16 @@ import Todo from './Todo';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import moment from 'moment';
+import PopupDiaryInfo from '../../components/Popup/PopupDiaryInfo';
 
 export default function Calendar1() {
+  const [closeDiaryInfoPopup, showDiaryInfoPopup] = useState(false); // 다이어리없을때 팝업
   const [today, setToday] = useState(new Date()); // 현재 날짜를 today에 저장
   const [writtenDays, setWrittenDays] = useState([]); // 작성된 날짜를 저장하는 상태
   const navigator = useNavigate();
+  const showPopup = () => {
+    showDiaryInfoPopup(!closeDiaryInfoPopup);
+  };
 
   // 캘린더 조회
   useEffect(() => {
@@ -91,6 +96,7 @@ export default function Calendar1() {
       let diaryId;
       let dateColor = 'bg-gray-200';
       let linkTo = '/write';
+      let diaryBoolean;
 
       for (const diary of diaryData) {
         if (!diary.createdAt) continue;
@@ -100,25 +106,31 @@ export default function Calendar1() {
 
         if (month === DiaryMonth) {
           if (i === DiaryDate) {
+            // console.log('i: ', i);
+            // console.log('diary.createdAt', diary.createdAt);
+            // console.log('DiaryDate: ', DiaryDate);
+            // console.log('diaryId: ', diaryId);
             diaryId = { id: `diary-${diary.diaryId}` };
-            console.log('i: ', i);
-            console.log('diary.createdAt', diary.createdAt);
-            console.log('DiaryDate: ', DiaryDate);
-            console.log('diaryId: ', diaryId);
             dateColor = 'bg-yellow';
             linkTo = '/diary/detail';
+            diaryBoolean = true;
+          } else {
+            diaryBoolean = false;
           }
         }
       }
-
       calendarTemp.push(
         <div style={{ textAlign: 'center' }}>
-          {/* 감정 버튼 */}
-          <Link to={linkTo}>
+          <div
+            onClick={() => {
+              diaryBoolean ? navigator({ linkTo }) : showPopup();
+              console.log({ linkTo });
+            }}>
+            {/* 감정 버튼 */}
             <div
               onClick={() => mood(date)}
               className={`w-10 h-10 rounded-full ${dateColor} mx-auto flex items-center justify-center cursor-pointer`}></div>
-          </Link>
+          </div>
           {/* 숫자(날짜) */}
           <div className="mt-[3px] mb-4 text-[12px]" {...diaryId}>
             {i}
@@ -139,9 +151,9 @@ export default function Calendar1() {
 
   return (
     <>
-      <div>
-        <div className="flex justify-center relative h-[60px] mt-2">
-          <div className="absolute flex items-center">
+      <div className=''>
+        <div className="flex justify-center relative h-[60px] pt-2">
+          <div className="absolute flex items-center ">
             <button onClick={prevMonth} className="h-10  top-[6px]">
               <svg
                 class="h-6 w-6 text-red-500"
@@ -186,6 +198,10 @@ export default function Calendar1() {
       </div>
 
       <Todo />
+
+      {closeDiaryInfoPopup && (
+        <PopupDiaryInfo showDiaryInfoPopup={showDiaryInfoPopup} closeDiaryInfoPopup={closeDiaryInfoPopup} />
+      )}
     </>
   );
 }
