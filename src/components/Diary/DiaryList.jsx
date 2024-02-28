@@ -22,7 +22,7 @@ const BoardList = () => {
     queryFn: getEveryDiaryInfinite,
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {
-      console.log('allPages', allPages.length);
+      // console.log('allPages', allPages.length);
       const nextPage = lastPage.length ? allPages.length + 1 : undefined;
       return nextPage;
     },
@@ -30,7 +30,11 @@ const BoardList = () => {
 
   const contents = data?.pages[0];
   // console.log('contents', contents);
+  // console.log('contents[0].msg', contents[0].msg);
   // const content = data?.pages.map(diaries => diaries.map(diary => diary));
+
+  // contents[0].msg === 'Get Every Diary Error : 검색 결과가 없습니다.' ? (
+  //   <dic>'Get Every Diary Error : 검색 결과가 없습니다.'</dic>
 
   useEffect(() => {
     if (inView && hasNextPage) {

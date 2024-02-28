@@ -10,10 +10,6 @@ function Search() {
   const [searchWord, setSearchWord] = useState('');
   const [searchList, setSearchList] = useState([]);
 
-  const diarySet = async () => {
-    setDiaryId(10);
-  };
-
   const getSearchList = async () => {
     if (searchWord === '') {
       alert('검색어를 입력해주세요.');
@@ -22,33 +18,17 @@ function Search() {
         const response = await axios.get(`${process.env.REACT_APP_HOST}/diary/search?searchWord=${searchWord}`);
         // SB: 콘솔 확인 부분입니다. 추후 삭제하시면 됩니다.
         console.log('Get Search List data', response.data);
-        setSearchList(response.data);
-        console.log('searchList', searchList);
+        if (response.data[0].msg === 'Get Every Diary Error : 검색 결과가 없습니다.') {
+          setSearchList([]);
+          alert('검색 결과가 없습니다.');
+        } else {
+          setSearchList(response.data);
+        }
       } catch (error) {
         console.error('Get Search List Error:', error); // search 정보 가져오기 오류 출력
       }
     }
   };
-
-  useEffect(() => {}, [searchList]);
-
-  useEffect(() => {
-    if (diaryId != null) {
-      // checkUser();
-    } else {
-      diarySet();
-    }
-  }, [diaryId]);
-
-  // useEffect(() => {
-  //   if (searchList != []) {
-  //     getSearchList();
-
-  //     return () => {
-  //       getSearchList();
-  //     };
-  //   }
-  // }, [searchList]);
 
   return (
     <>
@@ -81,7 +61,7 @@ function Search() {
             ? 'Loading...'
             : searchList?.map(diary => (
                 <Link
-                  to={`/diary/${diary.diaryId}`}
+                  to={`/diary/detail/${diary.diaryId}`}
                   state={{
                     diaryId: diary.diaryId,
                     diaryTitle: diary.diaryTitle,
