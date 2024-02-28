@@ -9,7 +9,6 @@ import 'tui-color-picker/dist/tui-color-picker.css';
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
 import '@toast-ui/editor/dist/i18n/ko-kr';
 import Header1 from '../../components/Header/Header1';
-<<<<<<< HEAD
 
 import Toggle from '../../components/BTN/Toggle';
 import { ReactComponent as Annoying } from '../../assets/Mood/Annoying.svg';
@@ -19,12 +18,8 @@ import { ReactComponent as Sad } from '../../assets/Mood/Sad.svg';
 import { ReactComponent as Soso } from '../../assets/Mood/Soso.svg';
 import { useNavigate } from 'react-router-dom';
 // import useCurrentLocation from '../../hooks/useGeoLocation';
-// import Location from '../../components/Diary/Location';
-// import Weather from '../../components/Diary/Weather';
-=======
 import Location from '../../components/Diary/Location';
 import Weather from '../../components/Diary/Weather';
->>>>>>> parent of e7943de (Merge branch 'develop' into fixOpenApiCode/feat/siri)
 
 export default function Write() {
   const editorRef = useRef(); // 에디터 컴포넌트에 접근하기 위한 ref 생성
