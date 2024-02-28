@@ -2,13 +2,14 @@ import { useEffect, useState } from 'react';
 import Todo from './Todo';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import moment from 'moment';
 import PopupDiaryInfo from '../../components/Popup/PopupDiaryInfo';
 import { ReactComponent as Annoying } from '../../assets/Mood/Annoying.svg';
 import { ReactComponent as Great } from '../../assets/Mood/Great.svg';
 import { ReactComponent as Happy } from '../../assets/Mood/Happy.svg';
 import { ReactComponent as Sad } from '../../assets/Mood/Sad.svg';
 import { ReactComponent as Soso } from '../../assets/Mood/Soso.svg';
+
+import { FaRegCalendarCheck } from 'react-icons/fa6';
 
 export default function Calendar1() {
   const [diaryData, setDiaryData] = useState(null); // diaryData를 상태로 추가
@@ -65,12 +66,6 @@ export default function Calendar1() {
     setToday(new Date());
   };
 
-  // const todayDiary = () => {
-  //
-  //   console.log(Today)
-  //   if
-  // };
-  // todayDiary()
   useEffect(() => {
     if (diaryData) makeCalendar();
   }, [today, diaryData]);
@@ -216,7 +211,8 @@ export default function Calendar1() {
           </div>
 
           <button onClick={goToToday} className="h-10 ml-[350px]">
-            오늘
+            {/* 이번 달 이동 버튼 */}
+            <FaRegCalendarCheck className="h-[20px] w-[20px] mr-[30px]" />
           </button>
         </div>
 
