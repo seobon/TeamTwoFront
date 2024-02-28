@@ -205,7 +205,7 @@ export default function BoardDetail() {
 
       <div className="text-right px-7">
         <div className="inline-block mr-3">
-          <Link to={'/edit'}>
+          <Link to={`/edit/${diaryIdParams.id}`}>
             <svg
               className="h-6 w-6 text-gray-500"
               width="24"
