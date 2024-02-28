@@ -31,11 +31,10 @@ function App() {
           <Route path="signin" element={<SignIn />} />
           <Route path="calendar" element={<Calendar1 />} />
           <Route path="todo" element={<Todo />} />
-          <Route path="diary/detail" element={<DiaryDetail />} />
           <Route path="edit" element={<Edit />} />
 
           <Route path="diary" element={<Diaries />} />
-          <Route path="diary/:id" element={<DiaryDetail />} />
+          <Route path="diary/detail/:id" element={<DiaryDetail />} />
           <Route path="diary/search" element={<Search />} />
         </Route>
       </Routes>
