@@ -140,7 +140,8 @@ export default function Write() {
         console.log('id: ', id);
         console.log('userid: ', id);
       });
-      navigate("/calendar")
+      navigate("/calendar");
+      window.location.reload();
   };
 
   //비공개 토글
