@@ -28,7 +28,7 @@ const Menu = () => {
           <NavLink to="/diary">
             <Nav
               title="List"
-              svg={<List stroke={nav == 'List' ? '#353535' : '#757575'}/>}
+              svg={<List stroke={nav == 'List' ? '#353535' : '#757575'} />}
               onClick={() => {
                 setNav('List');
               }}
@@ -37,7 +37,7 @@ const Menu = () => {
           <NavLink to="/write">
             <Nav
               title="DiaryWrite"
-              svg={<DiaryWrite stroke={nav == 'DiaryWrite' ? '#353535' : '#757575'}/>}
+              svg={<DiaryWrite stroke={nav == 'DiaryWrite' ? '#353535' : '#757575'} />}
               onClick={() => {
                 setNav('DiaryWrite');
               }}
@@ -46,7 +46,7 @@ const Menu = () => {
           <NavLink to="/mypage">
             <Nav
               title="User"
-              svg={<User stroke={nav == 'User' ? '#353535' : '#757575'}/>}
+              svg={<User stroke={nav == 'User' ? '#353535' : '#757575'} />}
               onClick={() => {
                 setNav('User');
               }}
