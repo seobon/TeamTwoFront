@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import Diary from './Diary';
 import { Link } from 'react-router-dom';
 import { useQuery, useInfiniteQuery } from '@tanstack/react-query';
-import { getEveryDiary, getEveryDiaryTest } from '../../api';
+import { getEveryDiary, getEveryDiaryInfinite } from '../../api';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { useInView } from 'react-intersection-observer';
 
@@ -19,11 +19,12 @@ const BoardList = () => {
 
   const { data, status, fetchNextPage, isFetchingNextPage, hasNextPage } = useInfiniteQuery({
     queryKey: ['diariesInfinite'],
-    queryFn: getEveryDiaryTest,
+    queryFn: getEveryDiaryInfinite,
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {
       console.log('allPages', allPages.length);
-      return lastPage.length === 0 ? undefined : allPages.length + 1;
+      const nextPage = lastPage.length ? allPages.length + 1 : undefined;
+      return nextPage;
     },
   });
 
@@ -39,8 +40,7 @@ const BoardList = () => {
 
   return (
     <>
-      <Link to={'/diary/search'}>검색</Link>
-      <div>
+      <div className="h-[500px] flex flex-col gap-2 overflow-auto">
         {status === 'error' && <div>Error</div>}
         {status === 'pending'
           ? 'Loading...'
@@ -66,9 +66,9 @@ const BoardList = () => {
                 />
               </Link>
             ))}
-      </div>
-      <div ref={ref} disabled={!hasNextPage || isFetchingNextPage}>
-        observer
+        {/* <button ref={ref} disabled={!hasNextPage || isFetchingNextPage} onClick={() => fetchNextPage()}>
+          observer
+        </button> */}
       </div>
       <ReactQueryDevtools initialIsOpen />
     </>

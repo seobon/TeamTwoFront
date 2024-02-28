@@ -2,6 +2,7 @@ import React from 'react';
 import DiaryList from '../../components/Diary/DiaryList';
 import Header1 from '../../components/Header/Header1';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { Link } from 'react-router-dom';
 
 /*
  * 1. 서버로부터 axios.get('/getEveryDiary')로 받아온 데이터를 DiaryList 컴포넌트에 담아 화면에 보여주는 컴포넌트
