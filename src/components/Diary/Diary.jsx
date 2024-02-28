@@ -9,7 +9,10 @@ const Diary = ({ day, mood, nickname, diaryTitle, diaryContent, image }) => {
   if (image === null) {
     image = '../../assets/profileDefult.jpg';
   } else {
+    // 이미지 경로가 있을 시 경로를 넣기
+    // image = '/???';
   }
+  // console.log('mood', mood);
 
   const moodIcon = mood => {
     switch (mood) {
@@ -35,8 +38,8 @@ const Diary = ({ day, mood, nickname, diaryTitle, diaryContent, image }) => {
     <>
       <div className="flex gap-5 p-3 pb-6 rounded-xl bg-white ">
         <div className="flex flex-col items-center w-10 gap-1">
-          <img className={`w-10 h-10 rounded-3xl`} src={image} alt="profileImage" />
-          {/* <div className="w-10 h-10 rounded-3xl">{moodIcon(mood)}</div> */}
+          {/* <img className={`w-10 h-10 rounded-3xl`} src={image} alt="profileImage" /> */}
+          <div className="w-10 h-10 rounded-3xl">{moodIcon(mood)}</div>
           <p className="text-xs w-10 text-center">{nickname}</p>
         </div>
         <div className="flex flex-col">
