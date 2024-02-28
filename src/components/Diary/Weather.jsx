@@ -5,6 +5,7 @@ import useCurrentLocation from '../../hooks/useGeolocation';
 const Weather = () => {
   const { location, error } = useCurrentLocation();
   const [weather, setWeather] = useState(null);
+  const [address, setAddress] = useState('');
 
   // Get weather information only once when Compent mounts
   useEffect(() => {
@@ -18,7 +19,11 @@ const Weather = () => {
           );
 
           console.log('weatherResponse.data: ', weatherResponse.data);
+          console.log('weatherResponse.data.name: ', weatherResponse.data.name);
+
           const weatherIcon = weatherResponse.data.weather[0].icon;
+          setAddress(weatherResponse.data.name)
+          console.log("weatherIcon", weatherIcon)
           const weatherIcondAdrs = `http://openweathermap.org/img/wn/${weatherIcon}@2x.png`;
           const temp = Math.round(weatherResponse.data.main.temp);
 
@@ -55,6 +60,7 @@ const Weather = () => {
 
   return (
     <div>
+      Address: {address || 'Loading...'}
       <p>WeatherInfo: {weather.name}</p>
       <p>Tempereture: {weather.temp} °C</p>
     </div>

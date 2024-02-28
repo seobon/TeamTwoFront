@@ -9,7 +9,7 @@ function Search() {
   
 
   const diarySet = async () => {
-    setDiaryId(5);
+    setDiaryId(10);
   }
 
   // const getSearchList = async () => {
