@@ -35,9 +35,6 @@ export default function Calendar1() {
       .then(response => {
         if (response.data[0].diaryId != null) {
           setDiaryData(response.data); // 서버로부터 받은 데이터를 diaryData에 저장
-          console.log('response.data: ', response.data);
-          console.log('id: ', id);
-          console.log('diaryId: ', response.data.diaryId);
           makeCalendar(response.data);
         } else {
           console.log('Failed to get the calendar data');
@@ -99,6 +96,7 @@ export default function Calendar1() {
       let diaryMood;
       let linkTo = '/write';
       let diaryBoolean;
+      let diaryIdParams;
 
       for (const diary of diaryData) {
         if (!diary.createdAt) continue;
@@ -115,8 +113,9 @@ export default function Calendar1() {
             // console.log("mood",  diary.mood)
             // console.log("diaryData[]", DiaryMonth)
             diaryId = { id: `diary-${diary.diaryId}` };
+            diaryIdParams = diary.diaryId;
             diaryMood = diary.mood;
-            linkTo = '/diary/detail';
+            linkTo =`/diary/detail/${diary.diaryId}`;
             diaryBoolean = true;
           } else {
             diaryBoolean = false;
@@ -153,8 +152,7 @@ export default function Calendar1() {
         <div style={{ textAlign: 'center' }}>
           <div
             onClick={() => {
-              diaryBoolean ? navigator({ linkTo }) : showPopup();
-              console.log({ linkTo });
+              diaryBoolean ? navigator(`/diary/detail/${diaryIdParams}`) : showPopup();
             }}>
             {/* 감정 버튼 */}
             <div
