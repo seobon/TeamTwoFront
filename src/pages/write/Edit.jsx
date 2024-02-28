@@ -24,18 +24,14 @@ export default function Write() {
   const navigate = useNavigate();
   const editorRef = useRef(); // 에디터 컴포넌트에 접근하기 위한 ref 생성
   const diaryIdParams = useParams();
-  const [diaryId, setDiaryId] = useState(null);
   const [isPublic, setIsPublic] = useState(true); // 글 비공개 여부
-  const [diaryTitle, setDiaryTitle] = useState('제목');
-  const [diaryContent, setDiaryContent] = useState('내용');
+  const [diaryTitle, setDiaryTitle] = useState('');
+  const [diaryContent, setDiaryContent] = useState(null);
   const [mood, setMood] = useState('');
   const { handleSubmit } = useForm();
   
   // const { location, error } = useCurrentLocation();
 
-  const diarySet = async () => {
-    setDiaryId(diaryIdParams.id);
-  };
 
   const getMyDiary = async () => {
     try {
@@ -63,17 +59,12 @@ export default function Write() {
     const id = localStorage.getItem('id'); // 로컬 스토리지에서 id 값을 가져옴
 
     const data = {
-      diaryId: 6,
+      diaryId: diaryIdParams.id,
       diaryTitle: diaryTitle, // '제목' 대신 실제 제목을 입력해야 함
       diaryContent: contents,
       mood: mood, // '기분' 대신 실제 기분 입력해야 함
-      // location: '서울', // '위치' 대신 실제 위치를 입력해야 함
-      // weather: '1', // '날씨' 대신 실제 날씨를 입력해야 함
       isPublic: isPublic,
-      // currentLocation: [37.5665, 126.978], // 실제 [위도, 경도를 입력해야 함
     };
-
-    console.log(data);
 
     axios
       .patch(`${process.env.REACT_APP_HOST}/diary/patchDiary`, data, {
@@ -106,12 +97,8 @@ export default function Write() {
 
 
   useEffect(() => {
-    if(diaryId != null) {
-      getMyDiary();
-    } else {
-      diarySet(diaryIdParams.id);
-    }
-  }, [diaryId]);
+    getMyDiary();
+  }, []);
 
 
   return (
@@ -168,8 +155,22 @@ export default function Write() {
                   onChange={(e) => setDiaryTitle(e.target.value)}
                 />
           <div className="mt-[0px]">
+          {diaryContent != null ? (
             <Editor
-              initialValue={`${diaryContent}`} // 에디터의 초기 값
+            initialValue={`${diaryContent}`} // 에디터의 초기 값
+            previewStyle="vertical" // 에디터와 미리보기 패널의 배치
+            initialEditType="wysiwyg" // 워지웍 타입 선택
+            hideModeSwitch={true} // 하단의 타입 선택 탭 숨김 (마크다운/워지웍)
+            useCommandShortcut={false}
+            plugins={[colorSyntax]}
+            language="ko-KR"
+            ref={editorRef}
+            height="825px"
+            className=""
+          />
+          ) : (
+            <Editor
+              initialValue={""} // 에디터의 초기 값
               previewStyle="vertical" // 에디터와 미리보기 패널의 배치
               initialEditType="wysiwyg" // 워지웍 타입 선택
               hideModeSwitch={true} // 하단의 타입 선택 탭 숨김 (마크다운/워지웍)
@@ -180,6 +181,7 @@ export default function Write() {
               height="825px"
               className=""
             />
+          )}
           </div>
         </div>
       </form>
