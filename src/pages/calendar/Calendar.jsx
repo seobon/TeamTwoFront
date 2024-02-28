@@ -11,6 +11,7 @@ import { ReactComponent as Sad } from '../../assets/Mood/Sad.svg';
 import { ReactComponent as Soso } from '../../assets/Mood/Soso.svg';
 
 export default function Calendar1() {
+  const [diaryData, setDiaryData] = useState(null); // diaryData를 상태로 추가
   const [closeDiaryInfoPopup, showDiaryInfoPopup] = useState(false); // 다이어리없을때 팝업
   const [today, setToday] = useState(new Date()); // 현재 날짜를 today에 저장
   const [writtenDays, setWrittenDays] = useState([]); // 작성된 날짜를 저장하는 상태
@@ -48,10 +49,7 @@ export default function Calendar1() {
       .catch(error => {
         console.error('Error!', error);
       });
-  }, []);
-
-  // diaryData를 상태로 추가
-  const [diaryData, setDiaryData] = useState(null);
+  }, [diaryData]);
 
   const getDaysInMonth = (month, year) => {
     return new Date(year, month + 1, 0).getDate();
@@ -160,7 +158,7 @@ export default function Calendar1() {
             }}>
             {/* 감정 버튼 */}
             <div
-              onClick={() => mood(date)}
+              onClick={() => {}}
               className={`w-10 h-10 rounded-full mx-auto flex items-center justify-center cursor-pointer`}>
               {moodIcon()}
             </div>
