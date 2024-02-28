@@ -6,7 +6,7 @@ const PopupLogout = ({ closeLogoutPopup, showLogoutPopup }) => {
 
   return (
     <div className="bg-black bg-opacity-40 w-full h-full z-50 absolute top-0 left-0 ">
-      <div className="rounded-3xl bg-white text-center p-4 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ">
+      <div className="w-[370px] rounded-3xl bg-white text-center p-4 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ">
         <div className="mb-8">
           <p className="font-Heading3 text-gray-900 mb-2">로그아웃</p>
           <p className="font-Body4  text-deepRed mb-2">*로그아웃 상태에서 기록 시 저장 되지 않습니다.</p>

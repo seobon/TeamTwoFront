@@ -19,22 +19,18 @@ export default function Calendar1() {
   const showPopup = () => {
     showDiaryInfoPopup(!closeDiaryInfoPopup);
   };
-
+  const Now = new Date();
   // 캘린더 조회
   useEffect(() => {
     const id = localStorage.getItem('id');
     const idNumber = Number(id);
     const month = today.getMonth() + 1;
     const monthString = month > 9 ? month : `0${month}`;
-
-    // console.log('idNumber: ', idNumber); // 6
-    // console.log('idNumber+idNumber:  ', idNumber + idNumber); // 12
-
     axios
       .get(`${process.env.REACT_APP_HOST}/diary/getCalendar?id=${id}&month=${monthString}`)
       .then(response => {
         if (response.data[0].diaryId != null) {
-          setDiaryData(response.data); // 서버로부터 받은 데이터를 diaryData에 저장
+          setDiaryData(response.data);
           makeCalendar(response.data);
         } else {
           console.log('Failed to get the calendar data');
@@ -69,6 +65,12 @@ export default function Calendar1() {
     setToday(new Date());
   };
 
+  // const todayDiary = () => {
+  //
+  //   console.log(Today)
+  //   if
+  // };
+  // todayDiary()
   useEffect(() => {
     if (diaryData) makeCalendar();
   }, [today, diaryData]);
@@ -95,11 +97,16 @@ export default function Calendar1() {
       const date = new Date(today.getFullYear(), today.getMonth(), i); // 연도, 월, 일
       const month = today.getMonth() + 1;
 
+      const NowDate = Now.getDate();
       let diaryId;
       let diaryMood;
-      let linkTo = '/write';
+      let linkTo;
       let diaryIdParams;
-
+      if (NowDate == i) {
+        console.log(i);
+        diaryId = 'true';
+        linkTo = `'/write'`;
+      }
       for (const diary of data) {
         if (!diary.createdAt) continue;
 
@@ -111,7 +118,7 @@ export default function Calendar1() {
             diaryId = { id: `diary-${diary.diaryId}` };
             diaryIdParams = diary.diaryId;
             diaryMood = diary.mood;
-            linkTo =`/diary/detail/${diary.diaryId}`;
+            linkTo = `/diary/detail/${diary.diaryId}`;
           }
         }
       }
@@ -140,20 +147,26 @@ export default function Calendar1() {
             );
         }
       };
+
+      const navPage = () => {
+        console.log(linkTo);
+        switch (diaryId) {
+          case 'true':
+            return navigator('/write');
+          case undefined:
+            return showPopup();
+          default:
+            return navigator(`/diary/detail/${diaryIdParams}`);
+        }
+      };
+
       calendarTemp.push(
         <div style={{ textAlign: 'center' }}>
-          <div
-            onClick={(e) => {
-              diaryId ? navigator(`/diary/detail/${diaryIdParams}`) : showPopup();
-            }}>
-            {/* 감정 버튼 */}
-            <div
-              onClick={() => {}}
-              className={`w-10 h-10 rounded-full mx-auto flex items-center justify-center cursor-pointer`}>
+          <div onClick={navPage}>
+            <div className={`w-10 h-10 rounded-full mx-auto flex items-center justify-center cursor-pointer`}>
               {moodIcon()}
             </div>
           </div>
-          {/* 숫자(날짜) */}
           <div className="mt-[3px] mb-4 text-[12px]" {...diaryId}>
             {i}
           </div>
