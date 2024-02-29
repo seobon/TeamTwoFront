@@ -18,6 +18,9 @@ import { ReactComponent as Sad } from '../../assets/Mood/Sad.svg';
 import { ReactComponent as Soso } from '../../assets/Mood/Soso.svg';
 import { useNavigate } from 'react-router-dom';
 
+import { HiOutlinePencilSquare } from 'react-icons/hi2';
+import { FaCheck } from "react-icons/fa";
+import { FaRegSquare } from "react-icons/fa6";
 
 export default function Write() {
   const navigate = useNavigate();
@@ -105,6 +108,7 @@ export default function Write() {
       <Header1 title="수정하기" />
       <form onSubmit={handleSubmit(onValid)}>
         <div className="mt-[0px]">
+        <div className="text-center">
         <p className="font-Heading4">오늘의 기분</p>
             <div
               className="flex justify-between items-center font-Body4 p-4 px-12"
@@ -132,27 +136,35 @@ export default function Write() {
                 <Annoying className={mood === 'annoying' ? 'opacity-100' : 'opacity-50'} />
               </label>
             </div>
-          <div className="ml-[5px]">
-            비공개{' '}
-            <button type="button" onClick={IsPublicToggle} className="">
-              {isPublic ? 'ㅁ' : 'V'}
+            </div>
+
+          <div className="text-center ml-[100px] mb-[-70px] flex">
+          <span className="text-[16px] mt-[13px] mr-[8px] flex-row">비공개</span>
+            <button type="button" onClick={IsPublicToggle} className="mt-[16px] mr-[20px] mb-[100px]">
+              {isPublic ? <FaRegSquare /> : <FaCheck />}
             </button>
-            {/* 작성 버튼을 누르면, 작성이 완료되었다는 알림창을 띄우고 다른 컴포넌트로 이동시키기 */}
-            <button
-              type="submit"
-              className="ml-[200px]">
-              수정하기
+
+            {/* 수정 버튼을 누르면 수정이 완료되었다는 알림창을 띄우고 다른 컴포넌트로 이동시키기 */}
+            <button type="submit" className="flex inline-block mt-[13px] ml-[0px] mb-[12px] text-[6px]">
+              <span className="text-[16px] mt-[0px] ml-[3px] mr-[0px] ">수정</span>
+              {/* 수정 버튼 */}
+              <HiOutlinePencilSquare className="w-[23px] h-[23px] mt-[-1px] ml-[8px] mr-[4px] mb-[1px]" />
             </button>
           </div>
+
           <div className="openApi">
             {/* <Location />
             <Weather /> */}
           </div>
-          제목 : <input type="text"
-                  className="titleInput"
-                  value={diaryTitle}
-                  onChange={(e) => setDiaryTitle(e.target.value)}
-                />
+
+
+          <span className='text-[14px] ml-[4px]'>제목</span>
+          <input
+            className="w-full h-7 mb-2 p-2 bg-white rounded-lg border border-solid focus:outline-none focus:bg-white active:bg-white text-[11px]"
+            value={diaryTitle}
+            onChange={(e) => setDiaryTitle(e.target.value)}
+          />
+
           <div className="mt-[0px]">
             <Editor
             initialValue={`${diaryContent}`} // 에디터의 초기 값

@@ -188,6 +188,7 @@ export default function Write() {
               <span className="font-Caption">오늘의 날씨</span>
               <div className="">날씨 아이콘</div>
             </div>
+            
             <div className="text-center inline-block mb-8">
               {isOn ? <span className="font-Caption">공개</span> : <span className="font-Caption">비공개</span>}
               <Toggle isOn={isOn} toggleHandler={toggleHandler} />
