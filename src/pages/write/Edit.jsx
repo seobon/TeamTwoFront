@@ -144,7 +144,7 @@ export default function Write() {
               {isPublic ? <FaRegSquare /> : <FaCheck />}
             </button>
 
-            {/* 수정 버튼을 누르면, 수정이 완료되었다는 알림창을 띄우고 다른 컴포넌트로 이동시키기 */}
+            {/* 수정 버튼을 누르면 수정이 완료되었다는 알림창을 띄우고 다른 컴포넌트로 이동시키기 */}
             <button type="submit" className="flex inline-block mt-[13px] ml-[0px] mb-[12px] text-[6px]">
               <span className="text-[16px] mt-[0px] ml-[3px] mr-[0px] ">수정</span>
               {/* 수정 버튼 */}
