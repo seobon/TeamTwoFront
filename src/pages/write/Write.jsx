@@ -77,8 +77,8 @@ export default function Write() {
         const temp = Math.round(weatherResponse.data.main.temp);
         const main = weatherResponse.data.weather[0].main;
 
-        console.log(region);
-        console.log(`${main}/${temp}`);
+        // console.log(region);
+        // console.log(`${main}/${temp}`);
 
         setAddress(region);
         setWeather(`${main}/${temp}`);
@@ -97,14 +97,14 @@ export default function Write() {
       alert('현 위치를 가져옵니다.');
     } else {
       setLatlon('37.413294/127.269311');
-      alert('현위치를 가져올 수 없습니다. 기본 위치값를 가져옵니다.');
+      // alert('현위치를 가져올 수 없습니다. 기본 위치값를 가져옵니다.');
     }
 
     if (weather != null) {
       alert('현위치를 기준으로 날씨를 가져옵니다.');
     } else {
-      setWeather('날씨를 알 수 없음');
-      alert('알 수 없는 오류로 날씨를 가져올 수 없습니다.');
+      setWeather('Clouds/7');
+      // alert('알 수 없는 오류로 날씨를 가져올 수 없습니다.');
     }
 
     const data = {
