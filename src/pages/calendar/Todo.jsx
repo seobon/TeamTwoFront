@@ -216,6 +216,7 @@ export default function Todo() {
               type="text"
               value={inputText}
               onChange={handleInputChange}
+              placeholder="할 일을 적어주세요"
               className="h-6 w-[270px] ml-1 bg-transparent outline-none rounded"
             />
             <button type="submit" className="ml-2">
