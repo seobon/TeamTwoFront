@@ -42,7 +42,7 @@ const BoardList = () => {
         {status === 'error' && <div>Error</div>}
         {status === 'pending'
           ? 'Loading...'
-          : contents?.slice(0).reverse().map(diary => (
+          : contents?.map(diary => (
               <Link
                 to={`/diary/detail/${diary.diaryId}`}
                 state={{
