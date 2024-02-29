@@ -46,6 +46,7 @@ const Menu = () => {
 
     const NowDate = now.getDate();
 
+    console.log(NowDate)
 
     if (NowDate == i) {
       diaryId = 'true';
@@ -54,22 +55,20 @@ const Menu = () => {
       const DiaryMonth = new Date(diary.createdAt).getMonth() + 1; // 작성월
       const DiaryDate = new Date(diary.createdAt).getDate(); // 작성일
 
-      if (month === DiaryMonth) {
-        if (i === DiaryDate) {
-          diaryIdParams = diary.diaryId;
-        }
+      if (i === DiaryDate) {
+        diaryIdParams = diary.diaryId;
       }
     }
   }
   const navPage = () => {
     switch (diaryIdParams) {
       case 'true':
-        return navigator('/write');
-      default:
         return navigator(`/diary/detail/${diaryIdParams}`);
+
+      default:
+        return navigator('/write');
     }
   };
-
 
   return (
     <div className="relative">
