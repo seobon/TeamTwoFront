@@ -4,42 +4,29 @@ import { ReactComponent as Great } from '../../assets/Mood/Great.svg';
 import { ReactComponent as Happy } from '../../assets/Mood/Happy.svg';
 import { ReactComponent as Sad } from '../../assets/Mood/Sad.svg';
 import { ReactComponent as Soso } from '../../assets/Mood/Soso.svg';
+import defultImg from '../../assets/profileDefult.jpg';
 
 const Diary = ({ day, mood, nickname, diaryTitle, diaryContent, image }) => {
-  if (image === null) {
-    image = '../../assets/profileDefult.jpg';
-  } else {
-    // 이미지 경로가 있을 시 경로를 넣기
-    // image = '/???';
-  }
-  // console.log('mood', mood);
 
-  const moodIcon = mood => {
-    switch (mood) {
-      case 'happy':
-        return <Happy />;
-        break;
-      case 'annoying':
-        return <Annoying />;
-        break;
-      case 'great':
-        return <Great />;
-        break;
-      case 'sad':
-        return <Sad />;
-        break;
-      case 'soso':
-        return <Soso />;
-        break;
+  console.log(image)
+  const profilImg = () => {
+    if (image === null) {
+      return defultImg
+    } else {
+      return image
     }
   };
+
+  const imgErr =(e)=>{
+    const target = e.target;
+    target.src = defultImg;
+  }
 
   return (
     <>
       <div className="flex gap-5 p-3 pb-6 rounded-xl bg-white ">
-        <div className="flex flex-col items-center w-10 gap-1">
-          {/* <img className={`w-10 h-10 rounded-3xl`} src={image} alt="profileImage" /> */}
-          <div className="w-10 h-10 rounded-3xl">{moodIcon(mood)}</div>
+        <div className="flex flex-col items-center gap-1 ">
+          <img className={`w-10 h-10 rounded-xl`} src={profilImg} alt="profileImage" onError={imgErr} />
           <p className="text-xs w-10 text-center">{nickname}</p>
         </div>
         <div className="flex flex-col">

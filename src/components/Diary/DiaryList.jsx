@@ -42,7 +42,7 @@ const BoardList = () => {
         {status === 'error' && <div>Error</div>}
         {status === 'pending'
           ? 'Loading...'
-          : contents?.map(diary => (
+          : contents?.slice(0).reverse().map(diary => (
               <Link
                 to={`/diary/detail/${diary.diaryId}`}
                 state={{
@@ -64,9 +64,6 @@ const BoardList = () => {
                 />
               </Link>
             ))}
-        {/* <button ref={ref} disabled={!hasNextPage || isFetchingNextPage} onClick={() => fetchNextPage()}>
-          observer
-        </button> */}
       </div>
       <ReactQueryDevtools initialIsOpen />
     </>
