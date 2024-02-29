@@ -196,14 +196,14 @@ export default function Write() {
           <div className="openApi"></div>
 
           {/* 작성 버튼을 누르면, 작성이 완료되었다는 알림창을 띄우고 다른 컴포넌트로 이동시키기 */}
-          <button type="submit" className="w-[60px] h-[30px] mt-1 ml-[320px] mb-[18px] text-[6px]">
+          <button type="submit" className="w-[60px] h-[30px] mt-1 ml-[335px] mb-[12px] text-[6px]">
             {/* 작성 버튼 */}
             <HiOutlinePencilSquare className="w-[25px] h-[25px] ml-4 mr-4 mb-[1px]" />
-            작성하기
+            <span className="text-[10px] mr-[4px]">작성</span>
           </button>
 
           <input
-            className="w-full h-7 mb-2 p-2 bg-white rounded-lg border border-solid focus:outline-none focus:bg-white active:bg-white text-[8px]"
+            className="w-full h-7 mb-2 p-2 bg-white rounded-lg border border-solid focus:outline-none focus:bg-white active:bg-white text-[11px]"
             placeholder="오늘 하루를 짧게 제목을 지어주세요."
             onChange={e => {
               setTitle(e.target.value);
