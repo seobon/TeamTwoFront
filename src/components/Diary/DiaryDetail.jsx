@@ -117,7 +117,7 @@ export default function BoardDetail() {
       console.error('Check User Error:', error); // Diary 정보 가져오기 오류 출력
     }
   };
-  console.log('myDiaryInfo', myDiaryInfo);
+
   // SB: 나의 다이어리일 경우 실행시키는(캘린더에서 이어지는) 다이어리 정보 조회 함수입니다.
   const getMyDiary = async () => {
     try {
