@@ -124,7 +124,7 @@
 
 |                  **FrontEnd Github**                  |
 | :---------------------------------------------------: |
-| [TeamTwoBack](https://github.com/seobon/TeamTwoFront) |
+| [TeamTwoFront](https://github.com/seobon/TeamTwoFront) |
 
 |                  **BackEnd Github**                  |
 | :--------------------------------------------------: |
