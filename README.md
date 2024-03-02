@@ -58,28 +58,13 @@
 
 | 회원/비회원 서비스 | 
 | :---: |
-| <img src="https://github.com/9walnut/TheWave/assets/144768130/4beeb8e0-1ca9-47d4-b5c6-55c2d8e77baf" width="750"> |
+| <img src="" width="750"> |
 | 홈페이지 메인 |
-| <img src="https://github.com/9walnut/TheWave/assets/144768130/a2e1eb43-0e3c-40a0-bcae-33211b4f3cd7" width="750"> |
-| 로그인 페이지 |
-| <img src="https://github.com/9walnut/TheWave/assets/144768130/b0a3bcae-ce62-42a3-b795-4e95d07e483a" width="750"> |
-| 회원 가입 |
-| <img src="https://github.com/9walnut/TheWave/assets/144768130/167cc85c-f8ce-45c6-b8c3-c71730510d1c" width="750"> |
-| 회원 정보 수정 |
 
 
 ---
 
-| 관리자 서비스 |
-| :---: |
-| <img src="https://github.com/9walnut/TheWave/assets/144768130/01365fa8-feca-4fa8-b0e3-7fa3ed7beff5" width="750"> |
-| 어드민 페이지 메인 |
-| <img src="https://github.com/9walnut/TheWave/assets/144768130/8ccc1488-4329-4aa8-9d5f-9edbf8d87e2c" width="750"> |
-| 상품 등록 |
-| <img src="https://github.com/9walnut/TheWave/assets/144768130/d1e718cb-9ae1-4b3f-848f-2d0f04faf3b8" width="750"> |
-| 회원 관리 |
-| <img src="https://github.com/9walnut/TheWave/assets/144768130/516f2529-1961-4f50-82ea-e186b18095ad" width="750"> |
-| 거래 내역 관리 |
+
 
 </details>
 
