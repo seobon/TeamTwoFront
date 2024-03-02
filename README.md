@@ -17,6 +17,25 @@
 
 <br/>
 
+## 👥 팀원 소개
+
+> 🕵️ **내이름은 탐정, 코난2조** 🕵️
+
+<div align=center >
+
+| 이름                                       | 역할 | 역할 내용                                                                                                   |
+| ------------------------------------------ | ---- | ----------------------------------------------------------------------------------------------------------- |
+| [김서본(팀장)](https://github.com/seobon/) | FULL | 다이어리 전반                                                                                               |
+| [이경도](https://github.com/leekyoungdo)   | BE   | 유저 생성 전반, 배포                                                                                        |
+| [이은실](https://github.com/HeySiriLee)    | FULL | 날씨 및 현재 위치 CRUD 구현                                                                                 |
+| [윤병우](https://github.com/yoonbung12)    | BE   | 유저 조회 전반, 배포                                                                                        |
+| [이동욱](https://github.com/ldw0123)       | FE   | 메인 공통 컴포넌트 (Navbar, Footer, Carousel), <br /> 다이어리 전반(캘린더, 작성하기), 투두리스트 구현      |
+| [이세윤](https://github.com/ErrorMonkey)   | FE   | 다이어리 리스트, 검색 구현                                                                                  |
+| [한기선](https://github.com/kihet77)       | FE   | 메인 공통 반응형 컴포넌트 (Navbar, Header, Popup), <br /> 유저 관련 전반(로그인/회원가입/유저정보찾기) 구현 |
+
+</div>
+<br/>
+
 ## 📌 주요 기능
 
 1. 다이어리
@@ -38,25 +57,6 @@
 
 - 회원의 다이어리와 투두리스트는 DB에 저장되어 어느 환경에서 로그인을 하여도 확인할 수 있습니다. <br />
   <br />
-
-## 👥 팀원 소개
-
-> 🕵️ **내이름은 탐정, 코난2조** 🕵️
-
-<div align=center >
-
-| 이름                                       | 역할 | 역할 내용                                                                                                   |
-| ------------------------------------------ | ---- | ----------------------------------------------------------------------------------------------------------- |
-| [김서본(팀장)](https://github.com/seobon/) | FULL | 다이어리 전반                                                                                               |
-| [이경도](https://github.com/leekyoungdo)   | BE   | 유저 생성 전반, 배포                                                                                        |
-| [이은실](https://github.com/HeySiriLee)    | FULL | 날씨 및 현재 위치 CRUD 구현                                                                                 |
-| [윤병우](https://github.com/yoonbung12)    | BE   | 유저 조회 전반, 배포                                                                                        |
-| [이동욱](https://github.com/ldw0123)       | FE   | 메인 공통 컴포넌트 (Navbar, Footer, Carousel), <br /> 다이어리 전반(캘린더, 작성하기), 투두리스트 구현      |
-| [이세윤](https://github.com/ErrorMonkey)   | FE   | 다이어리 리스트, 검색 구현                                                                                  |
-| [한기선](https://github.com/kihet77)       | FE   | 메인 공통 반응형 컴포넌트 (Navbar, Header, Popup), <br /> 유저 관련 전반(로그인/회원가입/유저정보찾기) 구현 |
-
-</div>
-<br/>
 
 ## 🛠️ 기술 스택
 
