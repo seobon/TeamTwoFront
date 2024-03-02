@@ -82,7 +82,7 @@
 
 | **팀 노션** |
 | :----------: |
-| [TheWave_Notion](https://www.notion.so/2-497aee7da76c44349b490e628b98f318?pvs=4) |
+| [작안_Notion](https://www.notion.so/2-497aee7da76c44349b490e628b98f318?pvs=4) |
 
 </div>
 <br />
