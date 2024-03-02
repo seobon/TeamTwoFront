@@ -90,7 +90,7 @@
   
 | **개체-관계 모델(ERD)** |
 | :----------: |
-| <img src='https://github.com/9walnut/TheWave/assets/GIT/' width="800" /> |
+| <img src='https://github.com/seobon/TeamTwoFront/blob/develop/src/assets/GIT/ERD.jpg' width="800" /> |
 
 
 
@@ -98,5 +98,7 @@
 
 ### Front-end
 
-<img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white" /> <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white" /> <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black" /> <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" /> <img src="https://img.shields.io/badge/tailwind-#06B6D4?style=for-the-badge&logo=tailwind&logoColor=black" /> <img src="https://img.shields.io/badge/axios-5A29E4?style=for-the-badge&logo=axios&logoColor=black" />
+<img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white" /> <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white" /> <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black" /> <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" /> <img src="https://img.shields.io/badge/TailwindCSS
+#06B6D4?style=for-the-badge&logo=TailwindCSS
+&logoColor=black" /> <img src="https://img.shields.io/badge/axios-5A29E4?style=for-the-badge&logo=axios&logoColor=black" />
 <br />
