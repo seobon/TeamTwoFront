@@ -99,14 +99,28 @@
 
 |    회원/비회원 서비스    |
 | :----------------------: |
-| <img src="" width="750"> |
+| ![캘린더 투두](https://github.com/seobon/TeamTwoFront/assets/88626857/ff2b1b87-a066-4392-8b7a-5f7a0fc27267) |
 |      홈페이지 메인       |
 
----
+![검색](https://github.com/seobon/TeamTwoFront/assets/88626857/f661c455-ad6b-433b-8097-2537dff8147c)
+
+![검색기능](https://github.com/seobon/TeamTwoFront/assets/88626857/ca1d9fbc-2b4b-41d4-b029-78f8f3f4c293)
+
+![다이어리 리스트](https://github.com/seobon/TeamTwoFront/assets/88626857/45f143b3-45b5-4de2-8f8f-55314952cfce)
+
+![수정하기](https://github.com/seobon/TeamTwoFront/assets/88626857/39f6d2e3-0a94-4984-a44e-db547fa5e7e6)
+
+![일기1](https://github.com/seobon/TeamTwoFront/assets/88626857/0cf550fc-fb7a-4aa8-87f6-327f216de142)
+
+![일기2](https://github.com/seobon/TeamTwoFront/assets/88626857/228b3eeb-cce8-4a38-acbf-9fc164e1e0d2)
+
+![작성하기](https://github.com/seobon/TeamTwoFront/assets/88626857/4f749d1d-b9a2-45c1-9b2c-1488c2652c2f)
 
 </details>
 
 </div>
+
+---
 
 <br /><br />
 
