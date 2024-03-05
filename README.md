@@ -91,36 +91,30 @@
 
 ## 📌 화면 구성
 
+<b>펼쳐보기<b/>
 <details>
 <summary>
 </summary>
 
 <div align=center >
 
-|    회원/비회원 서비스    |
-| :----------------------: |
-| ![캘린더 투두](https://github.com/seobon/TeamTwoFront/assets/88626857/ff2b1b87-a066-4392-8b7a-5f7a0fc27267) |
-|      홈페이지 메인       |
-
-![검색](https://github.com/seobon/TeamTwoFront/assets/88626857/f661c455-ad6b-433b-8097-2537dff8147c)
-
+| 회원/비회원 서비스 |
+| :----------------: |
+| ![캘린더 투두](https://github.com/seobon/TeamTwoFront/assets/88626857/ff2b1b87-a066-4392-8b7a-5f7a0fc27267)
+| 메인 홈 페이지 |
 ![검색기능](https://github.com/seobon/TeamTwoFront/assets/88626857/ca1d9fbc-2b4b-41d4-b029-78f8f3f4c293)
-
+| 검색 기능 |
 ![다이어리 리스트](https://github.com/seobon/TeamTwoFront/assets/88626857/45f143b3-45b5-4de2-8f8f-55314952cfce)
-
-![수정하기](https://github.com/seobon/TeamTwoFront/assets/88626857/39f6d2e3-0a94-4984-a44e-db547fa5e7e6)
-
+| 다이어리 리스트 |
 ![일기1](https://github.com/seobon/TeamTwoFront/assets/88626857/0cf550fc-fb7a-4aa8-87f6-327f216de142)
-
-![일기2](https://github.com/seobon/TeamTwoFront/assets/88626857/228b3eeb-cce8-4a38-acbf-9fc164e1e0d2)
-
+| 일기 (게시글) |
 ![작성하기](https://github.com/seobon/TeamTwoFront/assets/88626857/4f749d1d-b9a2-45c1-9b2c-1488c2652c2f)
-
-</details>
+| 작성하기 |
+![수정하기](https://github.com/seobon/TeamTwoFront/assets/88626857/ed1f6499-a8a6-436c-82cf-a1b483601173)
+| 수정하기 |
 
 </div>
-
----
+</details>
 
 <br /><br />
 
