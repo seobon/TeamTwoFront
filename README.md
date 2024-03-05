@@ -112,6 +112,10 @@
 | 작성하기 |
 ![수정하기](https://github.com/seobon/TeamTwoFront/assets/88626857/ed1f6499-a8a6-436c-82cf-a1b483601173)
 | 수정하기 |
+![아이디찾기_메일본문](https://github.com/seobon/TeamTwoFront/assets/88626857/312fcad7-0892-4a81-937d-c02a34299f27)
+| 아이디 찾기 (메일 서비스) |
+![비밀번호 찾기](https://github.com/seobon/TeamTwoFront/assets/88626857/985170cd-3356-4aa5-90b0-6cebbb423753)
+| 비밀번호 찾기 (메일 서비스) |
 
 </div>
 </details>
