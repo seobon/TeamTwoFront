@@ -108,7 +108,7 @@
 | 다이어리 리스트 |
 ![일기1](https://github.com/seobon/TeamTwoFront/assets/88626857/0cf550fc-fb7a-4aa8-87f6-327f216de142)
 | 일기 (게시글) |
-![작성하기](https://github.com/seobon/TeamTwoFront/assets/88626857/4f749d1d-b9a2-45c1-9b2c-1488c2652c2f)
+![작성하기2](https://github.com/seobon/TeamTwoFront/assets/88626857/0ffb47f8-a74f-4eb6-825f-660214f94e82)
 | 작성하기 |
 ![수정하기](https://github.com/seobon/TeamTwoFront/assets/88626857/ed1f6499-a8a6-436c-82cf-a1b483601173)
 | 수정하기 |
