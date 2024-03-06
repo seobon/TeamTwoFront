@@ -92,6 +92,7 @@
 ## 📌 화면 구성
 
 <b>펼쳐보기<b/>
+
 <details>
 <summary>
 </summary>
@@ -100,7 +101,7 @@
 
 | 회원/비회원 서비스 |
 | :----------------: |
-| ![캘린더 투두](https://github.com/seobon/TeamTwoFront/assets/88626857/ff2b1b87-a066-4392-8b7a-5f7a0fc27267)
+![캘린더 투두](https://github.com/seobon/TeamTwoFront/assets/88626857/ff2b1b87-a066-4392-8b7a-5f7a0fc27267)
 | 메인 홈 페이지 |
 ![검색기능](https://github.com/seobon/TeamTwoFront/assets/88626857/ca1d9fbc-2b4b-41d4-b029-78f8f3f4c293)
 | 검색 기능 |
@@ -109,9 +110,15 @@
 ![일기1](https://github.com/seobon/TeamTwoFront/assets/88626857/0cf550fc-fb7a-4aa8-87f6-327f216de142)
 | 일기 (게시글) |
 ![작성하기2](https://github.com/seobon/TeamTwoFront/assets/88626857/0ffb47f8-a74f-4eb6-825f-660214f94e82)
-| 작성하기 |
+| 글 작성하기 |
 ![수정하기](https://github.com/seobon/TeamTwoFront/assets/88626857/ed1f6499-a8a6-436c-82cf-a1b483601173)
-| 수정하기 |
+| 글 수정하기 |
+![마이페이지](https://github.com/seobon/TeamTwoFront/assets/88626857/9c7ff7f7-57d6-4e0a-b803-1b9303e6dba8)
+| 마이페이지 |
+![수정_닉네임](https://github.com/seobon/TeamTwoFront/assets/88626857/2f3587d8-b37e-491a-ab67-d67e086f2cac)
+| 닉네임 수정 |
+![수정_비밀번호](https://github.com/seobon/TeamTwoFront/assets/88626857/e44d415b-4180-4781-b080-9da119ddac42)
+| 비밀번호 수정 |
 ![아이디찾기_메일본문](https://github.com/seobon/TeamTwoFront/assets/88626857/312fcad7-0892-4a81-937d-c02a34299f27)
 | 아이디 찾기 (메일 서비스) |
 ![비밀번호 찾기](https://github.com/seobon/TeamTwoFront/assets/88626857/985170cd-3356-4aa5-90b0-6cebbb423753)
@@ -134,8 +141,8 @@
 | :----------------------------------------------------------------------------: |
 | [작안\_Notion](https://www.notion.so/2-497aee7da76c44349b490e628b98f318?pvs=4) |
 
-|                  **FrontEnd Github**                  |
-| :---------------------------------------------------: |
+|                  **FrontEnd Github**                   |
+| :----------------------------------------------------: |
 | [TeamTwoFront](https://github.com/seobon/TeamTwoFront) |
 
 |                  **BackEnd Github**                  |
