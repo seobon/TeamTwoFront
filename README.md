@@ -24,7 +24,7 @@
 | 이름                                       | 역할 | 역할 내용                                                                                                   |
 | ------------------------------------------ | ---- | ----------------------------------------------------------------------------------------------------------- |
 | [김서본(팀장)](https://github.com/seobon/) | FULL | 다이어리 전반                                                                                               |
-| [이경도](https://github.com/leekyoungdo)   | BE   | 유저 생성 전반, 배포                                                                                        |
+| [이경도](https://github.com/leekyoungdo)   | BE   | 유저 생성 전반,Todolist 전반, 배포                                                                                        |
 | [이은실](https://github.com/HeySiriLee)    | FULL | 날씨 및 현재 위치 CRUD 구현                                                                                 |
 | [윤병우](https://github.com/yoonbung12)    | BE   | 유저 조회 전반, 배포                                                                                        |
 | [이동욱](https://github.com/ldw0123)       | FE   | 메인 공통 컴포넌트 (Navbar, Footer, Carousel), <br /> 다이어리 전반(캘린더, 작성하기), 투두리스트 구현      |
